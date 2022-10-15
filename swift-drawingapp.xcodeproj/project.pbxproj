@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0071985828FA791E0094CBB2 /* RectButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071985728FA791E0094CBB2 /* RectButton.swift */; };
+		0071985A28FA824C0094CBB2 /* DrawingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071985928FA824C0094CBB2 /* DrawingButton.swift */; };
 		83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E028725EFA00C777B1 /* AppDelegate.swift */; };
 		83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E228725EFA00C777B1 /* SceneDelegate.swift */; };
 		83A846E528725EFA00C777B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E428725EFA00C777B1 /* ViewController.swift */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		0071985728FA791E0094CBB2 /* RectButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectButton.swift; sourceTree = "<group>"; };
+		0071985928FA824C0094CBB2 /* DrawingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingButton.swift; sourceTree = "<group>"; };
 		83A846DD28725EFA00C777B1 /* swift-drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-drawingapp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A846E028725EFA00C777B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83A846E228725EFA00C777B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				83A846E228725EFA00C777B1 /* SceneDelegate.swift */,
 				83A846E428725EFA00C777B1 /* ViewController.swift */,
 				0071985728FA791E0094CBB2 /* RectButton.swift */,
+				0071985928FA824C0094CBB2 /* DrawingButton.swift */,
 				83A846E628725EFA00C777B1 /* Main.storyboard */,
 				83A846E928725EFE00C777B1 /* Assets.xcassets */,
 				83A846EB28725EFE00C777B1 /* LaunchScreen.storyboard */,
@@ -264,6 +267,7 @@
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
 				0071985828FA791E0094CBB2 /* RectButton.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
+				0071985A28FA824C0094CBB2 /* DrawingButton.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
