@@ -15,6 +15,7 @@ class ViewController: UIViewController {
         return stackView
     }()
     private let rectButton: RectButton = .init()
+    private let drawingButton: DrawingButton = .init()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,7 @@ class ViewController: UIViewController {
     private func setUI() {
         view.addSubview(buttonStackView)
         buttonStackView.addArrangedSubview(rectButton)
+        buttonStackView.addArrangedSubview(drawingButton)
 
         NSLayoutConstraint.activate([
             buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
