@@ -7,9 +7,14 @@
 
 import Foundation
 
-class Rectangle: Shape, StyleApplying {
+class Rectangle: StyledShape {
     var origin: Point
     var size: Size
+    
+    var color: Color?
+    var lineColor: Color?
+    
+    private var canvas: Canvas?
     
     init(origin: Point, size: Size) {
         self.origin = origin
@@ -30,6 +35,7 @@ class Rectangle: Shape, StyleApplying {
         return points
     }
     
-    var color: Color?
-    var lineColor: Color?
+    func setCanvas(_ canvas: Canvas) {
+        self.canvas = canvas
+    }
 }

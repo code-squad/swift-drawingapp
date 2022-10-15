@@ -7,22 +7,22 @@
 
 import Foundation
 
+typealias StyledShape = Shape & StyleApplying
+
 class Canvas {
-    private var size: Size
-    private(set) var shapes: [Shape] = []
+    private(set) var size: Size
+    private(set) var shapes: [StyledShape] = []
     
     init(size: Size) {
         self.size = size
     }
     
-    func addShape(_ shape: Shape) -> Bool {
+    func addShape(_ shape: StyledShape) -> Bool {
         for point in shape.points {
-            guard
-                0...size.width ~= point.x,
-                0...size.height ~= point.y
-            else { return false }
+            guard size.contains(point) else { return false }
         }
         shapes.append(shape)
+        shape.setCanvas(self)
         return true
     }
 }

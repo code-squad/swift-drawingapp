@@ -9,4 +9,5 @@ import Foundation
 
 protocol Shape: AnyObject {
     var points: [Point] { get }
+    func setCanvas(_ canvas: Canvas)
 }
