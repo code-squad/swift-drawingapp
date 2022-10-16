@@ -44,7 +44,6 @@ class CanvasView: UIView {
         
         viewModel.setSizeOfView(bounds.size)
         // FIXME: 업데이트가 되지 않는 문제 수정
-//        updateView()
     }
     
     // MARK: - Private
