@@ -9,6 +9,6 @@ import CoreGraphics.CGColor
 
 struct ShapeViewModel {
     var points: [CGPoint]
-    var color: CGColor?
+    var fillColor: CGColor?
     var lineColor: CGColor?
 }

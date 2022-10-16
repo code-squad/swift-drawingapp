@@ -52,7 +52,7 @@ class CanvasViewModel {
             .map { convertPoint($0) }
         return ShapeViewModel(
             points: points,
-            color: shape.color?.cgColor,
+            fillColor: shape.fillColor?.cgColor,
             lineColor: shape.lineColor?.cgColor
         )
     }
