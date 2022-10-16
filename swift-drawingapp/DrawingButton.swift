@@ -32,6 +32,7 @@ final class DrawingButton: UIButton {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.spacing = 4
+        stackView.isUserInteractionEnabled = false
         return stackView
     }()
 

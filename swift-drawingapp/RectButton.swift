@@ -30,12 +30,12 @@ final class RectButton: UIButton {
         stackView.axis = .vertical
         stackView.alignment = .center
         stackView.spacing = 4
+        stackView.isUserInteractionEnabled = false
         return stackView
     }()
 
     init() {
         super.init(frame: .zero)
-        translatesAutoresizingMaskIntoConstraints = false
         layer.borderWidth = 1
         layer.borderColor = UIColor.gray.cgColor
 
