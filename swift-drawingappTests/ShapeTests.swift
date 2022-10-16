@@ -42,7 +42,11 @@ final class ShapeTests: XCTestCase {
                 .init(x: 25, y: 40),
             ]
         )
-        
-        
+    }
+    
+    func testRectanglePointSelection() {
+        let rect = Rectangle(origin: .init(x: 25, y: 40), size: .init(width: 100, height: 80))
+        XCTAssertFalse(rect.contains(.init(x: 0, y: 0)))
+        XCTAssert(rect.contains(.init(x: 26, y: 119)))
     }
 }

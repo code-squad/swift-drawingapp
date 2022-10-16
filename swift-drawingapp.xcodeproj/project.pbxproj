@@ -27,6 +27,7 @@
 		F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93328FBBF1300D5BE2F /* Selectable.swift */; };
 		F2B5F93628FBCD2800D5BE2F /* DrawingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */; };
 		F2B5F93A28FBD39C00D5BE2F /* ShapeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */; };
+		F2B5F93C28FBD84700D5BE2F /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		F2B5F93328FBBF1300D5BE2F /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
 		F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingApp.swift; sourceTree = "<group>"; };
 		F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeTests.swift; sourceTree = "<group>"; };
+		F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +140,7 @@
 			children = (
 				83A846F728725EFF00C777B1 /* swift_drawingappTests.swift */,
 				F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */,
+				F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */,
 			);
 			path = "swift-drawingappTests";
 			sourceTree = "<group>";
@@ -329,6 +332,7 @@
 			files = (
 				83A846F828725EFF00C777B1 /* swift_drawingappTests.swift in Sources */,
 				F2B5F93A28FBD39C00D5BE2F /* ShapeTests.swift in Sources */,
+				F2B5F93C28FBD84700D5BE2F /* CanvasTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
