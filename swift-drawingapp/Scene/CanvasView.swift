@@ -15,22 +15,42 @@ class CanvasView: UIView {
     
     private var cancelBag = Set<AnyCancellable>()
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupBindings()
+        setupViews()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setupBindings()
+        setupViews()
     }
+    
+    private func setupViews() {
+        backgroundColor = .white
+    }
+    
+    // MARK: - Setter
     
     func setViewModel(_ viewModel: CanvasViewModel) {
         self.viewModel = viewModel
+        viewModel.setSizeOfView(bounds.size)
+        setupBindings()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        viewModel.setSizeOfView(bounds.size)
+        // FIXME: 업데이트가 되지 않는 문제 수정
+        updateShapeViews(viewModel.shapes)
+    }
+    
+    // MARK: - Private
+    
     private func setupBindings() {
-        viewModel.$shapeViewModels
+        viewModel.$shapes
             .sink(receiveValue: updateShapeViews)
             .store(in: &cancelBag)
     }

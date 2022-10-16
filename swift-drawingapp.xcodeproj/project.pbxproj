@@ -25,7 +25,7 @@
 		F2AEE0C728FB0E530068B9E9 /* StyleApplying.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C628FB0E530068B9E9 /* StyleApplying.swift */; };
 		F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C828FB0E7B0068B9E9 /* Color.swift */; };
 		F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93328FBBF1300D5BE2F /* Selectable.swift */; };
-		F2B5F93628FBCD2800D5BE2F /* DrawingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */; };
+		F2B5F93628FBCD2800D5BE2F /* DrawingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93528FBCD2800D5BE2F /* DrawingManager.swift */; };
 		F2B5F93A28FBD39C00D5BE2F /* ShapeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */; };
 		F2B5F93C28FBD84700D5BE2F /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */; };
 		F2B5F94028FBE0AA00D5BE2F /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */; };
@@ -33,6 +33,8 @@
 		F2B5F94528FBF1BB00D5BE2F /* ShapeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94428FBF1BB00D5BE2F /* ShapeViewModel.swift */; };
 		F2B5F94728FBF2C700D5BE2F /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94628FBF2C700D5BE2F /* CanvasViewModel.swift */; };
 		F2B5F94928FC1F3B00D5BE2F /* Color+CGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94828FC1F3B00D5BE2F /* Color+CGColor.swift */; };
+		F2B5F94D28FC24DC00D5BE2F /* DrawingManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */; };
+		F2B5F94F28FC2EE800D5BE2F /* ColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,7 +77,7 @@
 		F2AEE0C628FB0E530068B9E9 /* StyleApplying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplying.swift; sourceTree = "<group>"; };
 		F2AEE0C828FB0E7B0068B9E9 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F2B5F93328FBBF1300D5BE2F /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
-		F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingApp.swift; sourceTree = "<group>"; };
+		F2B5F93528FBCD2800D5BE2F /* DrawingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManager.swift; sourceTree = "<group>"; };
 		F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeTests.swift; sourceTree = "<group>"; };
 		F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTests.swift; sourceTree = "<group>"; };
 		F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,8 @@
 		F2B5F94428FBF1BB00D5BE2F /* ShapeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeViewModel.swift; sourceTree = "<group>"; };
 		F2B5F94628FBF2C700D5BE2F /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
 		F2B5F94828FC1F3B00D5BE2F /* Color+CGColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CGColor.swift"; sourceTree = "<group>"; };
+		F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManagerViewController.swift; sourceTree = "<group>"; };
+		F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +167,7 @@
 		F2AEE0C228FB0B3C0068B9E9 /* Feature */ = {
 			isa = PBXGroup;
 			children = (
-				F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */,
+				F2B5F93528FBCD2800D5BE2F /* DrawingManager.swift */,
 				F2AEE0BE28FB066C0068B9E9 /* Canvas.swift */,
 				F2AEE0C028FB07C10068B9E9 /* Shape.swift */,
 				F2B5F93328FBBF1300D5BE2F /* Selectable.swift */,
@@ -188,6 +192,7 @@
 		F2B5F94128FBE0AD00D5BE2F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */,
 				F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */,
 				F2B5F94628FBF2C700D5BE2F /* CanvasViewModel.swift */,
 				F2B5F94228FBF0FD00D5BE2F /* ShapeView.swift */,
@@ -214,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				F2B5F94828FC1F3B00D5BE2F /* Color+CGColor.swift */,
+				F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -358,9 +364,11 @@
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
 				F2B5F94328FBF0FD00D5BE2F /* ShapeView.swift in Sources */,
 				F2AEE0BB28FB05C40068B9E9 /* Point.swift in Sources */,
-				F2B5F93628FBCD2800D5BE2F /* DrawingApp.swift in Sources */,
+				F2B5F93628FBCD2800D5BE2F /* DrawingManager.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
+				F2B5F94D28FC24DC00D5BE2F /* DrawingManagerViewController.swift in Sources */,
+				F2B5F94F28FC2EE800D5BE2F /* ColorList.swift in Sources */,
 				F2B5F94528FBF1BB00D5BE2F /* ShapeViewModel.swift in Sources */,
 				F2B5F94928FC1F3B00D5BE2F /* Color+CGColor.swift in Sources */,
 				F2AEE0BD28FB05F40068B9E9 /* Size.swift in Sources */,
