@@ -29,6 +29,7 @@ class DrawingManager {
             canvas.addShape(drawing)
             for await point in pointStream {
                 drawing.addPoint(point)
+                canvas.update()
             }
         }
     }
@@ -41,5 +42,6 @@ class DrawingManager {
         } else {
             selectedShapes.append(shape)
         }
+        canvas.update()
     }
 }

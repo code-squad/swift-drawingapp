@@ -26,10 +26,12 @@ class Canvas {
     }
     
     func findShape(at point: Point) -> Shape? {
-        let selectedIndex = shapes
-            .compactMap { $0 as? Selectable }
-            .firstIndex { $0.contains(point) }
-        guard let selectedIndex else { return nil }
-        return shapes[selectedIndex]
+        return shapes
+            .compactMap { $0 as? Selectable & Shape }
+            .last { $0.contains(point) }
+    }
+    
+    func update() {
+        shapes = shapes
     }
 }
