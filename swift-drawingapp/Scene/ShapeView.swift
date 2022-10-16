@@ -15,19 +15,11 @@ class ShapeView: UIView {
         return shape
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    func updatePath(_ shapeRepresent: ShapeViewRepresentable) {
-        guard let path = makePath(from: shapeRepresent.points) else { return }
+    func updatePath(_ viewModel: ShapeViewModel) {
+        guard let path = makePath(from: viewModel.points) else { return }
         shape.path = path.cgPath
-        shape.fillColor = shapeRepresent.color
-        shape.strokeColor = shapeRepresent.lineColor
+        shape.fillColor = viewModel.color
+        shape.strokeColor = viewModel.lineColor
         layer.addSublayer(shape)
     }
     
