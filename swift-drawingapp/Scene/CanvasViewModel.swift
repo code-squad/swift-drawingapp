@@ -14,6 +14,8 @@ class CanvasViewModel {
     
     @Published private(set) var shapes: [ShapeViewModel] = []
     
+    var transformShape: ((StyledShape, ShapeViewModel) -> ShapeViewModel)?
+    
     private var canvas: Canvas
     
     private var sizeOfView: CGSize!
@@ -54,10 +56,14 @@ class CanvasViewModel {
     func convertToShapeViewModel(_ shape: StyledShape) -> ShapeViewModel {
         let points = shape.points
             .map { convertToCGPoint($0) }
-        return ShapeViewModel(
+        var shapeVM = ShapeViewModel(
             points: points,
             fillColor: shape.fillColor?.cgColor,
             lineColor: shape.lineColor?.cgColor
         )
+        if let transformShape {
+            shapeVM = transformShape(shape, shapeVM)
+        }
+        return shapeVM
     }
 }

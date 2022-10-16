@@ -21,10 +21,14 @@ extension Color {
         .systemIndigo,
         .systemPurple
     ]
-        .map {
-            let (r, g, b, a) = $0.rgba
-            return Color(red: r, green: g, blue: b)
-        }
+        .map { Color(uiColor: $0) }
+    
+    static let systemRed: Color = .init(uiColor: .systemRed)
+    
+    init(uiColor: UIColor) {
+        let (r, g, b, _) = uiColor.rgba
+        self.init(red: r, green: g, blue: b)
+    }
 }
 
 extension UIColor {
