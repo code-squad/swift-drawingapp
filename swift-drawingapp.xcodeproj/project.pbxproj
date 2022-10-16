@@ -25,6 +25,7 @@
 		F2AEE0C728FB0E530068B9E9 /* StyleApplying.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C628FB0E530068B9E9 /* StyleApplying.swift */; };
 		F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C828FB0E7B0068B9E9 /* Color.swift */; };
 		F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93328FBBF1300D5BE2F /* Selectable.swift */; };
+		F2B5F93628FBCD2800D5BE2F /* DrawingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		F2AEE0C628FB0E530068B9E9 /* StyleApplying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplying.swift; sourceTree = "<group>"; };
 		F2AEE0C828FB0E7B0068B9E9 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		F2B5F93328FBBF1300D5BE2F /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
+		F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 		F2AEE0C228FB0B3C0068B9E9 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */,
 				F2AEE0BE28FB066C0068B9E9 /* Canvas.swift */,
 				F2AEE0C028FB07C10068B9E9 /* Shape.swift */,
 				F2B5F93328FBBF1300D5BE2F /* Selectable.swift */,
@@ -307,6 +310,7 @@
 				F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */,
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
 				F2AEE0BB28FB05C40068B9E9 /* Point.swift in Sources */,
+				F2B5F93628FBCD2800D5BE2F /* DrawingApp.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
 				F2AEE0BD28FB05F40068B9E9 /* Size.swift in Sources */,
