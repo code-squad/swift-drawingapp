@@ -14,6 +14,10 @@
 		0071986028FC00CD0094CBB2 /* RectProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071985F28FC00CD0094CBB2 /* RectProvider.swift */; };
 		0071986228FC00EE0094CBB2 /* Rect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071986128FC00EE0094CBB2 /* Rect.swift */; };
 		0071986428FC016D0094CBB2 /* RectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071986328FC016D0094CBB2 /* RectView.swift */; };
+		0071986628FC2B4A0094CBB2 /* DrawingCanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071986528FC2B4A0094CBB2 /* DrawingCanvasView.swift */; };
+		0071986828FC2F6D0094CBB2 /* DrawingHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071986728FC2F6D0094CBB2 /* DrawingHandler.swift */; };
+		0071986A28FC2F800094CBB2 /* DrawingPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071986928FC2F800094CBB2 /* DrawingPath.swift */; };
+		0071986C28FC2F8C0094CBB2 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071986B28FC2F8C0094CBB2 /* Drawing.swift */; };
 		83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E028725EFA00C777B1 /* AppDelegate.swift */; };
 		83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E228725EFA00C777B1 /* SceneDelegate.swift */; };
 		83A846E528725EFA00C777B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E428725EFA00C777B1 /* ViewController.swift */; };
@@ -49,6 +53,10 @@
 		0071985F28FC00CD0094CBB2 /* RectProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectProvider.swift; sourceTree = "<group>"; };
 		0071986128FC00EE0094CBB2 /* Rect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rect.swift; sourceTree = "<group>"; };
 		0071986328FC016D0094CBB2 /* RectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectView.swift; sourceTree = "<group>"; };
+		0071986528FC2B4A0094CBB2 /* DrawingCanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingCanvasView.swift; sourceTree = "<group>"; };
+		0071986728FC2F6D0094CBB2 /* DrawingHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingHandler.swift; sourceTree = "<group>"; };
+		0071986928FC2F800094CBB2 /* DrawingPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingPath.swift; sourceTree = "<group>"; };
+		0071986B28FC2F8C0094CBB2 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		83A846DD28725EFA00C777B1 /* swift-drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-drawingapp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A846E028725EFA00C777B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83A846E228725EFA00C777B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -117,9 +125,13 @@
 				0071985728FA791E0094CBB2 /* RectButton.swift */,
 				0071985928FA824C0094CBB2 /* DrawingButton.swift */,
 				0071986328FC016D0094CBB2 /* RectView.swift */,
+				0071986528FC2B4A0094CBB2 /* DrawingCanvasView.swift */,
 				0071985B28FBCF5C0094CBB2 /* UIColor+random.swift */,
 				0071985D28FC00BD0094CBB2 /* CGPoint+random.swift */,
 				0071985F28FC00CD0094CBB2 /* RectProvider.swift */,
+				0071986728FC2F6D0094CBB2 /* DrawingHandler.swift */,
+				0071986928FC2F800094CBB2 /* DrawingPath.swift */,
+				0071986B28FC2F8C0094CBB2 /* Drawing.swift */,
 				0071986128FC00EE0094CBB2 /* Rect.swift */,
 				83A846E928725EFE00C777B1 /* Assets.xcassets */,
 				83A846EB28725EFE00C777B1 /* LaunchScreen.storyboard */,
@@ -277,12 +289,16 @@
 			files = (
 				0071986428FC016D0094CBB2 /* RectView.swift in Sources */,
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
+				0071986628FC2B4A0094CBB2 /* DrawingCanvasView.swift in Sources */,
 				0071986228FC00EE0094CBB2 /* Rect.swift in Sources */,
 				0071985828FA791E0094CBB2 /* RectButton.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
 				0071985E28FC00BD0094CBB2 /* CGPoint+random.swift in Sources */,
+				0071986A28FC2F800094CBB2 /* DrawingPath.swift in Sources */,
+				0071986C28FC2F8C0094CBB2 /* Drawing.swift in Sources */,
 				0071985A28FA824C0094CBB2 /* DrawingButton.swift in Sources */,
 				0071985C28FBCF5C0094CBB2 /* UIColor+random.swift in Sources */,
+				0071986828FC2F6D0094CBB2 /* DrawingHandler.swift in Sources */,
 				0071986028FC00CD0094CBB2 /* RectProvider.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
 			);
