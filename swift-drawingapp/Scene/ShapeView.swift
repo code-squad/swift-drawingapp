@@ -33,7 +33,6 @@ class ShapeView: UIView {
                 path.addLine(to: point)
             }
         }
-        path.close()
         return path
     }
 }
