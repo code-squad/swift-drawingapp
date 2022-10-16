@@ -72,8 +72,6 @@ class DrawingManagerViewController: UIViewController {
     
     @objc
     private func addDrawingButtonTapped() {
-        print("addDrawing")
-        
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan))
         canvasView.addGestureRecognizer(panGesture)
         
@@ -82,13 +80,13 @@ class DrawingManagerViewController: UIViewController {
     
     @objc
     private func didPan(_ panGesture: UIPanGestureRecognizer) {
-        print("didPan")
         switch panGesture.state {
         case .began, .changed:
             let point = panGesture.location(in: canvasView)
             viewModel.addPointToDrawing(point)
         default:
             canvasView.removeGestureRecognizer(panGesture)
+            viewModel.endDrawing()
         }
         canvasView.updateView()
     }
