@@ -7,12 +7,15 @@
 
 import Foundation
 
-class Rectangle: StyledShape {
+class Rectangle: StyledShape, Selectable {
+    
     var origin: Point
     var size: Size
     
     var color: Color?
     var lineColor: Color?
+    
+    var isSelected: Bool = false
     
     private var canvas: Canvas?
     
@@ -37,5 +40,10 @@ class Rectangle: StyledShape {
     
     func setCanvas(_ canvas: Canvas) {
         self.canvas = canvas
+    }
+    
+    func contains(_ point: Point) -> Bool {
+        return origin.x...origin.x+size.width ~= point.x &&
+        origin.y...origin.y+size.height ~= point.y
     }
 }

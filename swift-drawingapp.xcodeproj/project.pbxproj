@@ -24,6 +24,7 @@
 		F2AEE0C428FB0B780068B9E9 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C328FB0B780068B9E9 /* Drawing.swift */; };
 		F2AEE0C728FB0E530068B9E9 /* StyleApplying.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C628FB0E530068B9E9 /* StyleApplying.swift */; };
 		F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C828FB0E7B0068B9E9 /* Color.swift */; };
+		F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93328FBBF1300D5BE2F /* Selectable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		F2AEE0C328FB0B780068B9E9 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
 		F2AEE0C628FB0E530068B9E9 /* StyleApplying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleApplying.swift; sourceTree = "<group>"; };
 		F2AEE0C828FB0E7B0068B9E9 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		F2B5F93328FBBF1300D5BE2F /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				F2AEE0BE28FB066C0068B9E9 /* Canvas.swift */,
 				F2AEE0C028FB07C10068B9E9 /* Shape.swift */,
+				F2B5F93328FBBF1300D5BE2F /* Selectable.swift */,
 				F2AEE0C628FB0E530068B9E9 /* StyleApplying.swift */,
 				F2AEE0B828FB04C60068B9E9 /* Rectangle.swift */,
 				F2AEE0C328FB0B780068B9E9 /* Drawing.swift */,
@@ -301,6 +304,7 @@
 				F2AEE0BF28FB066C0068B9E9 /* Canvas.swift in Sources */,
 				F2AEE0C728FB0E530068B9E9 /* StyleApplying.swift in Sources */,
 				F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */,
+				F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */,
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
 				F2AEE0BB28FB05C40068B9E9 /* Point.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
