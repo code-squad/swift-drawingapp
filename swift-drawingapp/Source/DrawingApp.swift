@@ -9,7 +9,7 @@ import Foundation
 
 class DrawingApp {
     private(set) var canvas: Canvas = Canvas(size: .init(width: 500, height: 500))
-    private(set) var selectedShapes: [SelectableStyledShape] = []
+    private(set) var selectedShapes: [Shape] = []
     
     func createRandomRect() {
         let rectSize = Size(width: 100, height: 100)
