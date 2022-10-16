@@ -28,6 +28,9 @@
 		F2B5F93628FBCD2800D5BE2F /* DrawingApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */; };
 		F2B5F93A28FBD39C00D5BE2F /* ShapeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */; };
 		F2B5F93C28FBD84700D5BE2F /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */; };
+		F2B5F94028FBE0AA00D5BE2F /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */; };
+		F2B5F94328FBF0FD00D5BE2F /* ShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94228FBF0FD00D5BE2F /* ShapeView.swift */; };
+		F2B5F94528FBF1BB00D5BE2F /* ShapeViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94428FBF1BB00D5BE2F /* ShapeViewRepresentable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,9 @@
 		F2B5F93528FBCD2800D5BE2F /* DrawingApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingApp.swift; sourceTree = "<group>"; };
 		F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeTests.swift; sourceTree = "<group>"; };
 		F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTests.swift; sourceTree = "<group>"; };
+		F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		F2B5F94228FBF0FD00D5BE2F /* ShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeView.swift; sourceTree = "<group>"; };
+		F2B5F94428FBF1BB00D5BE2F /* ShapeViewRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeViewRepresentable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +132,7 @@
 				83A846E028725EFA00C777B1 /* AppDelegate.swift */,
 				83A846E228725EFA00C777B1 /* SceneDelegate.swift */,
 				83A846E428725EFA00C777B1 /* ViewController.swift */,
+				F2B5F94128FBE0AD00D5BE2F /* Scene */,
 				F2AEE0C228FB0B3C0068B9E9 /* Source */,
 				83A846E628725EFA00C777B1 /* Main.storyboard */,
 				83A846E928725EFE00C777B1 /* Assets.xcassets */,
@@ -177,6 +184,16 @@
 				F2AEE0BC28FB05F40068B9E9 /* Size.swift */,
 			);
 			path = Structures;
+			sourceTree = "<group>";
+		};
+		F2B5F94128FBE0AD00D5BE2F /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */,
+				F2B5F94228FBF0FD00D5BE2F /* ShapeView.swift */,
+				F2B5F94428FBF1BB00D5BE2F /* ShapeViewRepresentable.swift */,
+			);
+			path = Scene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -312,13 +329,16 @@
 			files = (
 				F2AEE0BF28FB066C0068B9E9 /* Canvas.swift in Sources */,
 				F2AEE0C728FB0E530068B9E9 /* StyleApplying.swift in Sources */,
+				F2B5F94028FBE0AA00D5BE2F /* CanvasView.swift in Sources */,
 				F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */,
 				F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */,
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
+				F2B5F94328FBF0FD00D5BE2F /* ShapeView.swift in Sources */,
 				F2AEE0BB28FB05C40068B9E9 /* Point.swift in Sources */,
 				F2B5F93628FBCD2800D5BE2F /* DrawingApp.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
+				F2B5F94528FBF1BB00D5BE2F /* ShapeViewRepresentable.swift in Sources */,
 				F2AEE0BD28FB05F40068B9E9 /* Size.swift in Sources */,
 				F2AEE0C428FB0B780068B9E9 /* Drawing.swift in Sources */,
 				F2AEE0B928FB04C60068B9E9 /* Rectangle.swift in Sources */,
