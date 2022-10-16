@@ -18,6 +18,7 @@ class Canvas {
         self.size = size
     }
     
+    @discardableResult
     func addShape(_ shape: StyledShape) -> Bool {
         for point in shape.points {
             guard size.contains(point) else { return false }
