@@ -11,7 +11,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let viewModel = ViewModel()
+    private let viewModel = ViewModel()
+    private let drawingMaker = DrawingMaker()
     
     private let canvasView = CanvasView()
     private let squareButton = DrawingTypeButton(title: "사각형")
@@ -84,7 +85,9 @@ extension ViewController: ViewModelDelegate {
         squareButton.configure(isSelected: true)
         lineButton.configure(isSelected: false)
         
-        let layer = canvasView.addSquareLayer()
+        let layer = drawingMaker.getSquareLayer(rect: self.canvasView.frame)
+        self.canvasView.layer.addSublayer(layer)
+        
         viewModel.appendDrawing(layer: layer)
     }
     
@@ -94,15 +97,17 @@ extension ViewController: ViewModelDelegate {
     }
     
     func startLineDrawing(point: CGPoint) {
-        canvasView.startLineDrawing(point: point)
+        drawingMaker.startLineDrawing(point: point)
+        let layer = drawingMaker.getlineLayer()
+        self.canvasView.layer.addSublayer(layer)
     }
     
     func updateLineDrawing(point: CGPoint) {
-        canvasView.updateLinePath(point: point)
+        drawingMaker.updateLinePath(point: point)
     }
     
     func endLineDrawing() {
-        let lineLayer = canvasView.endLineLayer()
+        let lineLayer = drawingMaker.getlineLayer()
         viewModel.appendDrawing(layer: lineLayer)
     }
     
