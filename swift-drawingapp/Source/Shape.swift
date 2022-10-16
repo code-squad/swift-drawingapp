@@ -7,7 +7,13 @@
 
 import Foundation
 
-protocol Shape: AnyObject {
-    var points: [Point] { get }
-    func setCanvas(_ canvas: Canvas)
+class Shape {
+    
+    var points: [Point] = []
+    
+    private(set) var canvas: Canvas?
+    
+    func setCanvas(_ canvas: Canvas) {
+        self.canvas = canvas
+    }
 }

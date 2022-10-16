@@ -8,6 +8,6 @@
 import Foundation
 
 protocol StyleApplying: AnyObject {
-    var color: Color? { get }
-    var lineColor: Color? { get }
+    var color: Color? { get set }
+    var lineColor: Color? { get set }
 }

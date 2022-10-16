@@ -8,6 +8,7 @@
 import Foundation
 
 typealias StyledShape = Shape & StyleApplying
+typealias SelectableStyledShape = Selectable & StyledShape
 
 class Canvas {
     let size: Size
@@ -26,12 +27,10 @@ class Canvas {
         return true
     }
     
-    @discardableResult
-    func select(at point: Point) -> (Selectable & StyledShape)? {
+    func findShape(at point: Point) -> SelectableStyledShape? {
         let selectedShape = shapes
-            .compactMap { $0 as? Selectable & StyledShape }
+            .compactMap { $0 as? SelectableStyledShape }
             .first { $0.contains(point) }
-        selectedShape?.isSelected = true
         return selectedShape
     }
 }
