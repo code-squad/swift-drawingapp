@@ -15,6 +15,6 @@ class Drawing: Shape {
 }
 
 class StyledDrawing: Drawing, StyleApplying {
-    var color: Color?
+    var fillColor: Color?
     var lineColor: Color?
 }

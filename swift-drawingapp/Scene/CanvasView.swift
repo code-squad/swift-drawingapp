@@ -35,12 +35,12 @@ class CanvasView: UIView {
             .store(in: &cancelBag)
     }
     
-    private func updateShapeViews(_ shapeViewModels: [ShapeViewModel]) {
+    private func updateShapeViews(_ shapes: [ShapeViewModel]) {
         // TODO: 뷰를 지우고 다시 넣지 않고 업데이트 하도록 변경하기
         shapeViews.forEach { $0.removeFromSuperview() }
         shapeViews = []
         
-        shapeViewModels.forEach { shape in
+        shapes.forEach { shape in
             let shapeView = makeShapeView(shape)
             addSubview(shapeView)
             shapeViews.append(shapeView)

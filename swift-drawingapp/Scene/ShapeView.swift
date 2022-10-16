@@ -18,7 +18,7 @@ class ShapeView: UIView {
     func updatePath(_ viewModel: ShapeViewModel) {
         guard let path = makePath(from: viewModel.points) else { return }
         shape.path = path.cgPath
-        shape.fillColor = viewModel.color
+        shape.fillColor = viewModel.fillColor
         shape.strokeColor = viewModel.lineColor
         layer.addSublayer(shape)
     }

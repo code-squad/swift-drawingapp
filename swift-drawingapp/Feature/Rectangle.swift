@@ -38,6 +38,6 @@ class Rectangle: Shape, Selectable {
 }
 
 class StyledRectangle: Rectangle, StyleApplying {
-    var color: Color?
+    var fillColor: Color?
     var lineColor: Color?
 }
