@@ -12,6 +12,11 @@ import QuartzCore
 protocol ViewModelDelegate: AnyObject {
     func rectSelected(layer: CAShapeLayer)
     func rectSelectedAgain(layer: CAShapeLayer)
+    func startLineDrawing(point: CGPoint)
+    func updateLineDrawing(point: CGPoint)
+    func endLineDrawing()
+    func squareButtonSelected()
+    func lineButtonSelected()
 }
 
 enum DrawingType {
@@ -50,6 +55,40 @@ class ViewModel {
                     }
                 }
             }
+        }
+    }
+    
+    func handleTouchesBegan(point: CGPoint) {
+        switch drawingType {
+        case .square:
+            processRectSelection(point: point)
+        case .line:
+            delegate?.startLineDrawing(point: point)
+        case .none:
+            return
+        }
+    }
+    
+    func handleTouchesMoved(point: CGPoint) {
+        if drawingType == .line {
+            delegate?.updateLineDrawing(point: point)
+        }
+    }
+    
+    func handleTouchesEnded() {
+        if drawingType == .line {
+            delegate?.endLineDrawing()
+        }
+    }
+    
+    func handleButtonSelected(type: DrawingType) {
+        self.drawingType = type
+        
+        switch type {
+        case .square:
+            delegate?.squareButtonSelected()
+        case .line:
+            delegate?.lineButtonSelected()
         }
     }
 }
