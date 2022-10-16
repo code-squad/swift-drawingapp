@@ -12,7 +12,7 @@ typealias StyledShape = Shape & StyleApplying
 
 class CanvasViewModel {
     
-    @Published private(set) var shapeViewModels: [ShapeViewModel] = []
+    @Published private(set) var shapes: [ShapeViewModel] = []
     
     private var canvas: Canvas
     
@@ -33,7 +33,7 @@ class CanvasViewModel {
                 shapes.compactMap { $0 as? StyledShape }
                     .map { self.convertToShapeViewModel($0) }
             }
-            .sink { self.shapeViewModels = $0 }
+            .sink { self.shapes = $0 }
             .store(in: &cancelBag)
     }
     

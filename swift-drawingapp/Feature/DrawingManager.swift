@@ -1,5 +1,5 @@
 //
-//  DrawingApp.swift
+//  DrawingManager.swift
 //  swift-drawingapp
 //
 //  Created by Sunghyun Kim on 2022/10/16.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DrawingApp {
+class DrawingManager {
     private(set) var canvas: Canvas = Canvas(size: .init(width: 500, height: 500))
     private(set) var selectedShapes: [Shape] = []
     
@@ -18,6 +18,7 @@ class DrawingApp {
             y: Double.random(in: 0...canvas.size.height-rectSize.height)
         )
         let rect = StyledRectangle(origin: originPoint, size: rectSize)
+        rect.fillColor = Color.systemList.randomElement()
         canvas.addShape(rect)
     }
     
