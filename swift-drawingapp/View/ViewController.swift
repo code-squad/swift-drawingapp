@@ -10,6 +10,7 @@ import UIKit
 
 
 class ViewController: UIViewController {
+    
     let viewModel = ViewModel()
     
     private let canvasView = CanvasView()
@@ -46,55 +47,65 @@ class ViewController: UIViewController {
         lineButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
         lineButton.leadingAnchor.constraint(equalTo: squareButton.trailingAnchor).isActive = true
     }
+}
 
+// MARK: - INPUT
+extension ViewController {
     @objc
     private func didTapSquareButton() {
-        self.viewModel.drawingType = .square
-        squareButton.configure(isSelected: true)
-        lineButton.configure(isSelected: false)
-        
-        let layer = canvasView.addSquareLayer()
-        
-        viewModel.appendDrawing(layer: layer)
+        viewModel.handleButtonSelected(type: .square)
     }
     
     @objc
     private func didTapLineButton() {
-        self.viewModel.drawingType = .line
-        squareButton.configure(isSelected: false)
-        lineButton.configure(isSelected: true)
+        viewModel.handleButtonSelected(type: .line)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self.canvasView) else { return }
         
-        switch viewModel.drawingType {
-        case .square:
-            viewModel.processRectSelection(point: point)
-        case .line:
-            canvasView.startLineDrawing(point: point)
-        case .none:
-            return
-        }
+        viewModel.handleTouchesBegan(point: point)
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self.canvasView) else { return }
         
-        if viewModel.drawingType == .line {
-            canvasView.updateLinePath(point: point)
-        }
+        viewModel.handleTouchesMoved(point: point)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if viewModel.drawingType == .line {
-            let lineLayer = canvasView.endLineLayer()
-            viewModel.appendDrawing(layer: lineLayer)
-        }
+        viewModel.handleTouchesEnded()
     }
 }
 
+// MARK: - OUTPUT
 extension ViewController: ViewModelDelegate {
+    func squareButtonSelected() {
+        squareButton.configure(isSelected: true)
+        lineButton.configure(isSelected: false)
+        
+        let layer = canvasView.addSquareLayer()
+        viewModel.appendDrawing(layer: layer)
+    }
+    
+    func lineButtonSelected() {
+        squareButton.configure(isSelected: false)
+        lineButton.configure(isSelected: true)
+    }
+    
+    func startLineDrawing(point: CGPoint) {
+        canvasView.startLineDrawing(point: point)
+    }
+    
+    func updateLineDrawing(point: CGPoint) {
+        canvasView.updateLinePath(point: point)
+    }
+    
+    func endLineDrawing() {
+        let lineLayer = canvasView.endLineLayer()
+        viewModel.appendDrawing(layer: lineLayer)
+    }
+    
     func rectSelected(layer: CAShapeLayer) {
         layer.lineWidth = 3
         layer.strokeColor = UIColor.systemRed.cgColor

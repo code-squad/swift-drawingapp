@@ -36,7 +36,7 @@ class LineMaker {
         
         tempLayer.lineWidth = 4
         tempLayer.fillColor = UIColor.clear.cgColor
-        tempLayer.strokeColor = UIColor.blue.cgColor
+        tempLayer.strokeColor = UIColor.clear.randomSystemColor().cgColor
         
         return tempLayer
     }
