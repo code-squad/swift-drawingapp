@@ -60,6 +60,7 @@ class ViewController: UIViewController {
         lineButton.configure(isSelected: true)
     }
     
+    // presenter? 같은걸로 빼기
     private func makeRectLayer(rect: CGRect) -> CAShapeLayer {
         let leftTop = CGPoint(x: rect.origin.x, y: rect.origin.y)
         let leftBottom = CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height)
@@ -97,15 +98,17 @@ class ViewController: UIViewController {
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard viewModel.drawingType == .line else { return }
         guard let point = touches.first?.location(in: self.view) else { return }
-
-        viewModel.updateLinePath(point: point)
+        
+        if viewModel.drawingType == .line {
+            viewModel.updateLinePath(point: point)
+        }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard viewModel.drawingType == .line else { return }
-        viewModel.endLineDrawing()
+        if viewModel.drawingType == .line {
+            viewModel.endLineDrawing()
+        }
     }
 }
 
