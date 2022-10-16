@@ -22,8 +22,6 @@ enum DrawingType {
 class ViewModel {
     
     private let drawingStore = DrawingStore()
-    private let squareMaker = SquareMaker()
-    private let lineMaker = LineMaker()
     
     weak var delegate: ViewModelDelegate?
     
@@ -31,31 +29,11 @@ class ViewModel {
     
     init() {}
     
-    func getRect(rect: CGRect) -> CGRect {
-        squareMaker.getRect(rect: rect)
-    }
-    
     func appendDrawing(layer: CAShapeLayer) {
         guard let type = self.drawingType else { return }
         let model = DrawingModel(type: type, layer: layer)
         drawingStore.appendData(data: model)
     }
-    
-    func startLineDrawing(point: CGPoint) -> CAShapeLayer {
-        let layer = lineMaker.startLineDraw(point: point)
-        return layer
-    }
-    
-    func updateLinePath(point: CGPoint) {
-        lineMaker.addLinePath(to: point)
-    }
-    
-    func endLineDrawing() {
-        let layer = lineMaker.getTempLayer()
-        let model = DrawingModel(type: .line, layer: layer)
-        drawingStore.appendData(data: model)
-    }
-
     
     func processRectSelection(point: CGPoint) {
         for drawing in drawingStore.drawingList {
