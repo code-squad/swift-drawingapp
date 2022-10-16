@@ -78,7 +78,7 @@ class DrawingManagerViewController: UIViewController {
         let point = tapGesture.location(in: canvasView)
         viewModel.selectShape(at: point)
         // FIXME: 선택 시 뷰가 업데이트되지 않음
-        canvasView.updateView()
+//        canvasView.updateView()
     }
     
     @objc
@@ -100,6 +100,6 @@ class DrawingManagerViewController: UIViewController {
             viewModel.endDrawing()
         }
         // FIXME: 그릴 때 뷰가 업데이트되지 않음
-        canvasView.updateView()
+//        canvasView.updateView()
     }
 }
