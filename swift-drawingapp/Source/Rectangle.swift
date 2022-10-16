@@ -7,24 +7,26 @@
 
 import Foundation
 
-class Rectangle: StyledShape, Selectable {
+class Rectangle: Shape, Selectable {
     
-    var origin: Point
-    var size: Size
-    
-    var color: Color?
-    var lineColor: Color?
-    
-    var isSelected: Bool = false
-    
-    private var canvas: Canvas?
+    private(set) var origin: Point
+    private(set) var size: Size
     
     init(origin: Point, size: Size) {
         self.origin = origin
         self.size = size
+        
+        super.init()
+        
+        points = makePoints(origin: origin, size: size)
     }
     
-    var points: [Point] {
+    func contains(_ point: Point) -> Bool {
+        return origin.x...origin.x+size.width ~= point.x &&
+        origin.y...origin.y+size.height ~= point.y
+    }
+    
+    private func makePoints(origin: Point, size: Size) -> [Point] {
         var points = [Point]()
         points.append(origin)
         var nextPoint = origin
@@ -37,13 +39,9 @@ class Rectangle: StyledShape, Selectable {
         points.append(origin)
         return points
     }
-    
-    func setCanvas(_ canvas: Canvas) {
-        self.canvas = canvas
-    }
-    
-    func contains(_ point: Point) -> Bool {
-        return origin.x...origin.x+size.width ~= point.x &&
-        origin.y...origin.y+size.height ~= point.y
-    }
+}
+
+class StyledRectangle: Rectangle, StyleApplying {
+    var color: Color?
+    var lineColor: Color?
 }

@@ -7,12 +7,7 @@
 
 import Foundation
 
-class Drawing: StyledShape {
-    private(set) var points: [Point] = []
-    var color: Color?
-    var lineColor: Color?
-    
-    private var canvas: Canvas?
+class Drawing: Shape {
     
     @discardableResult
     func addPoint(_ point: Point) -> Bool {
@@ -20,8 +15,9 @@ class Drawing: StyledShape {
         points.append(point)
         return true
     }
-    
-    func setCanvas(_ canvas: Canvas) {
-        self.canvas = canvas
-    }
+}
+
+class StyledDrawing: Drawing, StyleApplying {
+    var color: Color?
+    var lineColor: Color?
 }
