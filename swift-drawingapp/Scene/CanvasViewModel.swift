@@ -43,13 +43,17 @@ class CanvasViewModel {
         heightScale = size.height / canvas.size.height
     }
     
-    func convertPoint(_ point: Point) -> CGPoint {
+    func convertToCGPoint(_ point: Point) -> CGPoint {
         return CGPoint(x: point.x * widthScale, y: point.y * heightScale)
+    }
+    
+    func convertToPoint(_ cgPoint: CGPoint) -> Point {
+        return Point(x: cgPoint.x / widthScale, y: cgPoint.y / heightScale)
     }
     
     func convertToShapeViewModel(_ shape: StyledShape) -> ShapeViewModel {
         let points = shape.points
-            .map { convertPoint($0) }
+            .map { convertToCGPoint($0) }
         return ShapeViewModel(
             points: points,
             fillColor: shape.fillColor?.cgColor,

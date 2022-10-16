@@ -25,6 +25,7 @@ class DrawingManager {
     func createDrawing(pointStream: AsyncStream<Point>) {
         Task { @MainActor in
             let drawing = StyledDrawing()
+            drawing.lineColor = Color.systemList.randomElement()
             canvas.addShape(drawing)
             for await point in pointStream {
                 drawing.addPoint(point)
@@ -42,3 +43,64 @@ class DrawingManager {
         }
     }
 }
+
+
+
+import UIKit
+
+class ViewController2: UIViewController {
+    
+    @IBOutlet var imgView: UIImageView!
+    
+    var lastPoint: CGPoint!
+    var linesize: CGFloat = 2.0
+    var linecolor = UIColor.red.cgColor
+        
+    override func viewDidLoad() {
+            super.viewDidLoad()
+        }
+    
+    @IBAction func clearImgView(_ sender: UIButton) {
+        imgView.image = nil
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first! as UITouch //현재 발생한 터치 이벤트 가지고 옵니다
+        lastPoint = touch.location(in: imgView) // 터치 된 위치를 lastPoint라는 변수에 저장합니다.
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIGraphicsBeginImageContext(imgView.frame.size)
+        UIGraphicsGetCurrentContext()?.setStrokeColor(linecolor)
+        UIGraphicsGetCurrentContext()?.setLineCap(CGLineCap.round)
+        UIGraphicsGetCurrentContext()?.setLineWidth(linesize)
+        let touch = touches.first! as UITouch
+        let currPoint = touch.location(in: imgView)
+        
+        imgView.image?.draw(in: CGRect(x: 0, y: 0, width: imgView.frame.size.width, height: imgView.frame.size.height))
+        UIGraphicsGetCurrentContext()?.move(to: CGPoint(x: lastPoint.x, y: lastPoint.y)) //이전에 이동된 위치인 lastpoint로 시작위치를 이동시킨다
+        UIGraphicsGetCurrentContext()?.addLine(to: CGPoint(x: currPoint.x, y: currPoint.y)) //lastPoint에서 현재 위치는 currentPoint까지 선을 추가한다
+        UIGraphicsGetCurrentContext()?.strokePath()
+        
+        imgView.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        lastPoint = currPoint //현재 터치 된 위치를 lastPoint라는 변수에 할당한다
+    }
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        UIGraphicsBeginImageContext(imgView.frame.size)
+        UIGraphicsGetCurrentContext()?.setStrokeColor(linecolor)
+        UIGraphicsGetCurrentContext()?.setLineCap(CGLineCap.round)
+        UIGraphicsGetCurrentContext()?.setLineWidth(linesize)
+        
+        imgView.image?.draw(in: CGRect(x: 0, y: 0, width: imgView.frame.size.width, height: imgView.frame.size.height))
+        UIGraphicsGetCurrentContext()?.move(to: CGPoint(x: lastPoint.x, y: lastPoint.y))
+        UIGraphicsGetCurrentContext()?.addLine(to: CGPoint(x: lastPoint.x, y: lastPoint.y))
+        UIGraphicsGetCurrentContext()?.strokePath()
+        
+        imgView.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+    }
+
+        }
+        
+

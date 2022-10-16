@@ -9,12 +9,12 @@ import UIKit
 
 class DrawingManagerViewController: UIViewController {
     
-    private let drawingManager = DrawingManager()
+    private let viewModel = DrawingManagerViewModel()
     
     private lazy var canvasView = {
         let cv = CanvasView(frame: view.bounds)
         cv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        cv.setViewModel(.init(canvas: drawingManager.canvas))
+        cv.setViewModel(viewModel.canvasViewModel)
         return cv
     }()
     
@@ -67,12 +67,29 @@ class DrawingManagerViewController: UIViewController {
     
     @objc
     private func addRectButtonTapped() {
-        drawingManager.createRandomRect()
+        viewModel.createRandomRect()
     }
     
     @objc
     private func addDrawingButtonTapped() {
         print("addDrawing")
         
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan))
+        canvasView.addGestureRecognizer(panGesture)
+        
+        viewModel.startDrawing()
+    }
+    
+    @objc
+    private func didPan(_ panGesture: UIPanGestureRecognizer) {
+        print("didPan")
+        switch panGesture.state {
+        case .began, .changed:
+            let point = panGesture.location(in: canvasView)
+            viewModel.addPointToDrawing(point)
+        default:
+            canvasView.removeGestureRecognizer(panGesture)
+        }
+        canvasView.updateView()
     }
 }
