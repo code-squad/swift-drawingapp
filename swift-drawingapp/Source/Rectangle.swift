@@ -27,17 +27,13 @@ class Rectangle: Shape, Selectable {
     }
     
     private func makePoints(origin: Point, size: Size) -> [Point] {
-        var points = [Point]()
-        points.append(origin)
-        var nextPoint = origin
-        nextPoint.x += size.width
-        points.append(nextPoint)
-        nextPoint.y += size.height
-        points.append(nextPoint)
-        nextPoint.x -= size.width
-        points.append(nextPoint)
-        points.append(origin)
-        return points
+        return [
+            .init(x: origin.x, y: origin.y),
+            .init(x: origin.x+size.width, y: origin.y),
+            .init(x: origin.x+size.width, y: origin.y+size.height),
+            .init(x: origin.x, y: origin.y+size.height),
+            .init(x: origin.x, y: origin.y),
+        ]
     }
 }
 
