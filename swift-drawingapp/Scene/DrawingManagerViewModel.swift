@@ -16,6 +16,13 @@ class DrawingManagerViewModel {
     
     init() {
         canvasViewModel = .init(canvas: drawingManager.canvas)
+        canvasViewModel.transformShape = { (shape, shapeVM) in
+            var shapeVM = shapeVM
+            if (self.drawingManager.selectedShapes.contains { $0 === shape }) {
+                shapeVM.lineColor = Color.systemRed.cgColor
+            }
+            return shapeVM
+        }
     }
     
     func createRandomRect() {
@@ -40,5 +47,10 @@ class DrawingManagerViewModel {
     func endDrawing() {
         addToPointStream?(nil)
         addToPointStream = nil
+    }
+    
+    func selectShape(at point: CGPoint) {
+        let point = canvasViewModel.convertToPoint(point)
+        drawingManager.selectShape(at: point)
     }
 }

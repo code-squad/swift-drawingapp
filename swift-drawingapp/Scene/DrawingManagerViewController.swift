@@ -63,11 +63,22 @@ class DrawingManagerViewController: UIViewController {
         addRectButton.addTarget(self, action: #selector(addRectButtonTapped), for: .touchUpInside)
         
         addDrawingButton.addTarget(self, action: #selector(addDrawingButtonTapped), for: .touchUpInside)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapPoint))
+        canvasView.addGestureRecognizer(tapGesture)
     }
     
     @objc
     private func addRectButtonTapped() {
         viewModel.createRandomRect()
+    }
+    
+    @objc
+    private func tapPoint(_ tapGesture: UITapGestureRecognizer) {
+        let point = tapGesture.location(in: canvasView)
+        viewModel.selectShape(at: point)
+        // FIXME: 선택 시 뷰가 업데이트되지 않음
+        canvasView.updateView()
     }
     
     @objc
@@ -88,6 +99,7 @@ class DrawingManagerViewController: UIViewController {
             canvasView.removeGestureRecognizer(panGesture)
             viewModel.endDrawing()
         }
+        // FIXME: 그릴 때 뷰가 업데이트되지 않음
         canvasView.updateView()
     }
 }

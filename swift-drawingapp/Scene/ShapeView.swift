@@ -12,6 +12,7 @@ class ShapeView: UIView {
     private var shape = {
         let shape = CAShapeLayer()
         shape.lineJoin = .miter
+        shape.lineWidth = 8
         return shape
     }()
     
