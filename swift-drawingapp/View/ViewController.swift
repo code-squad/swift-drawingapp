@@ -24,8 +24,8 @@ class ViewController: UIViewController {
         
         setupView()
         
-        squareButton.addTarget(self, action: #selector(didTapSquareButton), for: .touchUpInside)
-        lineButton.addTarget(self, action: #selector(didTapLineButton), for: .touchUpInside)
+        bindingCanvasTouch()
+        bindingButtonAction()
     }
     
     private func setupView() {
@@ -52,6 +52,23 @@ class ViewController: UIViewController {
 
 // MARK: - INPUT
 extension ViewController {
+    func bindingButtonAction() {
+        squareButton.addTarget(self, action: #selector(didTapSquareButton), for: .touchUpInside)
+        lineButton.addTarget(self, action: #selector(didTapLineButton), for: .touchUpInside)
+    }
+    
+    func bindingCanvasTouch() {
+        canvasView.touchBeganCompletion = { [weak self] point in
+            self?.viewModel.handleTouchesBegan(point: point)
+        }
+        canvasView.touchMovedCompletion = { [weak self] point in
+            self?.viewModel.handleTouchesMoved(point: point)
+        }
+        canvasView.touchEndedCompletion = { [weak self] in
+            self?.viewModel.handleTouchesEnded()
+        }
+    }
+    
     @objc
     private func didTapSquareButton() {
         viewModel.handleButtonSelected(type: .square)
@@ -60,22 +77,6 @@ extension ViewController {
     @objc
     private func didTapLineButton() {
         viewModel.handleButtonSelected(type: .line)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let point = touches.first?.location(in: self.canvasView) else { return }
-        
-        viewModel.handleTouchesBegan(point: point)
-    }
-
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let point = touches.first?.location(in: self.canvasView) else { return }
-        
-        viewModel.handleTouchesMoved(point: point)
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        viewModel.handleTouchesEnded()
     }
 }
 
