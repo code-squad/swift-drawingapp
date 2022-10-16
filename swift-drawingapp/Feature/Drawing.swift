@@ -9,11 +9,8 @@ import Foundation
 
 class Drawing: Shape {
     
-    @discardableResult
-    func addPoint(_ point: Point) -> Bool {
-        guard canvas?.size.contains(point) ?? true else { return false }
+    func addPoint(_ point: Point) {
         points.append(point)
-        return true
     }
 }
 

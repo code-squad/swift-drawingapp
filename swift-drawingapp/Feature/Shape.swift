@@ -8,12 +8,5 @@
 import Foundation
 
 class Shape {
-    
     var points: [Point] = []
-    
-    private(set) var canvas: Canvas?
-    
-    func setCanvas(_ canvas: Canvas) {
-        self.canvas = canvas
-    }
 }

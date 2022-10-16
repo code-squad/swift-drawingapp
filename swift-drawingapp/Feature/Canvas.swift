@@ -10,7 +10,7 @@ import Foundation
 class Canvas {
     
     let size: Size
-    private(set) var shapes: [Shape] = []
+    @Published private(set) var shapes: [Shape] = []
     
     init(size: Size) {
         self.size = size
@@ -22,7 +22,6 @@ class Canvas {
             guard size.contains(point) else { return false }
         }
         shapes.append(shape)
-        shape.setCanvas(self)
         return true
     }
     
