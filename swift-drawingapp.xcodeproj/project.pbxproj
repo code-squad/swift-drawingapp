@@ -35,6 +35,7 @@
 		F2B5F94928FC1F3B00D5BE2F /* Color+CGColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94828FC1F3B00D5BE2F /* Color+CGColor.swift */; };
 		F2B5F94D28FC24DC00D5BE2F /* DrawingManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */; };
 		F2B5F94F28FC2EE800D5BE2F /* ColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */; };
+		F2B5F95328FC3BAF00D5BE2F /* DrawingManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F95228FC3BAF00D5BE2F /* DrawingManagerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		F2B5F94828FC1F3B00D5BE2F /* Color+CGColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+CGColor.swift"; sourceTree = "<group>"; };
 		F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManagerViewController.swift; sourceTree = "<group>"; };
 		F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorList.swift; sourceTree = "<group>"; };
+		F2B5F95228FC3BAF00D5BE2F /* DrawingManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManagerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */,
+				F2B5F95228FC3BAF00D5BE2F /* DrawingManagerViewModel.swift */,
 				F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */,
 				F2B5F94628FBF2C700D5BE2F /* CanvasViewModel.swift */,
 				F2B5F94228FBF0FD00D5BE2F /* ShapeView.swift */,
@@ -361,6 +364,7 @@
 				F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */,
 				F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */,
 				F2B5F94728FBF2C700D5BE2F /* CanvasViewModel.swift in Sources */,
+				F2B5F95328FC3BAF00D5BE2F /* DrawingManagerViewModel.swift in Sources */,
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
 				F2B5F94328FBF0FD00D5BE2F /* ShapeView.swift in Sources */,
 				F2AEE0BB28FB05C40068B9E9 /* Point.swift in Sources */,
