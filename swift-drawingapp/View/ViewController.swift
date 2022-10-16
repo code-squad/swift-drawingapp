@@ -12,6 +12,7 @@ import UIKit
 class ViewController: UIViewController {
     let viewModel = ViewModel()
     
+    private let canvasView = CanvasView()
     private let squareButton = DrawingTypeButton(title: "사각형")
     private let lineButton = DrawingTypeButton(title: "직선")
     
@@ -26,8 +27,14 @@ class ViewController: UIViewController {
     }
     
     private func setupView() {
+        self.view.addSubview(canvasView)
         self.view.addSubview(squareButton)
         self.view.addSubview(lineButton)
+        
+        canvasView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        canvasView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        canvasView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        canvasView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
         squareButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         squareButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -46,11 +53,9 @@ class ViewController: UIViewController {
         squareButton.configure(isSelected: true)
         lineButton.configure(isSelected: false)
         
-        let rect = viewModel.getRect(rect: self.view.frame)
-        let rectLayer = makeRectLayer(rect: rect)
-        view.layer.addSublayer(rectLayer)
+        let layer = canvasView.addSquareLayer()
         
-        viewModel.appendDrawing(layer: rectLayer)
+        viewModel.appendDrawing(layer: layer)
     }
     
     @objc
@@ -60,54 +65,31 @@ class ViewController: UIViewController {
         lineButton.configure(isSelected: true)
     }
     
-    // presenter? 같은걸로 빼기
-    private func makeRectLayer(rect: CGRect) -> CAShapeLayer {
-        let leftTop = CGPoint(x: rect.origin.x, y: rect.origin.y)
-        let leftBottom = CGPoint(x: rect.origin.x, y: rect.origin.y + rect.size.height)
-        let rightBottom = CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height)
-        let rightTop = CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y)
-        
-        let path = UIBezierPath()
-        UIColor.systemRed.set()
-        path.move(to: leftTop)
-        path.addLine(to: leftBottom)
-        path.addLine(to: rightBottom)
-        path.addLine(to: rightTop)
-        path.addLine(to: leftTop)
-        
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = UIColor.clear.randomSystemColor().cgColor
-        
-        return shapeLayer
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let point = touches.first?.location(in: self.view) else { return }
+        guard let point = touches.first?.location(in: self.canvasView) else { return }
         
         switch viewModel.drawingType {
         case .square:
             viewModel.processRectSelection(point: point)
         case .line:
-            let layer = viewModel.startLineDrawing(point: point)
-            self.view.layer.addSublayer(layer)
+            canvasView.startLineDrawing(point: point)
         case .none:
             return
         }
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let point = touches.first?.location(in: self.view) else { return }
+        guard let point = touches.first?.location(in: self.canvasView) else { return }
         
         if viewModel.drawingType == .line {
-            viewModel.updateLinePath(point: point)
+            canvasView.updateLinePath(point: point)
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if viewModel.drawingType == .line {
-            viewModel.endLineDrawing()
+            let lineLayer = canvasView.endLineLayer()
+            viewModel.appendDrawing(layer: lineLayer)
         }
     }
 }
