@@ -11,7 +11,7 @@ import Combine
 class CanvasView: UIView {
     
     private var viewModel: CanvasViewModel!
-    private var shapeViews: [ShapeView] = []
+    private var shapeViews: [ObjectIdentifier: ShapeView] = [:]
     
     private var cancelBag = Set<AnyCancellable>()
     
@@ -55,14 +55,26 @@ class CanvasView: UIView {
     }
     
     private func updateShapeViews(_ shapes: [ShapeViewModel]) {
-        // TODO: 뷰를 지우고 다시 넣지 않고 업데이트 하도록 변경하기
-        shapeViews.forEach { $0.removeFromSuperview() }
-        shapeViews = []
+        var shapeIDs = Array(shapeViews.keys)
         
-        shapes.forEach { shape in
-            let shapeView = makeShapeView(shape)
-            addSubview(shapeView)
-            shapeViews.append(shapeView)
+        for shape in shapes {
+            // 기존 Shape 뷰 업데이트
+            if let index = shapeIDs.firstIndex(of: shape.id) {
+                shapeViews[shape.id]?.updatePath(shape)
+                shapeIDs.remove(at: index)
+            }
+            // 신규 Shape 뷰 생성
+            else {
+                let shapeView = makeShapeView(shape)
+                addSubview(shapeView)
+                shapeViews[shape.id] = shapeView
+            }
+        }
+        
+        // 제거된 Shape의 뷰 제거
+        for id in shapeIDs {
+            shapeViews[id]?.removeFromSuperview()
+            shapeViews[id] = nil
         }
     }
     

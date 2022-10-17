@@ -50,6 +50,7 @@ class CanvasViewModel: CanvasDelegate {
         let points = shape.points
             .map { convertToCGPoint($0) }
         var shapeVM = ShapeViewModel(
+            shape: shape,
             points: points,
             fillColor: shape.fillColor?.cgColor,
             lineColor: shape.lineColor?.cgColor
