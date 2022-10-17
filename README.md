@@ -25,4 +25,4 @@
 - 뷰에선 Canvas 뷰를 가지고 있고 뷰모델에선 Canvas 뷰모델을 갖고 있다.
 - 입력을 DrawingManager로 전달하며 Canvas 뷰/뷰모델을 사용하여 출력한다.
 
-![Simulator Screen Recording - iPad mini (6th generation) - 2022-10-18 at 00.55.06.mp4](assets/Simulator Screen Recording - iPad mini (6th generation) - 2022-10-18 at 00.55.06.mp4.gif)
+![step1_animate](assets/step1_animate.gif)
