@@ -6,11 +6,10 @@
 //
 
 import UIKit
-import Combine
 
 typealias StyledShape = Shape & StyleApplying
 
-class CanvasViewModel {
+class CanvasViewModel: CanvasDelegate {
     
     @Published private(set) var shapes: [ShapeViewModel] = []
     
@@ -22,21 +21,9 @@ class CanvasViewModel {
     private var widthScale: Double!
     private var heightScale: Double!
     
-    private var cancelBag = Set<AnyCancellable>()
-    
     init(canvas: Canvas) {
         self.canvas = canvas
-        setupBindings()
-    }
-    
-    private func setupBindings() {
-        canvas.$shapes
-            .map { shapes in
-                shapes.compactMap { $0 as? StyledShape }
-                    .map { self.convertToShapeViewModel($0) }
-            }
-            .sink { self.shapes = $0 }
-            .store(in: &cancelBag)
+        canvas.delegate = self
     }
     
     func setSizeOfView(_ size: CGSize) {
@@ -53,7 +40,13 @@ class CanvasViewModel {
         return Point(x: cgPoint.x / widthScale, y: cgPoint.y / heightScale)
     }
     
-    func convertToShapeViewModel(_ shape: StyledShape) -> ShapeViewModel {
+    func reloadCanvas() {
+        self.shapes = canvas.shapes
+            .compactMap { $0 as? StyledShape }
+            .map { self.convertToShapeViewModel($0) }
+    }
+    
+    private func convertToShapeViewModel(_ shape: StyledShape) -> ShapeViewModel {
         let points = shape.points
             .map { convertToCGPoint($0) }
         var shapeVM = ShapeViewModel(
@@ -65,5 +58,11 @@ class CanvasViewModel {
             shapeVM = transformShape(shape, shapeVM)
         }
         return shapeVM
+    }
+    
+    // MARK: - CanvasDelegate
+    
+    func shapesWillChange(_ shapes: [Shape]) {
+        reloadCanvas()
     }
 }
