@@ -8,5 +8,15 @@
 import Foundation
 
 class Shape {
-    var points: [Point] = []
+    var points: [Point] = [] {
+        didSet {
+            delegate?.pointsDidChange(points)
+        }
+    }
+    
+    weak var delegate: ShapeDelegate?
+}
+
+protocol ShapeDelegate: AnyObject {
+    func pointsDidChange(_ points: [Point])
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class DrawingManagerViewModel {
+class DrawingManagerViewModel: DrawingManagerDelegate {
     
     private let drawingManager = DrawingManager()
     private(set) var canvasViewModel: CanvasViewModel!
@@ -23,6 +23,7 @@ class DrawingManagerViewModel {
             }
             return shapeVM
         }
+        drawingManager.delegate = self
     }
     
     func createRandomRect() {
@@ -52,5 +53,11 @@ class DrawingManagerViewModel {
     func selectShape(at point: CGPoint) {
         let point = canvasViewModel.convertToPoint(point)
         drawingManager.selectShape(at: point)
+    }
+    
+    // MARK: - DrawingManagerDelegate
+    
+    func onSelectedShapesChanged(_ selectedShapes: [Shape]) {
+        canvasViewModel.reloadCanvas()
     }
 }

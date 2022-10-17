@@ -7,10 +7,16 @@
 
 import Foundation
 
-class Canvas {
+class Canvas: ShapeDelegate {
     
     let size: Size
-    @Published private(set) var shapes: [Shape] = []
+    private(set) var shapes: [Shape] = [] {
+        didSet {
+            delegate?.shapesWillChange(shapes)
+        }
+    }
+    
+    weak var delegate: CanvasDelegate?
     
     init(size: Size) {
         self.size = size
@@ -21,6 +27,7 @@ class Canvas {
         for point in shape.points {
             guard size.contains(point) else { return false }
         }
+        shape.delegate = self
         shapes.append(shape)
         return true
     }
@@ -31,7 +38,13 @@ class Canvas {
             .last { $0.contains(point) }
     }
     
-    func update() {
-        shapes = shapes
+    // MARK: - ShapeDelegate
+    
+    func pointsDidChange(_ points: [Point]) {
+        delegate?.shapesWillChange(shapes)
     }
+}
+
+protocol CanvasDelegate: AnyObject {
+    func shapesWillChange(_ shapes: [Shape])
 }

@@ -43,7 +43,7 @@ class CanvasView: UIView {
         super.layoutSubviews()
         
         viewModel.setSizeOfView(bounds.size)
-        // FIXME: 업데이트가 되지 않는 문제 수정
+        viewModel.reloadCanvas()
     }
     
     // MARK: - Private

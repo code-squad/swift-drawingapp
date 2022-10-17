@@ -9,7 +9,12 @@ import Foundation
 
 class DrawingManager {
     private(set) var canvas: Canvas = Canvas(size: .init(width: 500, height: 500))
-    private(set) var selectedShapes: [Shape] = []
+    private(set) var selectedShapes: [Shape] = [] {
+        didSet {
+            delegate?.onSelectedShapesChanged(selectedShapes)
+        }
+    }
+    weak var delegate: DrawingManagerDelegate?
     
     func createRandomRect() {
         let rectSize = Size(width: 100, height: 100)
@@ -29,7 +34,6 @@ class DrawingManager {
             canvas.addShape(drawing)
             for await point in pointStream {
                 drawing.addPoint(point)
-                canvas.update()
             }
         }
     }
@@ -42,6 +46,9 @@ class DrawingManager {
         } else {
             selectedShapes.append(shape)
         }
-        canvas.update()
     }
+}
+
+protocol DrawingManagerDelegate: AnyObject {
+    func onSelectedShapesChanged(_ selectedShapes: [Shape])
 }
