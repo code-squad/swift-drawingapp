@@ -49,25 +49,25 @@ class CanvasView: UIView {
     // MARK: - Private
     
     private func setupBindings() {
-        viewModel.$shapes
+        viewModel.$shapeVMs
             .sink(receiveValue: updateShapeViews)
             .store(in: &cancelBag)
     }
     
-    private func updateShapeViews(_ shapes: [ShapeViewModel]) {
+    private func updateShapeViews(_ shapeVMs: [ShapeViewModel]) {
         var shapeIDs = Array(shapeViews.keys)
         
-        for shape in shapes {
+        for shapeVM in shapeVMs {
             // 기존 Shape 뷰 업데이트
-            if let index = shapeIDs.firstIndex(of: shape.id) {
-                shapeViews[shape.id]?.updatePath(shape)
+            if let index = shapeIDs.firstIndex(of: shapeVM.id) {
+                shapeViews[shapeVM.id]?.updateShape(shapeVM)
                 shapeIDs.remove(at: index)
             }
             // 신규 Shape 뷰 생성
             else {
-                let shapeView = makeShapeView(shape)
+                let shapeView = makeShapeView(shapeVM)
                 addSubview(shapeView)
-                shapeViews[shape.id] = shapeView
+                shapeViews[shapeVM.id] = shapeView
             }
         }
         
@@ -80,7 +80,7 @@ class CanvasView: UIView {
     
     private func makeShapeView(_ shape: ShapeViewModel) -> ShapeView {
         let shapeView = ShapeView(frame: bounds)
-        shapeView.updatePath(shape)
+        shapeView.updateShape(shape)
         return shapeView
     }
 }

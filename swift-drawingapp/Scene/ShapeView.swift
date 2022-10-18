@@ -17,7 +17,7 @@ class ShapeView: UIView {
         return shape
     }()
     
-    func updatePath(_ viewModel: ShapeViewModel) {
+    func updateShape(_ viewModel: ShapeViewModel) {
         shape.path = nil
         guard let path = makePath(from: viewModel.points) else { return }
         shape.path = path.cgPath
