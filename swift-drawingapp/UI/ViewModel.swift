@@ -11,9 +11,11 @@ import UIKit
 
 final class ViewModel {
 
+
     struct Action {
         let addRectangle = PassthroughSubject<Void, Never>()
         let selectObject = PassthroughSubject<DrawingObject, Never>()
+        let addObject = PassthroughSubject<DrawingObject, Never>()
     }
 
     struct State {
@@ -42,14 +44,29 @@ final class ViewModel {
 
         action.selectObject
             .sink { [weak self] object in
-                
+
                 guard let self = self  else { return }
-                
+
                 let objects = self.state.drawingObjects.value
                 let newObjects = objects.map { element -> DrawingObject in
                     var newObject = element
                     newObject.isSelected = object.identifier == newObject.identifier && !newObject.isSelected
                     return newObject
+                }
+                self.state.drawingObjects.send(newObjects)
+            }
+            .store(in: &cancellables)
+
+        action.addObject
+            .sink { [weak self] object in
+
+                guard let self = self  else { return }
+
+                var newObjects = self.state.drawingObjects.value
+                if let index = newObjects.firstIndex(where: { $0.identifier == object.identifier }) {
+                    newObjects[index] = object
+                } else {
+                    newObjects.append(object)
                 }
                 self.state.drawingObjects.send(newObjects)
             }
