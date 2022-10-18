@@ -11,7 +11,7 @@ typealias StyledShape = Shape & StyleApplying
 
 class CanvasViewModel: CanvasDelegate {
     
-    @Published private(set) var shapes: [ShapeViewModel] = []
+    @Published private(set) var shapeVMs: [ShapeViewModel] = []
     
     var transformShape: ((StyledShape, ShapeViewModel) -> ShapeViewModel)?
     
@@ -41,7 +41,7 @@ class CanvasViewModel: CanvasDelegate {
     }
     
     func reloadCanvas() {
-        self.shapes = canvas.shapes
+        self.shapeVMs = canvas.shapes
             .compactMap { $0 as? StyledShape }
             .map { self.convertToShapeViewModel($0) }
     }
