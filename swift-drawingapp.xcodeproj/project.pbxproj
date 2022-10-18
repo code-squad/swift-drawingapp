@@ -7,15 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1C55E71228FC66ED009949C8 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E71128FC66ED009949C8 /* CanvasView.swift */; };
+		1C55E71428FC6B73009949C8 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E71328FC6B73009949C8 /* Tool.swift */; };
+		1C55E71628FC6B7F009949C8 /* ToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E71528FC6B7F009949C8 /* ToolBarView.swift */; };
+		1C55E71828FC6FD2009949C8 /* PolygonTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E71728FC6FD2009949C8 /* PolygonTool.swift */; };
+		1C55E71A28FC6FE2009949C8 /* InkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E71928FC6FE2009949C8 /* InkTool.swift */; };
+		1C55E71E28FD927C009949C8 /* Drawing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E71D28FD927C009949C8 /* Drawing.swift */; };
+		1C55E72228FD9307009949C8 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E72128FD9307009949C8 /* Item.swift */; };
+		1C55E72428FD9552009949C8 /* PolygonDrawingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E72328FD9552009949C8 /* PolygonDrawingUseCase.swift */; };
+		1C55E72628FD9569009949C8 /* InkDrawingUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E72528FD9569009949C8 /* InkDrawingUseCase.swift */; };
+		1C55E72828FD97EE009949C8 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E72728FD97EE009949C8 /* RectangleView.swift */; };
+		1C55E72A28FD982D009949C8 /* Stroke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E72928FD982D009949C8 /* Stroke.swift */; };
+		1C55E73428FDA281009949C8 /* UIInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E73328FDA281009949C8 /* UIInfo.swift */; };
+		1C55E73628FDA314009949C8 /* LayoutInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E73528FDA314009949C8 /* LayoutInfo.swift */; };
+		1C55E73C28FDB16D009949C8 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C55E73B28FDB16D009949C8 /* CanvasViewModel.swift */; };
+		1CC2E9F528FEEE6900D5234F /* Ink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E9F428FEEE6900D5234F /* Ink.swift */; };
+		1CC2E9F728FEF2C500D5234F /* PolygonDrawingUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E9F628FEF2C500D5234F /* PolygonDrawingUseCaseImpl.swift */; };
+		1CC2E9F928FEF2D600D5234F /* InkDrawingUseCaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E9F828FEF2D600D5234F /* InkDrawingUseCaseImpl.swift */; };
+		1CC2E9FB28FEF83A00D5234F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E9FA28FEF83A00D5234F /* Extensions.swift */; };
+		1CC2E9FE28FEFA1400D5234F /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E9FD28FEFA1400D5234F /* Global.swift */; };
+		1CC2EA0028FEFAC900D5234F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2E9FF28FEFAC900D5234F /* Point.swift */; };
+		1CC2EA0228FEFACD00D5234F /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CC2EA0128FEFACD00D5234F /* Size.swift */; };
 		83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E028725EFA00C777B1 /* AppDelegate.swift */; };
 		83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E228725EFA00C777B1 /* SceneDelegate.swift */; };
 		83A846E528725EFA00C777B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E428725EFA00C777B1 /* ViewController.swift */; };
 		83A846E828725EFA00C777B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83A846E628725EFA00C777B1 /* Main.storyboard */; };
 		83A846EA28725EFE00C777B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83A846E928725EFE00C777B1 /* Assets.xcassets */; };
 		83A846ED28725EFE00C777B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83A846EB28725EFE00C777B1 /* LaunchScreen.storyboard */; };
-		83A846F828725EFF00C777B1 /* swift_drawingappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846F728725EFF00C777B1 /* swift_drawingappTests.swift */; };
-		83A8470228725EFF00C777B1 /* swift_drawingappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A8470128725EFF00C777B1 /* swift_drawingappUITests.swift */; };
-		83A8470428725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A8470328725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift */; };
+		83A846F828725EFF00C777B1 /* CanvasViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846F728725EFF00C777B1 /* CanvasViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +45,30 @@
 			remoteGlobalIDString = 83A846DC28725EFA00C777B1;
 			remoteInfo = "swift-drawingapp";
 		};
-		83A846FE28725EFF00C777B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A846D528725EF900C777B1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A846DC28725EFA00C777B1;
-			remoteInfo = "swift-drawingapp";
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1C55E71128FC66ED009949C8 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		1C55E71328FC6B73009949C8 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		1C55E71528FC6B7F009949C8 /* ToolBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolBarView.swift; sourceTree = "<group>"; };
+		1C55E71728FC6FD2009949C8 /* PolygonTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonTool.swift; sourceTree = "<group>"; };
+		1C55E71928FC6FE2009949C8 /* InkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkTool.swift; sourceTree = "<group>"; };
+		1C55E71D28FD927C009949C8 /* Drawing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawing.swift; sourceTree = "<group>"; };
+		1C55E72128FD9307009949C8 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		1C55E72328FD9552009949C8 /* PolygonDrawingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonDrawingUseCase.swift; sourceTree = "<group>"; };
+		1C55E72528FD9569009949C8 /* InkDrawingUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkDrawingUseCase.swift; sourceTree = "<group>"; };
+		1C55E72728FD97EE009949C8 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
+		1C55E72928FD982D009949C8 /* Stroke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stroke.swift; sourceTree = "<group>"; };
+		1C55E73328FDA281009949C8 /* UIInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIInfo.swift; sourceTree = "<group>"; };
+		1C55E73528FDA314009949C8 /* LayoutInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutInfo.swift; sourceTree = "<group>"; };
+		1C55E73B28FDB16D009949C8 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		1CC2E9F428FEEE6900D5234F /* Ink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ink.swift; sourceTree = "<group>"; };
+		1CC2E9F628FEF2C500D5234F /* PolygonDrawingUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolygonDrawingUseCaseImpl.swift; sourceTree = "<group>"; };
+		1CC2E9F828FEF2D600D5234F /* InkDrawingUseCaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InkDrawingUseCaseImpl.swift; sourceTree = "<group>"; };
+		1CC2E9FA28FEF83A00D5234F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		1CC2E9FD28FEFA1400D5234F /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		1CC2E9FF28FEFAC900D5234F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		1CC2EA0128FEFACD00D5234F /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		83A846DD28725EFA00C777B1 /* swift-drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-drawingapp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A846E028725EFA00C777B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83A846E228725EFA00C777B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,10 +78,7 @@
 		83A846EC28725EFE00C777B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83A846EE28725EFE00C777B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83A846F328725EFF00C777B1 /* swift-drawingappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-drawingappTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		83A846F728725EFF00C777B1 /* swift_drawingappTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_drawingappTests.swift; sourceTree = "<group>"; };
-		83A846FD28725EFF00C777B1 /* swift-drawingappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-drawingappUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		83A8470128725EFF00C777B1 /* swift_drawingappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_drawingappUITests.swift; sourceTree = "<group>"; };
-		83A8470328725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_drawingappUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		83A846F728725EFF00C777B1 /* CanvasViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModelTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,22 +96,78 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83A846FA28725EFF00C777B1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C55E71F28FD92B1009949C8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1C55E72128FD9307009949C8 /* Item.swift */,
+				1CC2E9F428FEEE6900D5234F /* Ink.swift */,
+				1C55E71D28FD927C009949C8 /* Drawing.swift */,
+				1C55E73528FDA314009949C8 /* LayoutInfo.swift */,
+				1C55E73328FDA281009949C8 /* UIInfo.swift */,
+				1C55E72928FD982D009949C8 /* Stroke.swift */,
+				1C55E71928FC6FE2009949C8 /* InkTool.swift */,
+				1C55E71728FC6FD2009949C8 /* PolygonTool.swift */,
+				1C55E71328FC6B73009949C8 /* Tool.swift */,
+				1CC2E9FF28FEFAC900D5234F /* Point.swift */,
+				1CC2EA0128FEFACD00D5234F /* Size.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1C55E72028FD92BB009949C8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1C55E71528FC6B7F009949C8 /* ToolBarView.swift */,
+				1C55E71128FC66ED009949C8 /* CanvasView.swift */,
+				1C55E72728FD97EE009949C8 /* RectangleView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1C55E72E28FD9968009949C8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				83A846E428725EFA00C777B1 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1C55E73728FDAB07009949C8 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				1C55E72328FD9552009949C8 /* PolygonDrawingUseCase.swift */,
+				1CC2E9F628FEF2C500D5234F /* PolygonDrawingUseCaseImpl.swift */,
+				1C55E72528FD9569009949C8 /* InkDrawingUseCase.swift */,
+				1CC2E9F828FEF2D600D5234F /* InkDrawingUseCaseImpl.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		1C55E73828FDAB33009949C8 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1C55E73B28FDB16D009949C8 /* CanvasViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1CC2E9FC28FEF83D00D5234F /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				1CC2E9FA28FEF83A00D5234F /* Extensions.swift */,
+				1CC2E9FD28FEFA1400D5234F /* Global.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		83A846D428725EF900C777B1 = {
 			isa = PBXGroup;
 			children = (
 				83A846DF28725EFA00C777B1 /* swift-drawingapp */,
 				83A846F628725EFF00C777B1 /* swift-drawingappTests */,
-				83A8470028725EFF00C777B1 /* swift-drawingappUITests */,
 				83A846DE28725EFA00C777B1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,7 +177,6 @@
 			children = (
 				83A846DD28725EFA00C777B1 /* swift-drawingapp.app */,
 				83A846F328725EFF00C777B1 /* swift-drawingappTests.xctest */,
-				83A846FD28725EFF00C777B1 /* swift-drawingappUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,7 +186,12 @@
 			children = (
 				83A846E028725EFA00C777B1 /* AppDelegate.swift */,
 				83A846E228725EFA00C777B1 /* SceneDelegate.swift */,
-				83A846E428725EFA00C777B1 /* ViewController.swift */,
+				1C55E73728FDAB07009949C8 /* UseCases */,
+				1C55E72E28FD9968009949C8 /* Controllers */,
+				1C55E73828FDAB33009949C8 /* ViewModels */,
+				1C55E71F28FD92B1009949C8 /* Models */,
+				1C55E72028FD92BB009949C8 /* Views */,
+				1CC2E9FC28FEF83D00D5234F /* Utils */,
 				83A846E628725EFA00C777B1 /* Main.storyboard */,
 				83A846E928725EFE00C777B1 /* Assets.xcassets */,
 				83A846EB28725EFE00C777B1 /* LaunchScreen.storyboard */,
@@ -113,18 +203,9 @@
 		83A846F628725EFF00C777B1 /* swift-drawingappTests */ = {
 			isa = PBXGroup;
 			children = (
-				83A846F728725EFF00C777B1 /* swift_drawingappTests.swift */,
+				83A846F728725EFF00C777B1 /* CanvasViewModelTests.swift */,
 			);
 			path = "swift-drawingappTests";
-			sourceTree = "<group>";
-		};
-		83A8470028725EFF00C777B1 /* swift-drawingappUITests */ = {
-			isa = PBXGroup;
-			children = (
-				83A8470128725EFF00C777B1 /* swift_drawingappUITests.swift */,
-				83A8470328725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift */,
-			);
-			path = "swift-drawingappUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -165,24 +246,6 @@
 			productReference = 83A846F328725EFF00C777B1 /* swift-drawingappTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		83A846FC28725EFF00C777B1 /* swift-drawingappUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 83A8470D28725EFF00C777B1 /* Build configuration list for PBXNativeTarget "swift-drawingappUITests" */;
-			buildPhases = (
-				83A846F928725EFF00C777B1 /* Sources */,
-				83A846FA28725EFF00C777B1 /* Frameworks */,
-				83A846FB28725EFF00C777B1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				83A846FF28725EFF00C777B1 /* PBXTargetDependency */,
-			);
-			name = "swift-drawingappUITests";
-			productName = "swift-drawingappUITests";
-			productReference = 83A846FD28725EFF00C777B1 /* swift-drawingappUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,10 +260,6 @@
 						CreatedOnToolsVersion = 13.4.1;
 					};
 					83A846F228725EFF00C777B1 = {
-						CreatedOnToolsVersion = 13.4.1;
-						TestTargetID = 83A846DC28725EFA00C777B1;
-					};
-					83A846FC28725EFF00C777B1 = {
 						CreatedOnToolsVersion = 13.4.1;
 						TestTargetID = 83A846DC28725EFA00C777B1;
 					};
@@ -221,7 +280,6 @@
 			targets = (
 				83A846DC28725EFA00C777B1 /* swift-drawingapp */,
 				83A846F228725EFF00C777B1 /* swift-drawingappTests */,
-				83A846FC28725EFF00C777B1 /* swift-drawingappUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -244,13 +302,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		83A846FB28725EFF00C777B1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -258,9 +309,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1CC2E9FB28FEF83A00D5234F /* Extensions.swift in Sources */,
+				1C55E71628FC6B7F009949C8 /* ToolBarView.swift in Sources */,
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
+				1C55E73C28FDB16D009949C8 /* CanvasViewModel.swift in Sources */,
+				1C55E71828FC6FD2009949C8 /* PolygonTool.swift in Sources */,
+				1C55E71428FC6B73009949C8 /* Tool.swift in Sources */,
+				1CC2E9FE28FEFA1400D5234F /* Global.swift in Sources */,
+				1C55E72828FD97EE009949C8 /* RectangleView.swift in Sources */,
+				1CC2E9F528FEEE6900D5234F /* Ink.swift in Sources */,
+				1C55E71E28FD927C009949C8 /* Drawing.swift in Sources */,
+				1C55E73428FDA281009949C8 /* UIInfo.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
+				1C55E72A28FD982D009949C8 /* Stroke.swift in Sources */,
+				1CC2E9F928FEF2D600D5234F /* InkDrawingUseCaseImpl.swift in Sources */,
+				1C55E72228FD9307009949C8 /* Item.swift in Sources */,
+				1C55E73628FDA314009949C8 /* LayoutInfo.swift in Sources */,
+				1CC2EA0228FEFACD00D5234F /* Size.swift in Sources */,
+				1C55E72428FD9552009949C8 /* PolygonDrawingUseCase.swift in Sources */,
+				1C55E71A28FC6FE2009949C8 /* InkTool.swift in Sources */,
+				1C55E72628FD9569009949C8 /* InkDrawingUseCase.swift in Sources */,
+				1C55E71228FC66ED009949C8 /* CanvasView.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
+				1CC2E9F728FEF2C500D5234F /* PolygonDrawingUseCaseImpl.swift in Sources */,
+				1CC2EA0028FEFAC900D5234F /* Point.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,16 +340,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A846F828725EFF00C777B1 /* swift_drawingappTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		83A846F928725EFF00C777B1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				83A8470228725EFF00C777B1 /* swift_drawingappUITests.swift in Sources */,
-				83A8470428725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift in Sources */,
+				83A846F828725EFF00C777B1 /* CanvasViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,11 +351,6 @@
 			isa = PBXTargetDependency;
 			target = 83A846DC28725EFA00C777B1 /* swift-drawingapp */;
 			targetProxy = 83A846F428725EFF00C777B1 /* PBXContainerItemProxy */;
-		};
-		83A846FF28725EFF00C777B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A846DC28725EFA00C777B1 /* swift-drawingapp */;
-			targetProxy = 83A846FE28725EFF00C777B1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -522,40 +580,6 @@
 			};
 			name = Release;
 		};
-		83A8470E28725EFF00C777B1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kakaocorp.swift-drawingappUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "swift-drawingapp";
-			};
-			name = Debug;
-		};
-		83A8470F28725EFF00C777B1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.kakaocorp.swift-drawingappUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "swift-drawingapp";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -582,15 +606,6 @@
 			buildConfigurations = (
 				83A8470B28725EFF00C777B1 /* Debug */,
 				83A8470C28725EFF00C777B1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83A8470D28725EFF00C777B1 /* Build configuration list for PBXNativeTarget "swift-drawingappUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83A8470E28725EFF00C777B1 /* Debug */,
-				83A8470F28725EFF00C777B1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
