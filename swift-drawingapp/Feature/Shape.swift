@@ -10,7 +10,7 @@ import Foundation
 class Shape {
     var points: [Point] = [] {
         didSet {
-            delegate?.pointsDidChange(points)
+            delegate?.pointsChanged(points)
         }
     }
     
@@ -18,5 +18,5 @@ class Shape {
 }
 
 protocol ShapeDelegate: AnyObject {
-    func pointsDidChange(_ points: [Point])
+    func pointsChanged(_ points: [Point])
 }

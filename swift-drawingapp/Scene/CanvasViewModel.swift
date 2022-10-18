@@ -63,7 +63,7 @@ class CanvasViewModel: CanvasDelegate {
     
     // MARK: - CanvasDelegate
     
-    func shapesWillChange(_ shapes: [Shape]) {
+    func shapesChanged(_ shapes: [Shape]) {
         reloadCanvas()
     }
 }

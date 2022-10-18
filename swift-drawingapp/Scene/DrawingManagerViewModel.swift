@@ -57,7 +57,7 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
     
     // MARK: - DrawingManagerDelegate
     
-    func onSelectedShapesChanged(_ selectedShapes: [Shape]) {
+    func selectedShapesChanged(_ selectedShapes: [Shape]) {
         canvasViewModel.reloadCanvas()
     }
 }

@@ -12,7 +12,7 @@ class Canvas: ShapeDelegate {
     let size: Size
     private(set) var shapes: [Shape] = [] {
         didSet {
-            delegate?.shapesWillChange(shapes)
+            delegate?.shapesChanged(shapes)
         }
     }
     
@@ -40,11 +40,11 @@ class Canvas: ShapeDelegate {
     
     // MARK: - ShapeDelegate
     
-    func pointsDidChange(_ points: [Point]) {
-        delegate?.shapesWillChange(shapes)
+    func pointsChanged(_ points: [Point]) {
+        delegate?.shapesChanged(shapes)
     }
 }
 
 protocol CanvasDelegate: AnyObject {
-    func shapesWillChange(_ shapes: [Shape])
+    func shapesChanged(_ shapes: [Shape])
 }
