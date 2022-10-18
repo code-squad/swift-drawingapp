@@ -11,7 +11,7 @@ class DrawingManager {
     private(set) var canvas: Canvas = Canvas(size: .init(width: 500, height: 500))
     private(set) var selectedShapes: [Shape] = [] {
         didSet {
-            delegate?.onSelectedShapesChanged(selectedShapes)
+            delegate?.selectedShapesChanged(selectedShapes)
         }
     }
     weak var delegate: DrawingManagerDelegate?
@@ -50,5 +50,5 @@ class DrawingManager {
 }
 
 protocol DrawingManagerDelegate: AnyObject {
-    func onSelectedShapesChanged(_ selectedShapes: [Shape])
+    func selectedShapesChanged(_ selectedShapes: [Shape])
 }
