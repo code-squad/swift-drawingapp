@@ -25,7 +25,11 @@ final class DrawingCanvasView: UIView {
 
     private var lastPoint: CGPoint = .zero
     private var drawingColor: UIColor = .random
-    private var isDrawing: Bool = false
+    private var isDrawing: Bool = false {
+        didSet {
+            isDrawing ? showIsDrawing() : hideIsDrawing()
+        }
+    }
     var delegate: DrawingCanvasViewDelegate?
 
     init() {
@@ -118,6 +122,16 @@ final class DrawingCanvasView: UIView {
 
     func enableDrawing() {
         isDrawing = true
+    }
+
+    private func showIsDrawing() {
+        layer.borderColor = UIColor.systemRed.cgColor
+        layer.borderWidth = 1
+    }
+
+    private func hideIsDrawing() {
+        layer.borderColor = UIColor.gray.cgColor
+        layer.borderWidth = 0
     }
 }
 

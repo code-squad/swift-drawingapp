@@ -34,6 +34,12 @@ final class RectButton: UIButton {
         return stackView
     }()
 
+    override var isHighlighted: Bool {
+        didSet {
+            layer.borderColor = isHighlighted ? UIColor.systemRed.cgColor : UIColor.gray.cgColor
+        }
+    }
+
     init() {
         super.init(frame: .zero)
         layer.borderWidth = 1
