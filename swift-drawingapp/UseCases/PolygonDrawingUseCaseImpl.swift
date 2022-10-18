@@ -11,7 +11,7 @@ struct PolygonDrawingUseCaseImpl: PolygonDrawingUseCase {
 
     func create(point: Point) -> RectangleView {
         return .init(
-            layoutInfo: .init(size: Size(width: 300, height: 150), center: point),
+            layoutInfo: .init(size: Size(width: 100, height: 100), center: point),
             uiInfo: .init(backgroundColor: randomSystemColorName)
         )
     }

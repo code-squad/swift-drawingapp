@@ -79,10 +79,11 @@ class CanvasViewModel {
     
     func select(item: Item) {
         if !drawing.selectedItems.contains(where: { $0.id == item.id }) {
-            drawing.selectedItems.removeAll()
             drawing.selectedItems.append(item)
         } else {
-            drawing.selectedItems.removeAll()
+            if let idx = drawing.selectedItems.firstIndex(where: { $0.id == item.id }) {
+                drawing.selectedItems.remove(at: idx)
+            }
         }
         delegate?.viewModelDidSelected(self, items: drawing.selectedItems)
     }
