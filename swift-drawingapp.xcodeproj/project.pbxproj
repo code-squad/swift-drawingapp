@@ -21,6 +21,7 @@
 		B910992428FDB032003E4C6E /* DrawingObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910992328FDB032003E4C6E /* DrawingObject.swift */; };
 		B910992628FDB087003E4C6E /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910992528FDB087003E4C6E /* ViewModel.swift */; };
 		B910992C28FDB4BC003E4C6E /* UIColor+RandomSystemColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910992B28FDB4BC003E4C6E /* UIColor+RandomSystemColor.swift */; };
+		B910993228FDC458003E4C6E /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910993128FDC458003E4C6E /* RectangleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		B910992328FDB032003E4C6E /* DrawingObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingObject.swift; sourceTree = "<group>"; };
 		B910992528FDB087003E4C6E /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		B910992B28FDB4BC003E4C6E /* UIColor+RandomSystemColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RandomSystemColor.swift"; sourceTree = "<group>"; };
+		B910993128FDC458003E4C6E /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,8 +141,8 @@
 		B910991928FDAD44003E4C6E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B910991E28FDAE42003E4C6E /* Rectangle.swift */,
 				B910992328FDB032003E4C6E /* DrawingObject.swift */,
+				B910991E28FDAE42003E4C6E /* Rectangle.swift */,
 				B910992028FDAE67003E4C6E /* PathShape.swift */,
 			);
 			path = Models;
@@ -152,6 +154,7 @@
 				B910992528FDB087003E4C6E /* ViewModel.swift */,
 				83A846E428725EFA00C777B1 /* ViewController.swift */,
 				83A846E628725EFA00C777B1 /* Main.storyboard */,
+				B910993128FDC458003E4C6E /* RectangleView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
 				B910991F28FDAE42003E4C6E /* Rectangle.swift in Sources */,
 				B910992C28FDB4BC003E4C6E /* UIColor+RandomSystemColor.swift in Sources */,
+				B910993228FDC458003E4C6E /* RectangleView.swift in Sources */,
 				B910992128FDAE67003E4C6E /* PathShape.swift in Sources */,
 				B910992428FDB032003E4C6E /* DrawingObject.swift in Sources */,
 				B910992628FDB087003E4C6E /* ViewModel.swift in Sources */,

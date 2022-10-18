@@ -11,7 +11,7 @@ extension UIColor {
 
     static let systemColorsWithoutRed: [UIColor] = [.systemGray, .systemMint, .systemCyan, .systemBlue, .systemPink, .systemTeal, .systemBrown, .systemIndigo, .systemOrange, .systemGreen, .systemYellow]
 
-    var randomColor: UIColor {
+    static var randomColor: UIColor {
         return UIColor.systemColorsWithoutRed.randomElement() ?? .systemGray5
     }
 }
