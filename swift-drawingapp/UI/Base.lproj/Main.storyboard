@@ -16,26 +16,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJ9-zi-aCJ">
-                                <rect key="frame" x="362" y="1288" width="76" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="사각형">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
-                                </buttonConfiguration>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIP-XR-juo">
-                                <rect key="frame" x="588" y="1288" width="76" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="드로잉">
-                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
-                                </buttonConfiguration>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VB0-uS-d5i" userLabel="canvasView">
+                                <rect key="frame" x="10" y="34" width="1004" height="1252"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="150" translatesAutoresizingMaskIntoConstraints="NO" id="ijJ-4T-LMM">
+                                <rect key="frame" x="361" y="1296" width="302" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJ9-zi-aCJ">
+                                        <rect key="frame" x="0.0" y="0.0" width="76" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="사각형">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WIP-XR-juo">
+                                        <rect key="frame" x="226" y="0.0" width="76" height="50"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="드로잉">
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Mvp-5v-Bd2"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ijJ-4T-LMM" secondAttribute="bottom" id="1nu-9r-5R1"/>
+                            <constraint firstItem="ijJ-4T-LMM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7ja-8s-h3k"/>
+                            <constraint firstItem="VB0-uS-d5i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Rts-Ji-zdv"/>
+                            <constraint firstItem="ijJ-4T-LMM" firstAttribute="top" secondItem="VB0-uS-d5i" secondAttribute="bottom" constant="10" id="Usl-EY-a1o"/>
+                            <constraint firstItem="VB0-uS-d5i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="azW-il-aJx"/>
+                            <constraint firstAttribute="trailing" secondItem="VB0-uS-d5i" secondAttribute="trailing" constant="10" id="pg5-93-AfZ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addRectangleButton" destination="cJ9-zi-aCJ" id="FAo-fw-Q0L"/>
+                        <outlet property="canvasView" destination="VB0-uS-d5i" id="xfH-Zv-M1E"/>
+                        <outlet property="drawingButton" destination="WIP-XR-juo" id="uqf-Pd-5qj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
