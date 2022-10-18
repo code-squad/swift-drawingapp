@@ -20,11 +20,11 @@ class CanvasViewModel {
     
     let inkDrawingUseCase: InkDrawingUseCase
     
-    weak var delegate: CanvasViewModelDelegate?
-    
     var drawing: Drawing
     
     var currentDrawingStroke: Stroke?
+    
+    weak var delegate: CanvasViewModelDelegate?
     
     init(
         drawing: Drawing = .init(),
