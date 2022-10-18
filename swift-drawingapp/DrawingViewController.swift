@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class DrawingViewController: UIViewController {
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,10 +75,10 @@ class ViewController: UIViewController {
 
         let rectView = RectView(id: rect.id)
         rectView.frame = .init(
-            origin: .random(in: view.frame),
+            origin: .random(min: .zero, max: .init(x: view.frame.maxX - 100, y: buttonStackView.frame.minY - 100)),
             size: .init(width: 100, height: 100)
         )
-        rectView.backgroundColor = .random
+        rectView.backgroundColor = .random.withAlphaComponent(0.6)
         rectView.addTarget(self, action: #selector(didTapRectView), for: .touchUpInside)
         view.addSubview(rectView)
     }
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: DrawingCanvasViewDelegate {
+extension DrawingViewController: DrawingCanvasViewDelegate {
     func drawingCanvasView(didDrawTo path: CGPoint, state: DrawingCanvasView.DrawingState) {
         switch state {
         case .began:
