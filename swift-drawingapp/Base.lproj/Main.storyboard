@@ -1,24 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="ipad9_7" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="swift_drawingapp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f55-7O-YWu" userLabel="ToolBarView" customClass="ToolBarView" customModule="swift_drawingapp" customModuleProvider="target">
+                                <rect key="frame" x="334" y="974" width="100" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ghC-fV-a3U">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r42-KL-KA3">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="OY0-ZI-qDb"/>
+                                                    <constraint firstAttribute="width" secondItem="r42-KL-KA3" secondAttribute="height" multiplier="1:1" id="xUO-Ne-i8E"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="rectangle_button">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapButtonWithSender:" destination="f55-7O-YWu" eventType="touchUpInside" id="J0U-fD-fp3"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDA-PQ-HBG">
+                                                <rect key="frame" x="50" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="UDA-PQ-HBG" secondAttribute="height" multiplier="1:1" id="8FR-OU-7lY"/>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="XnH-hz-FtJ"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="drawing_button"/>
+                                                <connections>
+                                                    <action selector="didTapButtonWithSender:" destination="f55-7O-YWu" eventType="touchUpInside" id="JSM-Kw-qrJ"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="ghC-fV-a3U" firstAttribute="top" secondItem="f55-7O-YWu" secondAttribute="top" id="1iY-vS-zgq"/>
+                                    <constraint firstAttribute="trailing" secondItem="ghC-fV-a3U" secondAttribute="trailing" id="9V5-H3-p4J"/>
+                                    <constraint firstAttribute="bottom" secondItem="ghC-fV-a3U" secondAttribute="bottom" id="s4U-a5-LU5"/>
+                                    <constraint firstItem="ghC-fV-a3U" firstAttribute="leading" secondItem="f55-7O-YWu" secondAttribute="leading" id="yrG-uq-6aM"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="drawingButton" destination="UDA-PQ-HBG" id="KT3-gS-xaO"/>
+                                    <outlet property="rectangleButton" destination="r42-KL-KA3" id="AUV-Yg-v5G"/>
+                                </connections>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgG-wK-5Xm" customClass="CanvasView" customModule="swift_drawingapp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="768" height="954"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <gestureRecognizers/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="wgG-wK-5Xm" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="4aw-72-aIm"/>
+                            <constraint firstItem="f55-7O-YWu" firstAttribute="top" secondItem="wgG-wK-5Xm" secondAttribute="bottom" id="Ahl-sL-Utu"/>
+                            <constraint firstItem="f55-7O-YWu" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Z5c-EM-GG6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="f55-7O-YWu" secondAttribute="bottom" id="hyo-Ql-weq"/>
+                            <constraint firstItem="wgG-wK-5Xm" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="n2H-hz-bf1"/>
+                            <constraint firstItem="wgG-wK-5Xm" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="qIV-9V-Nkl"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="canvasView" destination="wgG-wK-5Xm" id="4UE-OD-yKt"/>
+                        <outlet property="toolbarView" destination="f55-7O-YWu" id="BHK-Qg-tGI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="112.5" y="-2.34375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="drawing_button" width="104" height="91"/>
+        <image name="rectangle_button" width="104" height="90"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
