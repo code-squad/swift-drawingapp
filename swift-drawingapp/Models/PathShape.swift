@@ -9,9 +9,11 @@ import UIKit
 
 struct PathShape: DrawingObject {
 
-    var isSelected: Bool
+    var isSelected: Bool = false
 
     let identifier: String = UUID().uuidString
-    let origin: CGPoint
+    var origin: CGPoint
+    var size: CGSize
     let color: UIColor
+    var paths: [CGPoint]
 }

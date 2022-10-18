@@ -42,6 +42,12 @@
                                     <constraint firstAttribute="height" constant="50" id="Mvp-5v-Bd2"/>
                                 </constraints>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="그림을 그려주세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jVm-wS-HZw">
+                                <rect key="frame" x="366" y="658.5" width="292.5" height="49"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -50,19 +56,22 @@
                             <constraint firstItem="ijJ-4T-LMM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7ja-8s-h3k"/>
                             <constraint firstItem="VB0-uS-d5i" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Rts-Ji-zdv"/>
                             <constraint firstItem="ijJ-4T-LMM" firstAttribute="top" secondItem="VB0-uS-d5i" secondAttribute="bottom" constant="10" id="Usl-EY-a1o"/>
+                            <constraint firstItem="jVm-wS-HZw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="WNO-BS-aW4"/>
                             <constraint firstItem="VB0-uS-d5i" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="azW-il-aJx"/>
                             <constraint firstAttribute="trailing" secondItem="VB0-uS-d5i" secondAttribute="trailing" constant="10" id="pg5-93-AfZ"/>
+                            <constraint firstItem="jVm-wS-HZw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wUa-Rr-iKe"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="addRectangleButton" destination="cJ9-zi-aCJ" id="FAo-fw-Q0L"/>
                         <outlet property="canvasView" destination="VB0-uS-d5i" id="xfH-Zv-M1E"/>
                         <outlet property="drawingButton" destination="WIP-XR-juo" id="uqf-Pd-5qj"/>
+                        <outlet property="indicatorLabel" destination="jVm-wS-HZw" id="C0l-4N-3mT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="30" y="65"/>
+            <point key="canvasLocation" x="29.882812499999996" y="64.568081991215223"/>
         </scene>
     </scenes>
     <resources>

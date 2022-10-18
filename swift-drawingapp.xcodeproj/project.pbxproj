@@ -22,6 +22,7 @@
 		B910992628FDB087003E4C6E /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910992528FDB087003E4C6E /* ViewModel.swift */; };
 		B910992C28FDB4BC003E4C6E /* UIColor+RandomSystemColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910992B28FDB4BC003E4C6E /* UIColor+RandomSystemColor.swift */; };
 		B910993228FDC458003E4C6E /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910993128FDC458003E4C6E /* RectangleView.swift */; };
+		B93F17E028FF232400BFD5CD /* PathShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B93F17DF28FF232400BFD5CD /* PathShapeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		B910992528FDB087003E4C6E /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		B910992B28FDB4BC003E4C6E /* UIColor+RandomSystemColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+RandomSystemColor.swift"; sourceTree = "<group>"; };
 		B910993128FDC458003E4C6E /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
+		B93F17DF28FF232400BFD5CD /* PathShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PathShapeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +157,7 @@
 				83A846E428725EFA00C777B1 /* ViewController.swift */,
 				83A846E628725EFA00C777B1 /* Main.storyboard */,
 				B910993128FDC458003E4C6E /* RectangleView.swift */,
+				B93F17DF28FF232400BFD5CD /* PathShapeView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				B910992128FDAE67003E4C6E /* PathShape.swift in Sources */,
 				B910992428FDB032003E4C6E /* DrawingObject.swift in Sources */,
 				B910992628FDB087003E4C6E /* ViewModel.swift in Sources */,
+				B93F17E028FF232400BFD5CD /* PathShapeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
