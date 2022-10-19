@@ -26,7 +26,7 @@ final class CanvasView: UIView {
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        return shapeViews.first(where: { shapeView in
+        return shapeViews.reversed().first(where: { shapeView in
             let p = convert(point, to: shapeView)
             return shapeView.bounds.contains(p)
         })
