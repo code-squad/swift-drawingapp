@@ -7,30 +7,99 @@
 
 import XCTest
 @testable import swift_drawingapp
+import Combine
 
-class swift_drawingappTests: XCTestCase {
+final class swift_drawingappTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
+    var subscription = Set<AnyCancellable>()
 
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+
+        subscription.removeAll()
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    func test_AddRectangle() {
+        let viewModel = ViewModel()
+
+        let expectation = self.expectation(description: "test_AddRectangle")
+
+        viewModel.state.canvasRect.send(.init(origin: .zero, size: .init(width: 1000, height: 1000)))
+        viewModel.action.addRectangle.send(())
+
+        viewModel.state.drawingObjects
+            .filter { !$0.isEmpty }
+            .sink { objects in
+                defer { expectation.fulfill() }
+                guard let rect = objects.first else {
+                    XCTFail("Not added")
+                    return
+                }
+                XCTAssert(rect is Rectangle)
+            }.store(in: &subscription)
+
+
+        waitForExpectations(timeout: 2, handler: nil)
+
     }
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func test_AddPathShape() {
+        let viewModel = ViewModel()
+
+        let expectation = self.expectation(description: "test_AddPathShape")
+
+        viewModel.state.canvasRect.send(.init(origin: .zero, size: .init(width: 1000, height: 1000)))
+        viewModel.action.addObject.send(PathShape(isSelected: false, origin: .zero, size: .zero, color: .randomColor, paths: []))
+
+        viewModel.state.drawingObjects
+            .filter { !$0.isEmpty }
+            .sink { objects in
+                defer { expectation.fulfill() }
+                guard let object = objects.first else {
+                    XCTFail("Not added")
+                    return
+                }
+                XCTAssert(object is PathShape)
+            }.store(in: &subscription)
+
+
+        waitForExpectations(timeout: 2, handler: nil)
+
     }
 
+    func test_AddSelectObject() {
+        let viewModel = ViewModel()
+
+        let expectation = self.expectation(description: "test_AddPathShape")
+
+        viewModel.state.canvasRect.send(.init(origin: .zero, size: .init(width: 1000, height: 1000)))
+        let object = PathShape(isSelected: false, origin: .zero, size: .zero, color: .randomColor, paths: [])
+        viewModel.state.drawingObjects
+            .filter { !$0.isEmpty }
+            .prefix(1)
+            .sink { objects in
+                guard let object = objects.first else {
+                    XCTFail("Not added")
+                    return
+                }
+                viewModel.action.selectObject.send(object)
+            }.store(in: &subscription)
+
+        viewModel.state.drawingObjects
+            .filter { !$0.isEmpty }
+            .dropFirst()
+            .sink { objects in
+                defer { expectation.fulfill() }
+                guard let object = objects.first else {
+                    XCTFail("Not added")
+                    return
+                }
+                XCTAssert(object.isSelected)
+            }.store(in: &subscription)
+
+        viewModel.action.addObject.send(object)
+
+
+        waitForExpectations(timeout: 3, handler: nil)
+
+    }
 }
