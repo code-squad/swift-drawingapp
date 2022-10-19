@@ -24,18 +24,20 @@ class DrawingInteractor: DrawingBusinessLogic, DrawingDataStore {
     var worker: DrawingWorker?
 
     func addSquare(request: Drawing.AddSquareEvent.Request) {
-        let randomX = (0...Int(floor(request.bounds.width - Drawing.squareSize.width))).randomElement() ?? 0
-        let randomY = (0...Int(floor(request.bounds.height - Drawing.squareSize.height))).randomElement() ?? 0
-        let origin = CGPoint(x: randomX, y: randomY)
+        var origin = Drawing.defaultOrigin
+        if let randomX = (0...Int(floor(request.bounds.width - Drawing.squareSize.width))).randomElement(),
+           let randomY = (0...Int(floor(request.bounds.height - Drawing.squareSize.height))).randomElement() {
+            origin = CGPoint(x: randomX, y: randomY)
+        }
         let size = Drawing.squareSize
-        let color = Drawing.allSystemColor.randomElement() ?? .systemYellow
+        let color = Drawing.allSystemColor.randomElement() ?? Drawing.defaultColor
         let response = Drawing.AddSquareEvent.Response(rect: .init(origin: origin, size: size),
                                                        color: color)
         presenter?.presentSquare(response: response)
     }
     
     func addLine(request: Drawing.DrawEvent.Request) {
-        let color = Drawing.allSystemColor.randomElement() ?? .systemYellow
+        let color = Drawing.allSystemColor.randomElement() ?? Drawing.defaultColor
         let response = Drawing.DrawEvent.Response(rect: request.bounds, color: color)
         presenter?.presentDraw(response: response)
     }

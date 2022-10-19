@@ -14,9 +14,11 @@ import UIKit
 
 enum Drawing {
     static let squareSize: CGSize = .init(width: 100, height: 100)
+    static let defaultOrigin: CGPoint = .zero
     static let allSystemColor: [UIColor] = [.systemBlue, .systemCyan, .systemFill,
                                             .systemGray, .systemMint, .systemPink,
                                             .systemTeal, .systemBrown, .systemOrange]
+    static let defaultColor: UIColor = .black
     
     enum AddSquareEvent {
         struct Request {
