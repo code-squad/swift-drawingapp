@@ -14,96 +14,122 @@ class ViewController: UIViewController {
     
     @IBOutlet var rectangleButton: UIButton!
     @IBOutlet var drawingButton: UIButton!
-    
-    var strokeColor: UIColor?
+    var drawingPoints: [CGPoint] = []
+    var strokeColor: CGColor = ColorSet.randomColor.cgColor
     var lastPoint: CGPoint = CGPoint.zero
-    var isBeingSwiped: Bool = false
-    var shape: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        rectangleButton.isSelected = true
-        shape = "rectangle"
     }
     
     @IBAction func rectangleButtonClicked(_ sender: UIButton) {
-        rectangleButton.isSelected = true
-        drawingButton.isSelected = false
-        shape = "rectangle"
+        let width: CGFloat = 100.0
+        let height: CGFloat = 100.0
+        let rect =  CGRect(x: CGFloat.random(in: 0 ..< view.bounds.width - width),
+                           y: CGFloat.random(in: 0 ..< view.bounds.height - height),
+                           width: width,
+                           height: height)
+        let rectView = UIView(frame: rect)
+        
+        rectView.backgroundColor = ColorSet.randomColor
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(touchAction(_:)))
+        rectView.addGestureRecognizer(tapGesture)
+        canvasImageView.isUserInteractionEnabled = true
+        canvasImageView.addSubview(rectView)
+    }
+    
+    @objc func touchAction(_ sender: UITapGestureRecognizer) {
+        guard let view = sender.view else { return }
+        
+        if view.layer.borderWidth == 0 {
+            view.layer.borderWidth = 10
+            view.layer.borderColor = UIColor.systemRed.cgColor
+        } else {
+            view.layer.borderWidth = 0
+            view.layer.borderColor = nil
+        }
     }
     
     @IBAction func drawingButtonClicked(_ sender: UIButton) {
-        rectangleButton.isSelected = false
-        drawingButton.isSelected = true
-        shape = "drawing"
-    }
-    
-    @IBAction func resetButtonClicked(_ sender: UIButton) {
-        canvasImageView.image = nil
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        strokeColor = ColorSet.randomColor
-
-        guard let touch = touches.first else { return }
-
-        isBeingSwiped = false
-        lastPoint = touch.location(in: view)
-    }
-
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-
-        isBeingSwiped = true
-
-        let currentPoint = touch.location(in: view)
-
-        if shape == "rectangle" {
-            tmpImageView.image = nil
-            draw(from: lastPoint, to: currentPoint)
-        } else if shape == "drawing" {
-            draw(from: lastPoint, to: currentPoint)
-            lastPoint = currentPoint
-        }
+        drawingButton.isSelected = drawingButton.isSelected == false
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if isBeingSwiped == false {
-            draw(from: lastPoint, to: lastPoint)
-        }
-        UIGraphicsBeginImageContext(canvasImageView.frame.size)
-        canvasImageView.image?.draw(in: view.bounds, blendMode: .normal, alpha: 1.0)
-        tmpImageView?.image?.draw(in: view.bounds, blendMode: .normal, alpha: 1.0)
-        canvasImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-
-        tmpImageView.image = nil
+        draw(on: canvasImageView)
     }
     
-    func draw(from fromPoint: CGPoint, to toPoint: CGPoint) {
-        UIGraphicsBeginImageContext(view.frame.size)
-        guard let context = UIGraphicsGetCurrentContext(),
-              let strokeColor = strokeColor else { return }
-        tmpImageView.image?.draw(in: view.bounds)
+    func draw(on view: UIImageView) {
+        guard drawingButton.isSelected else { return }
+        let drawingView = UIImageView(frame: self.view.frame)
+        UIGraphicsBeginImageContext(drawingView.frame.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return }
         
-        if shape == "rectangle" {
-            let rect =  CGRect(x: fromPoint.x,
-                               y: fromPoint.y,
-                               width: toPoint.x - fromPoint.x,
-                               height: toPoint.y - fromPoint.y)
-            context.addRect(rect)
-        } else if shape == "drawing" {
-            context.move(to: fromPoint)
-            context.addLine(to: toPoint)
+        context.move(to: drawingPoints[0])
+        context.addLine(to: drawingPoints[0])
+        
+        for i in 0 ..< drawingPoints.count - 1 {
+            drawingView.image?.draw(in: self.view.bounds)
+            
+            context.move(to: drawingPoints[i])
+            context.addLine(to: drawingPoints[i + 1])
         }
         
         context.setLineCap(.round)
         context.setBlendMode(.normal)
         context.setLineWidth(10.0)
-        context.setStrokeColor(strokeColor.cgColor)
+        context.setStrokeColor(strokeColor)
+        context.strokePath()
+
+        drawingView.image = UIGraphicsGetImageFromCurrentImageContext()
+        
+        view.addSubview(drawingView)
+        UIGraphicsEndImageContext()
+        
+        tmpImageView.image = nil
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard drawingButton.isSelected else { return }
+        strokeColor = ColorSet.randomColor.cgColor
+        guard let touch = touches.first else { return }
+
+        drawingPoints = []
+        drawingPoints.append(touch.location(in: view))
+        
+        lastPoint = touch.location(in: view)
+        draw(from: lastPoint, to: lastPoint)
+    }
+
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard drawingButton.isSelected else { return }
+        guard let touch = touches.first else { return }
+
+        drawingPoints.append(touch.location(in: view))
+        
+        let currentPoint = touch.location(in: view)
+        draw(from: lastPoint, to: currentPoint)
+        lastPoint = currentPoint
+    }
+    
+    func draw(from fromPoint: CGPoint, to toPoint: CGPoint) {
+        UIGraphicsBeginImageContext(view.frame.size)
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        tmpImageView.image?.draw(in: view.bounds)
+        
+        context.move(to: fromPoint)
+        context.addLine(to: toPoint)
+        
+        context.setLineCap(.round)
+        context.setBlendMode(.normal)
+        context.setLineWidth(10.0)
+        context.setStrokeColor(strokeColor)
         context.strokePath()
         
         tmpImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
     }
+    
+    
+    
 }

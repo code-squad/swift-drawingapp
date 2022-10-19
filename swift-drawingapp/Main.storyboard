@@ -55,28 +55,14 @@
                                     <constraint firstAttribute="width" constant="208" id="nns-qh-rhH"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JH2-16-5en">
-                                <rect key="frame" x="624" y="1013" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="2aX-0c-D5a"/>
-                                    <constraint firstAttribute="height" constant="100" id="Gnx-N6-xhx"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="tinted" title="초기화"/>
-                                <connections>
-                                    <action selector="resetButtonClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="FQc-Py-Xaw"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="bVn-x9-PWZ" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Fk6-66-ncs"/>
                             <constraint firstAttribute="bottom" secondItem="bVn-x9-PWZ" secondAttribute="bottom" id="LBH-eg-Ler"/>
-                            <constraint firstItem="JH2-16-5en" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Mde-uL-Rp2"/>
                             <constraint firstItem="sa6-93-GtW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="NFp-hS-dh8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="sa6-93-GtW" secondAttribute="trailing" id="R6s-Ck-zHJ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="JH2-16-5en" secondAttribute="trailing" constant="20" id="RaM-KQ-lko"/>
                             <constraint firstItem="bVn-x9-PWZ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="acA-9l-kYb"/>
                             <constraint firstItem="bVn-x9-PWZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="c8i-Eg-0ae"/>
                             <constraint firstItem="sa6-93-GtW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jd6-DV-Hq4"/>
