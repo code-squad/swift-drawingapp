@@ -24,8 +24,8 @@ class DrawingInteractor: DrawingBusinessLogic, DrawingDataStore {
     var worker: DrawingWorker?
 
     func addSquare(request: Drawing.AddSquareEvent.Request) {
-        let randomX = (0...Int(floor(request.bounds.width))).randomElement() ?? 0
-        let randomY = (0...Int(floor(request.bounds.height))).randomElement() ?? 0
+        let randomX = (0...Int(floor(request.bounds.width - Drawing.squareSize.width))).randomElement() ?? 0
+        let randomY = (0...Int(floor(request.bounds.height - Drawing.squareSize.height))).randomElement() ?? 0
         let origin = CGPoint(x: randomX, y: randomY)
         let size = Drawing.squareSize
         let color = Drawing.allSystemColor.randomElement() ?? .systemYellow
