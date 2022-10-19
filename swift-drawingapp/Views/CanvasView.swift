@@ -42,8 +42,7 @@ final class CanvasView: UIView {
     private func touchedView(_ sender: UITapGestureRecognizer) {
         guard let hitView = hitTest(sender.location(in: self), with: .none) as? ShapeView else { return }
         
-        shapeViews.forEach({ $0.hideBorderLine() })
-        hitView.showBoderLine()
+        hitView.isSelected = !hitView.isSelected
     }
 }
 
