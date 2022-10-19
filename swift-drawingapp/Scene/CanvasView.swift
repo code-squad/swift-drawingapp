@@ -78,9 +78,9 @@ class CanvasView: UIView {
         }
     }
     
-    private func makeShapeView(_ shape: ShapeViewModel) -> ShapeView {
+    private func makeShapeView(_ shapeVM: ShapeViewModel) -> ShapeView {
         let shapeView = ShapeView(frame: bounds)
-        shapeView.updateShape(shape)
+        shapeView.updateShape(shapeVM)
         return shapeView
     }
 }
