@@ -9,6 +9,12 @@ import UIKit
 
 class ShapeView: UIView {
     let uuid: UUID
+    var isSelected: Bool = false {
+        didSet {
+            if isSelected { showBoderLine() }
+            else { hideBorderLine() }
+        }
+    }
     
     public override init(frame: CGRect) {
         self.uuid = UUID()
@@ -19,12 +25,12 @@ class ShapeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func showBoderLine() {
+    private func showBoderLine() {
         layer.borderColor = UIColor.red.cgColor
-        layer.borderWidth = 1
+        layer.borderWidth = 3
     }
     
-    func hideBorderLine() {
+    private func hideBorderLine() {
         layer.borderColor = UIColor.clear.cgColor
         layer.borderWidth = 0
     }

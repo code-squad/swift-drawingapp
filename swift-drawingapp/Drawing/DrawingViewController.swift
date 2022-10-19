@@ -83,22 +83,24 @@ final class DrawingViewController: UIViewController {
 extension DrawingViewController {
     private func setupUI() {
         view.backgroundColor = .white
+        let stackView = UIStackView(arrangedSubviews: [addSquareButton, drawButton])
+        stackView.axis = .horizontal
+        stackView.spacing = 20
+        view.addSubview(stackView)
         view.addSubview(canvasView)
+        
+        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        let stackViewConstraints = [stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                    stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)]
+        NSLayoutConstraint.activate(stackViewConstraints)
+        
         canvasView.translatesAutoresizingMaskIntoConstraints = false
         let canvasViewConstraints = [canvasView.topAnchor.constraint(equalTo: view.topAnchor),
                                      canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                                      canvasView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                                      canvasView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)]
         NSLayoutConstraint.activate(canvasViewConstraints)
-        
-        let stackView = UIStackView(arrangedSubviews: [addSquareButton, drawButton])
-        stackView.axis = .horizontal
-        stackView.spacing = 20
-        view.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        let stackViewConstraints = [stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                    stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)]
-        NSLayoutConstraint.activate(stackViewConstraints)
     }
     
     func touchedAddSquareButton(_ action: UIAction?) {
