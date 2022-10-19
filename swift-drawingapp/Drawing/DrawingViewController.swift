@@ -102,17 +102,29 @@ extension DrawingViewController {
     }
     
     func touchedAddSquareButton(_ action: UIAction?) {
+        let request = Drawing.AddSquareEvent.Request(bounds: self.canvasView.frame.size)
+        interactor?.addSquare(request: request)
     }
     
     func touchedDrawButton(_ action: UIAction?) {
+        let request = Drawing.DrawEvent.Request(bounds: self.canvasView.frame)
+        interactor?.addLine(request: request)
     }
 }
 
 // MARK: Present
 extension DrawingViewController: DrawingDisplayLogic {
     func disPlayNewDrawView(viewModel: Drawing.DrawEvent.ViewModel) {
+        let drawView = DrawView()
+        drawView.frame = viewModel.rect
+        drawView.lineColor = viewModel.color
+        canvasView.addSubview(drawView)
     }
     
     func disPlayNewSquareView(viewModel: Drawing.AddSquareEvent.ViewModel) {
+        let squareView = SquareView()
+        squareView.frame = viewModel.rect
+        squareView.backgroundColor = viewModel.color
+        canvasView.addSubview(squareView)
     }
 }

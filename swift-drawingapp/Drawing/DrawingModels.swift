@@ -13,6 +13,10 @@
 import UIKit
 
 enum Drawing {
+    static let squareSize: CGSize = .init(width: 100, height: 100)
+    static let allSystemColor: [UIColor] = [.systemBlue, .systemCyan, .systemFill,
+                                            .systemGray, .systemMint, .systemPink,
+                                            .systemTeal, .systemBrown, .systemOrange]
     
     enum AddSquareEvent {
         struct Request {
