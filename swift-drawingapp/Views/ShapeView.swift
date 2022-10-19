@@ -10,9 +10,9 @@ import UIKit
 class ShapeView: UIView {
     let uuid: UUID
     
-    public init() {
+    public override init(frame: CGRect) {
         self.uuid = UUID()
-        super.init(frame: .zero)
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {

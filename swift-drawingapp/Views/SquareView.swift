@@ -8,8 +8,8 @@
 import UIKit
 
 final class SquareView: ShapeView {
-    public override init() {
-        super.init()
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {

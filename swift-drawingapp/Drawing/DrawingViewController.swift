@@ -115,15 +115,13 @@ extension DrawingViewController {
 // MARK: Present
 extension DrawingViewController: DrawingDisplayLogic {
     func disPlayNewDrawView(viewModel: Drawing.DrawEvent.ViewModel) {
-        let drawView = DrawView()
-        drawView.frame = viewModel.rect
+        let drawView = DrawView(frame: viewModel.rect)
         drawView.lineColor = viewModel.color
         canvasView.addSubview(drawView)
     }
     
     func disPlayNewSquareView(viewModel: Drawing.AddSquareEvent.ViewModel) {
-        let squareView = SquareView()
-        squareView.frame = viewModel.rect
+        let squareView = SquareView(frame: viewModel.rect)
         squareView.backgroundColor = viewModel.color
         canvasView.addSubview(squareView)
     }

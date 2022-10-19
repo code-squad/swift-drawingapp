@@ -9,13 +9,20 @@ import UIKit
 
 final class DrawView: ShapeView {
     private let drawingGesture = UIPanGestureRecognizer()
-    private var path: UIBezierPath = UIBezierPath()
     private var pathX: CGFloat = .infinity
     private var pathY: CGFloat = .infinity
+    
+    private lazy var path: UIBezierPath = {
+        let path = UIBezierPath()
+        path.lineWidth = 2
+        path.lineCapStyle = .round
+        return path
+    }()
+    
     var lineColor: UIColor = .black
     
-    public override init() {
-        super.init()
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
         self.backgroundColor = .clear
         self.isUserInteractionEnabled = true
         self.addGesture()
@@ -30,9 +37,7 @@ final class DrawView: ShapeView {
         let context = UIGraphicsGetCurrentContext()
         context?.setFillColor(UIColor.clear.cgColor)
         
-        path.lineWidth = 2
-        path.lineCapStyle = .round
-        self.lineColor.setStroke()
+        lineColor.setStroke()
         path.stroke()
     }
     
@@ -47,29 +52,24 @@ final class DrawView: ShapeView {
     
     @objc
     private func panGestureHandler(_ sender: UIPanGestureRecognizer) {
+        defer {
+            setNeedsDisplay()
+        }
+        
         let point = sender.location(in: self)
-
         switch sender.state {
         case .began:
-            drawLine(to: point,from: point)
-        case .changed:
-            drawLine(from: point)
-        case .ended:
-            drawLine(from: point)
-            endedDraw()
+            path.move(to: point)
+            savePathOrigin(point)
+            
+        case .changed, .ended:
+            path.addLine(to: point)
+            savePathOrigin(point)
+            
+            if sender.state == .ended { endedGesture() }
         default:
-          return
+            return
         }
-    }
-    
-    private func drawLine(to: CGPoint? = nil, from: CGPoint) {
-        if let to = to {
-            path.move(to: to)
-            savePathOrigin(to)
-        }
-        path.addLine(to: from)
-        savePathOrigin(from)
-        setNeedsDisplay()
     }
     
     private func savePathOrigin(_ point: CGPoint) {
@@ -77,7 +77,7 @@ final class DrawView: ShapeView {
         pathY = min(pathY, point.y)
     }
     
-    private func endedDraw() {
+    private func endedGesture() {
         // MARK: view resizing
         let origin = CGPoint(x: pathX, y: pathY)
         self.frame = CGRect(origin: origin,
