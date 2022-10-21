@@ -12,7 +12,7 @@ import UIKit
 class ViewController: UIViewController {
     
     private let viewModel = ViewModel()
-    private let drawingMaker = DrawingMaker()
+    private let drawingLayerMaker = DrawingLayerMaker()
     
     private let canvasView = CanvasView()
     private let squareButton = DrawingTypeButton(title: "사각형")
@@ -71,25 +71,23 @@ extension ViewController {
     
     @objc
     private func didTapSquareButton() {
-        viewModel.handleButtonSelected(type: .square)
+        viewModel.handleButtonSelected(type: .square, rect: self.canvasView.frame)
     }
     
     @objc
     private func didTapLineButton() {
-        viewModel.handleButtonSelected(type: .line)
+        viewModel.handleButtonSelected(type: .line, rect: self.canvasView.frame)
     }
 }
 
 // MARK: - OUTPUT
 extension ViewController: ViewModelDelegate {
-    func squareButtonSelected() {
+    func squareButtonSelected(points: [CGPoint]) {
         squareButton.configure(isSelected: true)
         lineButton.configure(isSelected: false)
         
-        let layer = drawingMaker.getSquareLayer(rect: self.canvasView.frame)
+        let layer = drawingLayerMaker.getSquareLayer(points: points)
         self.canvasView.layer.addSublayer(layer)
-        
-        viewModel.appendDrawing(layer: layer)
     }
     
     func lineButtonSelected() {
@@ -98,18 +96,16 @@ extension ViewController: ViewModelDelegate {
     }
     
     func startLineDrawing(point: CGPoint) {
-        drawingMaker.startLineDrawing(point: point)
-        let layer = drawingMaker.getlineLayer()
+        let layer = drawingLayerMaker.startLineDrawing(point: point)
         self.canvasView.layer.addSublayer(layer)
     }
     
     func updateLineDrawing(point: CGPoint) {
-        drawingMaker.updateLinePath(point: point)
+        drawingLayerMaker.updateLinePath(point: point)
     }
     
-    func endLineDrawing() {
-        let lineLayer = drawingMaker.getlineLayer()
-        viewModel.appendDrawing(layer: lineLayer)
+    func endLineDrawing(points: [CGPoint]) {
+        drawingLayerMaker.endLineDrawing()
     }
     
     func rectSelected(layer: CAShapeLayer) {

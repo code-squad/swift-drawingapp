@@ -1,15 +1,14 @@
 //
-//  SquareMaker.swift
+//  SquareFactory.swift
 //  swift-drawingapp
 //
-//  Created by 김상진 on 2022/10/14.
+//  Created by 김상진 on 2022/10/21.
 //
 
 import Foundation
 import CoreGraphics
-import UIKit
 
-class SquareMaker {
+class SquareFactory {
     
     let squareWidth: CGFloat = 100
     let squareHeight: CGFloat = 100
@@ -17,8 +16,8 @@ class SquareMaker {
     init() {
         
     }
-    
-    func getSquare(rect: CGRect) -> CAShapeLayer {
+
+    func getRectPoints(rect: CGRect) -> [CGPoint] {
         let rect = self.getRect(rect: rect)
         
         let leftTop = CGPoint(x: rect.origin.x, y: rect.origin.y)
@@ -26,19 +25,7 @@ class SquareMaker {
         let rightBottom = CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height)
         let rightTop = CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y)
         
-        let path = UIBezierPath()
-        UIColor.systemRed.set()
-        path.move(to: leftTop)
-        path.addLine(to: leftBottom)
-        path.addLine(to: rightBottom)
-        path.addLine(to: rightTop)
-        path.addLine(to: leftTop)
-        
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = UIColor.clear.randomSystemColor().cgColor
-        
-        return shapeLayer
+        return [leftTop, leftBottom, rightBottom, rightTop]
     }
     
     func getRect(rect: CGRect) -> CGRect {
