@@ -82,7 +82,7 @@ extension ViewController {
 
 // MARK: - OUTPUT
 extension ViewController: ViewModelDelegate {
-    func squareButtonSelected(points: [CGPoint]) {
+    func selectSquareButton(points: [CGPoint]) {
         squareButton.configure(isSelected: true)
         lineButton.configure(isSelected: false)
         
@@ -90,31 +90,31 @@ extension ViewController: ViewModelDelegate {
         self.canvasView.layer.addSublayer(layer)
     }
     
-    func lineButtonSelected() {
+    func selectLineButton() {
         squareButton.configure(isSelected: false)
         lineButton.configure(isSelected: true)
     }
     
-    func startLineDrawing(point: CGPoint) {
+    func startLineDraw(point: CGPoint) {
         let layer = drawingLayerMaker.startLineDrawing(point: point)
         self.canvasView.layer.addSublayer(layer)
     }
     
-    func updateLineDrawing(point: CGPoint) {
+    func updateLineDraw(point: CGPoint) {
         drawingLayerMaker.updateLinePath(point: point)
     }
     
-    func endLineDrawing(points: [CGPoint]) {
+    func endLineDraw(points: [CGPoint]) {
         drawingLayerMaker.endLineDrawing()
     }
     
-    func rectSelected(layer: CAShapeLayer) {
+    func selectSquare(layer: CAShapeLayer) {
         layer.lineWidth = 3
         layer.strokeColor = UIColor.systemRed.cgColor
         self.view.setNeedsLayout()
     }
     
-    func rectSelectedAgain(layer: CAShapeLayer) {
+    func selectSquareAgain(layer: CAShapeLayer) {
         layer.lineWidth = 0
         layer.strokeColor = UIColor.clear.cgColor
         self.view.setNeedsLayout()
