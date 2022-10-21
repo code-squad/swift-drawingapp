@@ -11,6 +11,7 @@ import CoreGraphics
 struct DrawingModel: Identifiable {
     let id = UUID()
     let type: DrawingType
+    var isSelected: Bool = false
     let points: [CGPoint]
 }
 
@@ -22,5 +23,9 @@ class DrawingStore {
     
     func appendData(data: DrawingModel) {
         drawingList.append(data)
+    }
+    
+    func updateData(data: [DrawingModel]) {
+        drawingList = data
     }
 }

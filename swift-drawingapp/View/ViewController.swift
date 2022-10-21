@@ -108,16 +108,12 @@ extension ViewController: ViewModelDelegate {
         drawingLayerMaker.endLineDrawing()
     }
     
-    func selectSquare(layer: CAShapeLayer) {
-        layer.lineWidth = 3
-        layer.strokeColor = UIColor.systemRed.cgColor
-        self.view.setNeedsLayout()
+    func selectSquare(point: CGPoint) {
+        canvasView.selectSquare(point: point)
     }
     
-    func selectSquareAgain(layer: CAShapeLayer) {
-        layer.lineWidth = 0
-        layer.strokeColor = UIColor.clear.cgColor
-        self.view.setNeedsLayout()
+    func selectSquareAgain(point: CGPoint) {
+        canvasView.deselectSquare(point: point)
     }
 }
 

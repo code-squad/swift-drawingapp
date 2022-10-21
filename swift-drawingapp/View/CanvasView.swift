@@ -22,6 +22,35 @@ class CanvasView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func selectSquare(point: CGPoint) {
+        for layer in self.layer.sublayers ?? [] {
+            if let shapeLayer = layer as? CAShapeLayer {
+                
+                if let layerPath = shapeLayer.path,
+                    layerPath.contains(point) {
+                    shapeLayer.lineWidth = 3
+                    shapeLayer.strokeColor = UIColor.systemRed.cgColor
+                    self.setNeedsLayout()
+                    break
+                }
+            }
+        }
+    }
+    
+    func deselectSquare(point: CGPoint) {
+        for layer in self.layer.sublayers ?? [] {
+            if let shapeLayer = layer as? CAShapeLayer {
+                if let layerPath = shapeLayer.path,
+                    layerPath.contains(point) {
+                    shapeLayer.lineWidth = 0
+                    shapeLayer.strokeColor = UIColor.clear.cgColor
+                    self.setNeedsLayout()
+                    break
+                }
+            }
+        }
+    }
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let point = touches.first?.location(in: self) else { return }
         
