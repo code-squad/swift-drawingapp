@@ -8,15 +8,17 @@
 import Foundation
 import QuartzCore
 
-
+// 무슨 기준으로 나눈거니?
+// 기대되는 출력값.
+// viewModel에서 로직 처리 후 출력값을 전달하기 때문에, 기대되는 출력값들을 delegate로 정의하고 ViewController와 연결
 protocol ViewModelDelegate: AnyObject {
-    func rectSelected(layer: CAShapeLayer)
-    func rectSelectedAgain(layer: CAShapeLayer)
-    func startLineDrawing(point: CGPoint)
-    func updateLineDrawing(point: CGPoint)
-    func endLineDrawing(points: [CGPoint])
-    func squareButtonSelected(points: [CGPoint])
-    func lineButtonSelected()
+    func selectSquare(layer: CAShapeLayer)
+    func selectSquareAgain(layer: CAShapeLayer)
+    func startLineDraw(point: CGPoint)
+    func updateLineDraw(point: CGPoint)
+    func endLineDraw(points: [CGPoint])
+    func selectSquareButton(points: [CGPoint])
+    func selectLineButton()
 }
 
 enum DrawingType {
@@ -50,9 +52,9 @@ class ViewModel {
             if drawing.type == .square {
                 if path.contains(point) {
                     if layer.lineWidth == 3 {
-                        delegate?.rectSelectedAgain(layer: layer)
+                        delegate?.selectSquareAgain(layer: layer)
                     } else {
-                        delegate?.rectSelected(layer: layer)
+                        delegate?.selectSquare(layer: layer)
                     }
                 }
             }
@@ -65,7 +67,7 @@ class ViewModel {
             processRectSelection(point: point)
         case .line:
             drawingFactory.startLinePoint(point: point)
-            delegate?.startLineDrawing(point: point)
+            delegate?.startLineDraw(point: point)
         case .none:
             return
         }
@@ -75,7 +77,7 @@ class ViewModel {
         if drawingType == .line {
             drawingFactory.updateLinePoints(point: point)
             
-            delegate?.updateLineDrawing(point: point)
+            delegate?.updateLineDraw(point: point)
         }
     }
     
@@ -84,7 +86,7 @@ class ViewModel {
             let points = drawingFactory.endLinePoints()
             appendDrawing(points: points)
             
-            delegate?.endLineDrawing(points: points)
+            delegate?.endLineDraw(points: points)
         }
     }
     
@@ -96,9 +98,9 @@ class ViewModel {
             let points = drawingFactory.getSquarePoints(rect: rect)
             appendDrawing(points: points)
             
-            delegate?.squareButtonSelected(points: points)
+            delegate?.selectSquareButton(points: points)
         case .line:
-            delegate?.lineButtonSelected()
+            delegate?.selectLineButton()
         }
     }
 }
