@@ -6,12 +6,12 @@
 //
 
 import Foundation
-import QuartzCore
+import CoreGraphics
 
 struct DrawingModel: Identifiable {
     let id = UUID()
     let type: DrawingType
-    let layer: CAShapeLayer
+    let points: [CGPoint]
 }
 
 class DrawingStore {

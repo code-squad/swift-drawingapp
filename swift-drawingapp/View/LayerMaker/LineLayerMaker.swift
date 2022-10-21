@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-class LineMaker {
+class LineLayerMaker {
     
     private var tempLayer = CAShapeLayer()
     private var bezierPath = UIBezierPath()
@@ -20,18 +20,12 @@ class LineMaker {
         return tempLayer
     }
     
-    func getTempPath() -> UIBezierPath {
-        return bezierPath
-    }
-    
     func resetTempData() {
         tempLayer = CAShapeLayer()
         bezierPath = UIBezierPath()
     }
     
     func startLineDraw(point: CGPoint) {
-        resetTempData()
-        
         bezierPath.move(to: point)
         
         tempLayer.lineWidth = 4
@@ -42,5 +36,9 @@ class LineMaker {
     func addLinePath(to point: CGPoint) {
         bezierPath.addLine(to: CGPoint(x: point.x, y: point.y))
         tempLayer.path = bezierPath.cgPath
+    }
+    
+    func endLineDraw() {
+        resetTempData()
     }
 }
