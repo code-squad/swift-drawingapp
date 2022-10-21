@@ -12,8 +12,8 @@ import QuartzCore
 // 기대되는 출력값.
 // viewModel에서 로직 처리 후 출력값을 전달하기 때문에, 기대되는 출력값들을 delegate로 정의하고 ViewController와 연결
 protocol ViewModelDelegate: AnyObject {
-    func selectSquare(layer: CAShapeLayer)
-    func selectSquareAgain(layer: CAShapeLayer)
+    func selectSquare(point: CGPoint)
+    func selectSquareAgain(point: CGPoint)
     func startLineDraw(point: CGPoint)
     func updateLineDraw(point: CGPoint)
     func endLineDraw(points: [CGPoint])
@@ -43,22 +43,48 @@ class ViewModel {
         drawingStore.appendData(data: model)
     }
     
+    // selection을 처리하는 로직을 분리하면 좋을듯
     func processRectSelection(point: CGPoint) {
         for drawing in drawingStore.drawingList {
-            let layer = drawing.layer
-            
-            guard let path = layer.path else { return }
+            let points = drawing.points
             
             if drawing.type == .square {
-                if path.contains(point) {
-                    if layer.lineWidth == 3 {
-                        delegate?.selectSquareAgain(layer: layer)
+                if isSquareContain(points: points, targetPoint: point) {
+                    if drawing.isSelected {
+                        delegate?.selectSquareAgain(point: point)
                     } else {
-                        delegate?.selectSquare(layer: layer)
+                        delegate?.selectSquare(point: point)
                     }
+                    break
                 }
             }
         }
+        
+        let newDrawingList = drawingStore.drawingList.map { drawingModel -> DrawingModel in
+            if drawingModel.type == .square {
+                if isSquareContain(points: drawingModel.points, targetPoint: point) {
+                    return DrawingModel(type: drawingModel.type, isSelected: !drawingModel.isSelected, points: drawingModel.points)
+                }
+            }
+            return drawingModel
+        }
+        
+        drawingStore.updateData(data: newDrawingList)
+    }
+    
+    func isSquareContain(points: [CGPoint], targetPoint: CGPoint) -> Bool {
+        let xList = points.map { $0.x }
+        let yList = points.map { $0.y }
+        
+        guard let minX = xList.min(),
+              let maxX = xList.max(),
+              let minY = yList.min(),
+              let maxY = yList.max() else {
+            return false
+        }
+        let rangeX = minX...maxX
+        let rangeY = minY...maxY
+        return rangeX.contains(targetPoint.x) && rangeY.contains(targetPoint.y)
     }
     
     func handleTouchesBegan(point: CGPoint) {

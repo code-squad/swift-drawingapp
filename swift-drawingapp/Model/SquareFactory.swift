@@ -25,7 +25,7 @@ class SquareFactory {
         let rightBottom = CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y + rect.size.height)
         let rightTop = CGPoint(x: rect.origin.x + rect.size.width, y: rect.origin.y)
         
-        return [leftTop, leftBottom, rightBottom, rightTop]
+        return [leftTop, leftBottom, rightBottom, rightTop, leftTop]
     }
     
     func getRect(rect: CGRect) -> CGRect {
