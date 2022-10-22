@@ -36,18 +36,17 @@ class ViewModel {
     
     init() {}
     
-    func appendDrawing(points: [CGPoint]) {
-        guard let type = self.drawingMode else { return }
-        let model = DrawingModel(type: type, points: points)
+    func appendDrawing(shape: Shape) {
+        let model = DrawingModel(shape: shape)
         drawingStore.appendData(data: model)
     }
     
     // selection을 처리하는 로직을 분리하면 좋을듯
     func processRectSelection(point: CGPoint) {
         for drawing in drawingStore.drawingList {
-            let points = drawing.points
+            let points = drawing.shape.points
             
-            if drawing.type == .square {
+            if drawing.shape is Square {
                 if isSquareContain(points: points, targetPoint: point) {
                     if drawing.isSelected {
                         delegate?.selectSquareAgain(point: point)
@@ -60,9 +59,9 @@ class ViewModel {
         }
         
         let newDrawingList = drawingStore.drawingList.map { drawingModel -> DrawingModel in
-            if drawingModel.type == .square {
-                if isSquareContain(points: drawingModel.points, targetPoint: point) {
-                    return DrawingModel(type: drawingModel.type, isSelected: !drawingModel.isSelected, points: drawingModel.points)
+            if drawingModel.shape is Square {
+                if isSquareContain(points: drawingModel.shape.points, targetPoint: point) {
+                    return DrawingModel(isSelected: !drawingModel.isSelected, shape: drawingModel.shape)
                 }
             }
             return drawingModel
@@ -108,20 +107,20 @@ class ViewModel {
     
     func handleTouchesEnded() {
         if drawingMode == .line {
-            let points = drawingFactory.endLinePoints()
-            appendDrawing(points: points)
+            let line = drawingFactory.endLinePoints()
+            appendDrawing(shape: line)
             
-            delegate?.endLineDraw(points: points)
+            delegate?.endLineDraw(points: line.points)
         }
     }
     
     func handleSquareButtonSelected(rect: CGRect) {
         self.drawingMode = .square
         
-        let points = drawingFactory.getSquarePoints(rect: rect)
-        appendDrawing(points: points)
+        let square = drawingFactory.makeSquare(rect: rect)
+        appendDrawing(shape: square)
         
-        delegate?.drawSquare(points: points)
+        delegate?.drawSquare(points: square.points)
     }
     
     func handleLineButtonSelected() {

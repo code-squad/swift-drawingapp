@@ -16,6 +16,11 @@ class SquareFactory {
     init() {
         
     }
+    
+    func makeSquare(rect: CGRect) -> Square {
+        let points = self.getRectPoints(rect: rect)
+        return Square(points: points)
+    }
 
     func getRectPoints(rect: CGRect) -> [CGPoint] {
         let rect = self.getRect(rect: rect)

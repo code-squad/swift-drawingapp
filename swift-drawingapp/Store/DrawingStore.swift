@@ -10,9 +10,8 @@ import CoreGraphics
 
 struct DrawingModel: Identifiable {
     let id = UUID()
-    let type: DrawingType
     var isSelected: Bool = false
-    let points: [CGPoint]
+    let shape: Shape
 }
 
 class DrawingStore {
