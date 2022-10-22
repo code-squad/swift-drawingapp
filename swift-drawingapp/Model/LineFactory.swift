@@ -10,22 +10,22 @@ import CoreGraphics
 
 class LineFactory {
     
-    private var points: [CGPoint] = []
+    private var line = Line()
     
     init() {}
         
     
     func startLine(point: CGPoint) {
-        points.append(point)
+        line.points.append(point)
     }
     
     func moveLine(to point: CGPoint) {
-        points.append(point)
+        line.points.append(point)
     }
     
-    func endLine() -> [CGPoint] {
-        let finalPoints = points
-        points.removeAll()
-        return finalPoints
+    func endLine() -> Line {
+        let finalLine = line
+        line = Line()
+        return finalLine
     }
 }

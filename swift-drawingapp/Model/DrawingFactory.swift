@@ -15,8 +15,8 @@ class DrawingFactory {
     
     init() {}
     
-    func getSquarePoints(rect: CGRect) -> [CGPoint] {
-        return squareFactory.getRectPoints(rect: rect)
+    func makeSquare(rect: CGRect) -> Square {
+        return squareFactory.makeSquare(rect: rect)
     }
     
     func startLinePoint(point: CGPoint) {
@@ -27,7 +27,7 @@ class DrawingFactory {
         lineFactory.moveLine(to: point)
     }
     
-    func endLinePoints() -> [CGPoint] {
+    func endLinePoints() -> Line {
         return lineFactory.endLine()
     }
 }
