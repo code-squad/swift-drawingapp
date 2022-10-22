@@ -9,6 +9,12 @@ import UIKit
 
 class DrawingTypeButton: UIButton {
     
+    override var isHighlighted: Bool {
+        didSet {
+            self.backgroundColor = isHighlighted ? .lightGray : .white
+        }
+    }
+    
     init(title: String) {
         super.init(frame: .zero)
         
@@ -21,13 +27,5 @@ class DrawingTypeButton: UIButton {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(isSelected: Bool) {
-        if isSelected {
-            self.backgroundColor = .lightGray
-        } else {
-            self.backgroundColor = .white
-        }
     }
 }
