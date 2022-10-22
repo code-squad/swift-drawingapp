@@ -8,23 +8,17 @@
 import Foundation
 import CoreGraphics
 
-struct DrawingModel: Identifiable {
-    let id = UUID()
-    var isSelected: Bool = false
-    let shape: Shape
-}
-
 class DrawingStore {
     
-    var drawingList = [DrawingModel]()
+    var drawingList = [Shape]()
     
     init() { }
     
-    func appendData(data: DrawingModel) {
+    func appendData(data: Shape) {
         drawingList.append(data)
     }
     
-    func updateData(data: [DrawingModel]) {
+    func updateData(data: [Shape]) {
         drawingList = data
     }
 }

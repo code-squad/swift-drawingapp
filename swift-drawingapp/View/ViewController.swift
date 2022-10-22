@@ -82,13 +82,17 @@ extension ViewController {
 
 // MARK: - OUTPUT
 extension ViewController: ViewModelDelegate {
-    func drawSquare(points: [CGPoint]) {
-        let layer = drawingLayerMaker.getSquareLayer(points: points)
+    func drawSquare(square: Square) {
+        let layer = drawingLayerMaker.getSquareLayer(square: square)
         self.canvasView.layer.addSublayer(layer)
     }
     
-    func startLineDraw(point: CGPoint) {
-        let layer = drawingLayerMaker.startLineDrawing(point: point)
+    func startLineDraw(line: Line) {
+        // guard문 없앨 방법 고민
+        guard let layer = drawingLayerMaker.startLineDrawing(line: line) else {
+            return
+        }
+        layer.name = "uuid"
         self.canvasView.layer.addSublayer(layer)
     }
     
@@ -96,7 +100,7 @@ extension ViewController: ViewModelDelegate {
         drawingLayerMaker.updateLinePath(point: point)
     }
     
-    func endLineDraw(points: [CGPoint]) {
+    func endLineDraw() {
         drawingLayerMaker.endLineDrawing()
     }
     

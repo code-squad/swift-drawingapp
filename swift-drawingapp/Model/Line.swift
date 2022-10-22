@@ -8,7 +8,8 @@
 import Foundation
 import CoreGraphics
 
-class Line: Shape {
+class Line: Shape, Identifiable {
+    let uuid: UUID = UUID()
     var points: [CGPoint] = []
     
     init(points: [CGPoint]) {

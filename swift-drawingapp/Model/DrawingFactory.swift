@@ -19,8 +19,8 @@ class DrawingFactory {
         return squareFactory.makeSquare(rect: rect)
     }
     
-    func startLinePoint(point: CGPoint) {
-        lineFactory.startLine(point: point)
+    func startLinePoint(point: CGPoint) -> Line {
+        return lineFactory.startLine(point: point)
     }
     
     func updateLinePoints(point: CGPoint) {

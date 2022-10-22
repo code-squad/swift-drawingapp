@@ -15,8 +15,9 @@ class LineFactory {
     init() {}
         
     
-    func startLine(point: CGPoint) {
+    func startLine(point: CGPoint) -> Line {
         line.points.append(point)
+        return line
     }
     
     func moveLine(to point: CGPoint) {

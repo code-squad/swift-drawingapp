@@ -14,10 +14,10 @@ import QuartzCore
 protocol ViewModelDelegate: AnyObject {
     func selectSquare(point: CGPoint)
     func selectSquareAgain(point: CGPoint)
-    func drawSquare(points: [CGPoint])
-    func startLineDraw(point: CGPoint)
+    func drawSquare(square: Square)
+    func startLineDraw(line: Line)
     func updateLineDraw(point: CGPoint)
-    func endLineDraw(points: [CGPoint])
+    func endLineDraw()
 }
 
 enum DrawingMode {
@@ -37,52 +37,40 @@ class ViewModel {
     init() {}
     
     func appendDrawing(shape: Shape) {
-        let model = DrawingModel(shape: shape)
-        drawingStore.appendData(data: model)
+        drawingStore.appendData(data: shape)
     }
     
     // selection을 처리하는 로직을 분리하면 좋을듯
     func processRectSelection(point: CGPoint) {
-        for drawing in drawingStore.drawingList {
-            let points = drawing.shape.points
-            
-            if drawing.shape is Square {
-                if isSquareContain(points: points, targetPoint: point) {
-                    if drawing.isSelected {
-                        delegate?.selectSquareAgain(point: point)
-                    } else {
-                        delegate?.selectSquare(point: point)
-                    }
-                    break
-                }
-            }
-        }
-        
-        let newDrawingList = drawingStore.drawingList.map { drawingModel -> DrawingModel in
-            if drawingModel.shape is Square {
-                if isSquareContain(points: drawingModel.shape.points, targetPoint: point) {
-                    return DrawingModel(isSelected: !drawingModel.isSelected, shape: drawingModel.shape)
-                }
-            }
-            return drawingModel
-        }
-        
+//        // 1. square가 있는지 찾기
+//        // 2. 상태 바꾸기
+//        // 3.
+//
+//        for drawing in drawingStore.drawingList {
+//            let points = drawing.shape.points
+//
+//            if let square = drawing.shape as? Square {
+//                if square.isContain(point: point) {
+//                    if drawing.isSelected {
+//                        delegate?.selectSquareAgain(point: point)
+//                    } else {
+//                        delegate?.selectSquare(point: point)
+//                    }
+//                    break
+//                }
+//            }
+//        }
+//
+//        let newDrawingList = drawingStore.drawingList.map { drawingModel -> DrawingModel in
+//            if let square = drawingModel.shape as? Square {
+//                if square.isContain(point: point) {
+//                    return DrawingModel(isSelected: !drawingModel.isSelected, shape: drawingModel.shape)
+//                }
+//            }
+//            return drawingModel
+//        }
+
         drawingStore.updateData(data: newDrawingList)
-    }
-    
-    func isSquareContain(points: [CGPoint], targetPoint: CGPoint) -> Bool {
-        let xList = points.map { $0.x }
-        let yList = points.map { $0.y }
-        
-        guard let minX = xList.min(),
-              let maxX = xList.max(),
-              let minY = yList.min(),
-              let maxY = yList.max() else {
-            return false
-        }
-        let rangeX = minX...maxX
-        let rangeY = minY...maxY
-        return rangeX.contains(targetPoint.x) && rangeY.contains(targetPoint.y)
     }
     
     func handleTouchesBegan(point: CGPoint) {
@@ -90,8 +78,8 @@ class ViewModel {
         case .square:
             processRectSelection(point: point)
         case .line:
-            drawingFactory.startLinePoint(point: point)
-            delegate?.startLineDraw(point: point)
+            let line = drawingFactory.startLinePoint(point: point)
+            delegate?.startLineDraw(line: line)
         case .none:
             return
         }
@@ -110,7 +98,7 @@ class ViewModel {
             let line = drawingFactory.endLinePoints()
             appendDrawing(shape: line)
             
-            delegate?.endLineDraw(points: line.points)
+            delegate?.endLineDraw()
         }
     }
     
@@ -120,7 +108,7 @@ class ViewModel {
         let square = drawingFactory.makeSquare(rect: rect)
         appendDrawing(shape: square)
         
-        delegate?.drawSquare(points: square.points)
+        delegate?.drawSquare(square: square)
     }
     
     func handleLineButtonSelected() {
