@@ -9,5 +9,6 @@ import Foundation
 import CoreGraphics
 
 protocol Shape {
+    var uuid: UUID { get }
     var points: [CGPoint] { get set }
 }

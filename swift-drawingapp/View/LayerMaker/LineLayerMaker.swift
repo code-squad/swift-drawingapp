@@ -16,21 +16,19 @@ class LineLayerMaker {
     
     init() {}
     
-    func getTempLayer() -> CAShapeLayer {
-        return tempLayer
-    }
-    
     func resetTempData() {
         tempLayer = CAShapeLayer()
         bezierPath = UIBezierPath()
     }
     
-    func startLineDraw(point: CGPoint) {
+    func startLineDraw(point: CGPoint) -> CAShapeLayer {
         bezierPath.move(to: point)
         
         tempLayer.lineWidth = 4
         tempLayer.fillColor = UIColor.clear.cgColor
         tempLayer.strokeColor = UIColor.clear.randomSystemColor().cgColor
+        
+        return tempLayer
     }
     
     func addLinePath(to point: CGPoint) {

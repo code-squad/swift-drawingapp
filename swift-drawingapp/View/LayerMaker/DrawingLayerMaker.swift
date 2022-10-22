@@ -14,14 +14,19 @@ class DrawingLayerMaker {
     
     init() {}
     
-    func getSquareLayer(points: [CGPoint]) -> CAShapeLayer {
-        let square = squareMaker.makeSquare(points: points)
-        return square
+    func getSquareLayer(square: Square) -> CAShapeLayer {
+        let squareLayer = squareMaker.makeSquare(points: square.points)
+        squareLayer.name = "\(square.uuid)"
+        return squareLayer
     }
     
-    func startLineDrawing(point: CGPoint) -> CAShapeLayer {
-        lineMaker.startLineDraw(point: point)
-        return lineMaker.getTempLayer()
+    func startLineDrawing(line: Line) -> CAShapeLayer? {
+        guard let point = line.points.first else {
+            return nil
+        }
+        let lineLayer = lineMaker.startLineDraw(point: point)
+        lineLayer.name = "\(line.uuid)"
+        return lineLayer
     }
         
     func updateLinePath(point: CGPoint) {
