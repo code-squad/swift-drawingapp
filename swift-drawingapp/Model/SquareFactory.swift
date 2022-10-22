@@ -8,7 +8,11 @@
 import Foundation
 import CoreGraphics
 
-class SquareFactory {
+protocol SquareFactoryProtocol {
+    func makeSquare(rect: CGRect) -> Square
+}
+
+class SquareFactory: SquareFactoryProtocol {
     
     let squareWidth: CGFloat = 100
     let squareHeight: CGFloat = 100
@@ -22,7 +26,7 @@ class SquareFactory {
         return Square(points: points)
     }
 
-    func getRectPoints(rect: CGRect) -> [CGPoint] {
+    private func getRectPoints(rect: CGRect) -> [CGPoint] {
         let rect = self.getRect(rect: rect)
         
         let leftTop = CGPoint(x: rect.origin.x, y: rect.origin.y)
@@ -33,13 +37,13 @@ class SquareFactory {
         return [leftTop, leftBottom, rightBottom, rightTop, leftTop]
     }
     
-    func getRect(rect: CGRect) -> CGRect {
+    private func getRect(rect: CGRect) -> CGRect {
         let possibleRange = possibleStartingPointRange(rect: rect)
         let startingPoint = randomStartingPoint(rangeX: possibleRange.rangeX, rangeY: possibleRange.rangeY)
         return CGRect(x: startingPoint.x, y: startingPoint.y, width: squareWidth, height: squareHeight)
     }
         
-    func possibleStartingPointRange(rect: CGRect) -> (rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) {
+    private func possibleStartingPointRange(rect: CGRect) -> (rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) {
         let maxX = rect.origin.x + rect.width - squareWidth
         let maxY = rect.origin.y + rect.height - squareHeight
         
@@ -49,7 +53,7 @@ class SquareFactory {
         return (rangeX, rangeY)
     }
     
-    func randomStartingPoint(rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) -> CGPoint {
+    private func randomStartingPoint(rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) -> CGPoint {
         let x = CGFloat.random(in: rangeX)
         let y = CGFloat.random(in: rangeY)
         return CGPoint(x: x, y: y)

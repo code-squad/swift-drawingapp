@@ -8,12 +8,25 @@
 import Foundation
 import CoreGraphics
 
-class DrawingFactory {
+protocol DrawingFactoryProtocol {
+    func makeSquare(rect: CGRect) -> Square
+    func startLinePoint(point: CGPoint) -> Line
+    func updateLinePoints(point: CGPoint)
+    func endLinePoints() -> Line
+}
+
+class DrawingFactory: DrawingFactoryProtocol {
     
-    let squareFactory = SquareFactory()
-    let lineFactory = LineFactory()
+    let squareFactory: SquareFactoryProtocol
+    let lineFactory: LineFactoryProtocol
     
-    init() {}
+    init(
+        squareFactory: SquareFactoryProtocol,
+        lineFactory: LineFactoryProtocol
+    ) {
+        self.squareFactory = squareFactory
+        self.lineFactory = lineFactory
+    }
     
     func makeSquare(rect: CGRect) -> Square {
         return squareFactory.makeSquare(rect: rect)

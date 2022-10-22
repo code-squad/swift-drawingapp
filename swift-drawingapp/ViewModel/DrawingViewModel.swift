@@ -24,33 +24,30 @@ enum DrawingMode {
     case line
 }
 
-class ViewModel {
+protocol DrawingViewModelProtocol {
+    var delegate: ViewModelDelegate? { get set }
+    func handleTouchesBegan(point: CGPoint)
+    func handleTouchesMoved(point: CGPoint)
+    func handleTouchesEnded()
+    func handleSquareButtonSelected(rect: CGRect)
+    func handleLineButtonSelected()
+}
+
+class DrawingViewModel: DrawingViewModelProtocol {
     
-    private let drawingStore = DrawingStore()
-    private let drawingFactory = DrawingFactory()
+    private let drawingStore: DrawingStoreProtocol
+    private let drawingFactory: DrawingFactoryProtocol
     
     weak var delegate: ViewModelDelegate?
     
     var drawingMode: DrawingMode?
     
-    init() {}
-    
-    func appendDrawing(shape: Shape) {
-        drawingStore.appendData(data: shape)
-    }
-    
-    func processRectSelection(point: CGPoint) {
-        if let square = findSquare(point: point) {
-            delegate?.selectSquare(square: square)
-        }
-    }
-    
-    func findSquare(point: CGPoint) -> Square? {
-        let drawing = drawingStore.drawingList
-            .compactMap { $0 as? Square }
-            .first { $0.isContain(point: point) }
-        
-        return drawing
+    init(
+        drawingStore: DrawingStoreProtocol,
+        drawingFactory: DrawingFactoryProtocol
+    ) {
+        self.drawingStore = drawingStore
+        self.drawingFactory = drawingFactory
     }
     
     func handleTouchesBegan(point: CGPoint) {
@@ -94,4 +91,23 @@ class ViewModel {
     func handleLineButtonSelected() {
         self.drawingMode = .line
     }
+    
+    private func appendDrawing(shape: Shape) {
+        drawingStore.appendData(data: shape)
+    }
+    
+    private func processRectSelection(point: CGPoint) {
+        if let square = findSquare(point: point) {
+            delegate?.selectSquare(square: square)
+        }
+    }
+    
+    private func findSquare(point: CGPoint) -> Square? {
+        let drawing = drawingStore.getData()
+            .compactMap { $0 as? Square }
+            .first { $0.isContain(point: point) }
+        
+        return drawing
+    }
+    
 }

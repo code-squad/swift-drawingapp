@@ -8,9 +8,14 @@
 import Foundation
 import CoreGraphics
 
-class DrawingStore {
+protocol DrawingStoreProtocol {
+    func appendData(data: Shape)
+    func getData() -> [Shape]
+}
+
+class DrawingStore: DrawingStoreProtocol {
     
-    var drawingList = [Shape]()
+    private var drawingList = [Shape]()
     
     init() { }
     
@@ -18,7 +23,7 @@ class DrawingStore {
         drawingList.append(data)
     }
     
-    func updateData(data: [Shape]) {
-        drawingList = data
+    func getData() -> [Shape] {
+        return drawingList
     }
 }
