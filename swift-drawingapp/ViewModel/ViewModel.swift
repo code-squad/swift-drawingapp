@@ -14,14 +14,13 @@ import QuartzCore
 protocol ViewModelDelegate: AnyObject {
     func selectSquare(point: CGPoint)
     func selectSquareAgain(point: CGPoint)
+    func drawSquare(points: [CGPoint])
     func startLineDraw(point: CGPoint)
     func updateLineDraw(point: CGPoint)
     func endLineDraw(points: [CGPoint])
-    func selectSquareButton(points: [CGPoint])
-    func selectLineButton()
 }
 
-enum DrawingType {
+enum DrawingMode {
     case square
     case line
 }
@@ -33,12 +32,12 @@ class ViewModel {
     
     weak var delegate: ViewModelDelegate?
     
-    var drawingType: DrawingType?
+    var drawingMode: DrawingMode?
     
     init() {}
     
     func appendDrawing(points: [CGPoint]) {
-        guard let type = self.drawingType else { return }
+        guard let type = self.drawingMode else { return }
         let model = DrawingModel(type: type, points: points)
         drawingStore.appendData(data: model)
     }
@@ -88,7 +87,7 @@ class ViewModel {
     }
     
     func handleTouchesBegan(point: CGPoint) {
-        switch drawingType {
+        switch drawingMode {
         case .square:
             processRectSelection(point: point)
         case .line:
@@ -100,7 +99,7 @@ class ViewModel {
     }
     
     func handleTouchesMoved(point: CGPoint) {
-        if drawingType == .line {
+        if drawingMode == .line {
             drawingFactory.updateLinePoints(point: point)
             
             delegate?.updateLineDraw(point: point)
@@ -108,7 +107,7 @@ class ViewModel {
     }
     
     func handleTouchesEnded() {
-        if drawingType == .line {
+        if drawingMode == .line {
             let points = drawingFactory.endLinePoints()
             appendDrawing(points: points)
             
@@ -116,17 +115,16 @@ class ViewModel {
         }
     }
     
-    func handleButtonSelected(type: DrawingType, rect: CGRect) {
-        self.drawingType = type
+    func handleSquareButtonSelected(rect: CGRect) {
+        self.drawingMode = .square
         
-        switch type {
-        case .square:
-            let points = drawingFactory.getSquarePoints(rect: rect)
-            appendDrawing(points: points)
-            
-            delegate?.selectSquareButton(points: points)
-        case .line:
-            delegate?.selectLineButton()
-        }
+        let points = drawingFactory.getSquarePoints(rect: rect)
+        appendDrawing(points: points)
+        
+        delegate?.drawSquare(points: points)
+    }
+    
+    func handleLineButtonSelected() {
+        self.drawingMode = .line
     }
 }

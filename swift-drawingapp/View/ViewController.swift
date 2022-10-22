@@ -71,28 +71,20 @@ extension ViewController {
     
     @objc
     private func didTapSquareButton() {
-        viewModel.handleButtonSelected(type: .square, rect: self.canvasView.frame)
+        viewModel.handleSquareButtonSelected(rect: self.canvasView.frame)
     }
     
     @objc
     private func didTapLineButton() {
-        viewModel.handleButtonSelected(type: .line, rect: self.canvasView.frame)
+        viewModel.handleLineButtonSelected()
     }
 }
 
 // MARK: - OUTPUT
 extension ViewController: ViewModelDelegate {
-    func selectSquareButton(points: [CGPoint]) {
-        squareButton.configure(isSelected: true)
-        lineButton.configure(isSelected: false)
-        
+    func drawSquare(points: [CGPoint]) {
         let layer = drawingLayerMaker.getSquareLayer(points: points)
         self.canvasView.layer.addSublayer(layer)
-    }
-    
-    func selectLineButton() {
-        squareButton.configure(isSelected: false)
-        lineButton.configure(isSelected: true)
     }
     
     func startLineDraw(point: CGPoint) {
