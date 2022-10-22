@@ -92,7 +92,6 @@ extension ViewController: ViewModelDelegate {
         guard let layer = drawingLayerMaker.startLineDrawing(line: line) else {
             return
         }
-        layer.name = "uuid"
         self.canvasView.layer.addSublayer(layer)
     }
     
@@ -104,12 +103,8 @@ extension ViewController: ViewModelDelegate {
         drawingLayerMaker.endLineDrawing()
     }
     
-    func selectSquare(point: CGPoint) {
-        canvasView.selectSquare(point: point)
-    }
-    
-    func selectSquareAgain(point: CGPoint) {
-        canvasView.deselectSquare(point: point)
+    func selectSquare(square: Square) {
+        canvasView.selectSquare(square: square)
     }
 }
 

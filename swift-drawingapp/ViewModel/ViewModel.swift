@@ -12,8 +12,7 @@ import QuartzCore
 // 기대되는 출력값.
 // viewModel에서 로직 처리 후 출력값을 전달하기 때문에, 기대되는 출력값들을 delegate로 정의하고 ViewController와 연결
 protocol ViewModelDelegate: AnyObject {
-    func selectSquare(point: CGPoint)
-    func selectSquareAgain(point: CGPoint)
+    func selectSquare(square: Square)
     func drawSquare(square: Square)
     func startLineDraw(line: Line)
     func updateLineDraw(point: CGPoint)
@@ -40,37 +39,18 @@ class ViewModel {
         drawingStore.appendData(data: shape)
     }
     
-    // selection을 처리하는 로직을 분리하면 좋을듯
     func processRectSelection(point: CGPoint) {
-//        // 1. square가 있는지 찾기
-//        // 2. 상태 바꾸기
-//        // 3.
-//
-//        for drawing in drawingStore.drawingList {
-//            let points = drawing.shape.points
-//
-//            if let square = drawing.shape as? Square {
-//                if square.isContain(point: point) {
-//                    if drawing.isSelected {
-//                        delegate?.selectSquareAgain(point: point)
-//                    } else {
-//                        delegate?.selectSquare(point: point)
-//                    }
-//                    break
-//                }
-//            }
-//        }
-//
-//        let newDrawingList = drawingStore.drawingList.map { drawingModel -> DrawingModel in
-//            if let square = drawingModel.shape as? Square {
-//                if square.isContain(point: point) {
-//                    return DrawingModel(isSelected: !drawingModel.isSelected, shape: drawingModel.shape)
-//                }
-//            }
-//            return drawingModel
-//        }
-
-        drawingStore.updateData(data: newDrawingList)
+        if let square = findSquare(point: point) {
+            delegate?.selectSquare(square: square)
+        }
+    }
+    
+    func findSquare(point: CGPoint) -> Square? {
+        let drawing = drawingStore.drawingList
+            .compactMap { $0 as? Square }
+            .first { $0.isContain(point: point) }
+        
+        return drawing
     }
     
     func handleTouchesBegan(point: CGPoint) {
