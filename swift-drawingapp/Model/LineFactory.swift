@@ -8,7 +8,13 @@
 import Foundation
 import CoreGraphics
 
-class LineFactory {
+protocol LineFactoryProtocol {
+    func startLine(point: CGPoint) -> Line
+    func moveLine(to point: CGPoint)
+    func endLine() -> Line
+}
+
+class LineFactory: LineFactoryProtocol {
     
     private var line = Line()
     

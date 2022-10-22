@@ -7,14 +7,21 @@
 
 import UIKit
 
-class DrawingLayerMaker {
+protocol DrawingLayerMakerProtocol {
+    func makeSquareLayer(square: Square) -> CAShapeLayer
+    func startLineDrawing(line: Line) -> CAShapeLayer?
+    func updateLinePath(point: CGPoint)
+    func endLineDrawing()
+}
+
+class DrawingLayerMaker: DrawingLayerMakerProtocol {
     
     let lineMaker = LineLayerMaker()
     let squareMaker = SquareLayerMaker()
     
     init() {}
     
-    func getSquareLayer(square: Square) -> CAShapeLayer {
+    func makeSquareLayer(square: Square) -> CAShapeLayer {
         let squareLayer = squareMaker.makeSquare(points: square.points)
         squareLayer.name = "\(square.uuid)"
         return squareLayer

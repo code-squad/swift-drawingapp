@@ -7,16 +7,28 @@
 
 import UIKit
 
-
-
-class ViewController: UIViewController {
+class DrawingViewController: UIViewController {
     
-    private let viewModel = ViewModel()
-    private let drawingLayerMaker = DrawingLayerMaker()
+    private var viewModel: DrawingViewModelProtocol
+    private let drawingLayerMaker: DrawingLayerMakerProtocol
     
     private let canvasView = CanvasView()
     private let squareButton = DrawingTypeButton(title: "사각형")
     private let lineButton = DrawingTypeButton(title: "직선")
+    
+    init(
+        drawingLayerMaker: DrawingLayerMakerProtocol,
+        viewModel: DrawingViewModelProtocol
+    ) {
+        self.drawingLayerMaker = drawingLayerMaker
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +64,7 @@ class ViewController: UIViewController {
 }
 
 // MARK: - INPUT
-extension ViewController {
+extension DrawingViewController {
     func bindingButtonAction() {
         squareButton.addTarget(self, action: #selector(didTapSquareButton), for: .touchUpInside)
         lineButton.addTarget(self, action: #selector(didTapLineButton), for: .touchUpInside)
@@ -82,9 +94,9 @@ extension ViewController {
 }
 
 // MARK: - OUTPUT
-extension ViewController: ViewModelDelegate {
+extension DrawingViewController: ViewModelDelegate {
     func drawSquare(square: Square) {
-        let layer = drawingLayerMaker.getSquareLayer(square: square)
+        let layer = drawingLayerMaker.makeSquareLayer(square: square)
         self.canvasView.layer.addSublayer(layer)
     }
     
