@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Shape: Codable {
+class Shape {
     var points: [Point] = [] {
         didSet {
             delegate?.pointsChanged(points)

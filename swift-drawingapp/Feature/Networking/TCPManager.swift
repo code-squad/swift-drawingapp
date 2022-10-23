@@ -19,76 +19,58 @@ class TCPManager {
         self.connection = NWConnection(host: host, port: port, using: .tcp)
     }
     
-    lazy var responseStream = AsyncStream<Data> { continuation in
-        addToResponseStream = { data in
-            continuation.yield(data)
+    // MARK: - Message Stream
+    lazy var messageStream = AsyncThrowingStream<Data, Error> { continuation in
+        addToMessageStream = { result in
+            continuation.yield(with: result)
         }
     }
     
-    private var addToResponseStream: ((Data) -> Void)?
+    private var addToMessageStream: ((Result<Data, Error>) -> Void)?
+    
+    // MARK: - State Stream
+    lazy var stateStream = AsyncStream<NWConnection.State> { continuation in
+        addToStateStream = { state in
+            continuation.yield(state)
+        }
+    }
+    
+    private var addToStateStream: ((NWConnection.State) -> Void)?
     
     func start() {
-        print("will start")
-        self.connection.stateUpdateHandler = self.didChange(state:)
-        self.startReceive()
+        self.connection.stateUpdateHandler = { self.addToStateStream?($0) }
+        self.receiveNextMessage()
         self.connection.start(queue: networkQueue)
     }
     
     func stop() {
         self.connection.cancel()
-        print("did stop")
     }
     
-    private func didChange(state: NWConnection.State) {
-        switch state {
-        case .setup:
-            break
-        case .waiting(let error):
-            print("is waiting: %@", "\(error)")
-        case .preparing:
-            break
-        case .ready:
-            break
-        case .failed(let error):
-            print("did fail, error: %@", "\(error)")
-            self.stop()
-        case .cancelled:
-            print("was cancelled")
-            self.stop()
-        @unknown default:
-            break
-        }
-    }
-    
-    private func startReceive() {
-        self.connection.receive(minimumIncompleteLength: 1, maximumLength: 65536) { data, _, isDone, error in
-            if let data = data, !data.isEmpty {
-                print("did receive, data: %@", data as NSData)
-                self.addToResponseStream?(data)
+    private func receiveNextMessage() {
+        self.connection.receive(minimumIncompleteLength: 4, maximumLength: 1024) { content, context, isComplete, error in
+            if let content {
+                self.addToMessageStream?(.success(content))
             }
             if let error = error {
-                print("did receive, error: %@", "\(error)")
+                self.addToMessageStream?(.failure(error))
                 self.stop()
                 return
             }
-            if isDone {
-                print("did receive, EOF")
-                self.stop()
-                return
-            }
-            self.startReceive()
+            self.receiveNextMessage()
         }
     }
     
-    func send(data: Data) {
-        self.connection.send(content: data, completion: NWConnection.SendCompletion.contentProcessed { error in
-            if let error = error {
-                print("did send, error: %@", "\(error)")
-                self.stop()
-            } else {
-                print("did send, data: %@", data as NSData)
-            }
-        })
+    func send(data: Data) async throws {
+        return try await withCheckedThrowingContinuation { continuation in
+            self.connection.send(content: data, completion: NWConnection.SendCompletion.contentProcessed { error in
+                if let error {
+                    continuation.resume(throwing: error)
+                    return
+                }
+                continuation.resume(returning: ())
+            })
+        }
     }
     
 }
