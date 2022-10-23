@@ -7,11 +7,15 @@
 
 import Foundation
 
-class Shape {
+class Shape: Codable {
     var points: [Point] = [] {
         didSet {
             delegate?.pointsChanged(points)
         }
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case points
     }
     
     weak var delegate: ShapeDelegate?
