@@ -27,8 +27,8 @@ class NetworkController {
         )
         let data = try JSONEncoder().encode(command)
         
-        tcpManager.start()
-        tcpManager.send(data: data)
+//        tcpManager.start()
+//        tcpManager.send(data: data)
     }
     
     private func sendShapes(_ shapes: [Shape]) {
