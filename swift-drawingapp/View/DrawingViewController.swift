@@ -15,6 +15,7 @@ class DrawingViewController: UIViewController {
     private let canvasView = CanvasView()
     private let squareButton = DrawingTypeButton(title: "사각형")
     private let lineButton = DrawingTypeButton(title: "직선")
+    private let syncButton = DrawingTypeButton(title: "동기화")
     
     init(
         drawingLayerMaker: DrawingLayerMakerProtocol,
@@ -45,21 +46,27 @@ class DrawingViewController: UIViewController {
         self.view.addSubview(canvasView)
         self.view.addSubview(squareButton)
         self.view.addSubview(lineButton)
+        self.view.addSubview(syncButton)
         
         canvasView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         canvasView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         canvasView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         canvasView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         
-        squareButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        squareButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50).isActive = true
         squareButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         squareButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        squareButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: -35).isActive = true
+        squareButton.trailingAnchor.constraint(equalTo: self.lineButton.leadingAnchor).isActive = true
         
-        lineButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        lineButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50).isActive = true
         lineButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         lineButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        lineButton.leadingAnchor.constraint(equalTo: squareButton.trailingAnchor).isActive = true
+        lineButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        
+        syncButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -50).isActive = true
+        syncButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        syncButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        syncButton.leadingAnchor.constraint(equalTo: self.lineButton.trailingAnchor).isActive = true
     }
 }
 
@@ -68,6 +75,7 @@ extension DrawingViewController {
     func bindingButtonAction() {
         squareButton.addTarget(self, action: #selector(didTapSquareButton), for: .touchUpInside)
         lineButton.addTarget(self, action: #selector(didTapLineButton), for: .touchUpInside)
+        syncButton.addTarget(self, action: #selector(didTapSyncButton), for: .touchUpInside)
     }
     
     func bindingCanvasTouch() {
@@ -90,6 +98,21 @@ extension DrawingViewController {
     @objc
     private func didTapLineButton() {
         viewModel.handleLineButtonSelected()
+    }
+    
+    @objc func didTapSyncButton() {
+        let alert = UIAlertController(title: "로그인", message: "id를 입력해주세요", preferredStyle: .alert)
+        alert.addTextField()
+        let ok  = UIAlertAction(title: "로그인", style: .default) { [weak self] _ in
+            let id = alert.textFields?[0].text
+            self?.viewModel.connectServer(id: id)
+        }
+        let cancel = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(cancel)
+        alert.addAction(ok)
+        
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
