@@ -31,12 +31,16 @@ protocol DrawingViewModelProtocol {
     func handleTouchesEnded()
     func handleSquareButtonSelected(rect: CGRect)
     func handleLineButtonSelected()
+    func connectServer(id: String?)
 }
 
 class DrawingViewModel: DrawingViewModelProtocol {
     
     private let drawingStore: DrawingStoreProtocol
     private let drawingFactory: DrawingFactoryProtocol
+    
+    // TODO: DI
+    private let chatServerClient = ChatServerClient()
     
     weak var delegate: ViewModelDelegate?
     
@@ -90,6 +94,10 @@ class DrawingViewModel: DrawingViewModelProtocol {
     
     func handleLineButtonSelected() {
         self.drawingMode = .line
+    }
+    
+    func connectServer(id: String?) {
+        chatServerClient.connect(id: id)
     }
     
     private func appendDrawing(shape: Shape) {
