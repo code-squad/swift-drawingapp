@@ -14,6 +14,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let manager = TCPManager(hostName: "localhost", port: 9090)
+        manager.start()
+        
+        let json = """
+        {
+            "header":"0x10",
+            "id":"kkb205",
+            "length":null,
+            "data":null
+        }
+        """
+        
+        let json2 = """
+        {
+            "header":"0x20",
+            "id":"kkb205",
+            "length":null,
+            "data":null
+        }
+        """
+        
+        manager.send(line: json)
+        
+        Task {
+            try await Task.sleep(nanoseconds: 100_000_0000)
+            manager.send(line: json2)
+        }
+        
+        
+        
         return true
     }
 
