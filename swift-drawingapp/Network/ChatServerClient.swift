@@ -5,8 +5,11 @@
 import Foundation
 import Starscream
 
+protocol ChatServerClientProtocol {
+    func connect(id: String?)
+}
 
-class ChatServerClient: WebSocketDelegate {
+class ChatServerClient: WebSocketDelegate, ChatServerClientProtocol {
     
     init() {}
     
@@ -49,7 +52,7 @@ class ChatServerClient: WebSocketDelegate {
         }
     }
     
-    func login(id: String?) {
+    private func login(id: String?) {
         guard let loginId = id,
               let jsonString = Command(header: "0x10", id: loginId).toJsonString() else {
             return
@@ -57,20 +60,6 @@ class ChatServerClient: WebSocketDelegate {
         socket?.write(string: jsonString) {
             print("login success")
         }
-    }
-}
-
-struct Command : Encodable {
-    let header : String
-    let id : String
-    
-    func toJsonString() -> String? {
-        if let jsonData = try? JSONEncoder().encode(self) {
-            if let jsonString = String(data: jsonData, encoding: .utf8) {
-                return jsonString
-            }
-        }
-        return nil
     }
 }
 

@@ -38,10 +38,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         )
         
         let drawingStore = DrawingStore()
+        let chatServerClient = ChatServerClient()
         
         let drawingVM = DrawingViewModel(
             drawingStore: drawingStore,
-            drawingFactory: drawingFactory
+            drawingFactory: drawingFactory,
+            chatServerClient: chatServerClient
         )
         return drawingVM
     }
