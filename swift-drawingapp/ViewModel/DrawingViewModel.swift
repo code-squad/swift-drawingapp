@@ -38,9 +38,7 @@ class DrawingViewModel: DrawingViewModelProtocol {
     
     private let drawingStore: DrawingStoreProtocol
     private let drawingFactory: DrawingFactoryProtocol
-    
-    // TODO: DI
-    private let chatServerClient = ChatServerClient()
+    private let chatServerClient: ChatServerClientProtocol
     
     weak var delegate: ViewModelDelegate?
     
@@ -48,10 +46,12 @@ class DrawingViewModel: DrawingViewModelProtocol {
     
     init(
         drawingStore: DrawingStoreProtocol,
-        drawingFactory: DrawingFactoryProtocol
+        drawingFactory: DrawingFactoryProtocol,
+        chatServerClient: ChatServerClientProtocol
     ) {
         self.drawingStore = drawingStore
         self.drawingFactory = drawingFactory
+        self.chatServerClient = chatServerClient
     }
     
     func handleTouchesBegan(point: CGPoint) {
