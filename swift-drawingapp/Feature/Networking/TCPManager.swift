@@ -20,7 +20,7 @@ class TCPManager {
     }
     
     // MARK: - Message Stream
-    lazy var messageStream = AsyncThrowingStream<Data, Error> { continuation in
+    private(set) lazy var messageStream = AsyncThrowingStream<Data, Error> { continuation in
         addToMessageStream = { result in
             continuation.yield(with: result)
         }
@@ -29,7 +29,7 @@ class TCPManager {
     private var addToMessageStream: ((Result<Data, Error>) -> Void)?
     
     // MARK: - State Stream
-    lazy var stateStream = AsyncStream<NWConnection.State> { continuation in
+    private(set) lazy var stateStream = AsyncStream<NWConnection.State> { continuation in
         addToStateStream = { state in
             continuation.yield(state)
         }
