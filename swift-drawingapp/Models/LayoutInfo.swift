@@ -5,11 +5,19 @@
 //  Created by Haeseok Lee on 2022/10/17.
 //
 
-import Foundation
+import UIKit
 
 struct LayoutInfo {
     
-    var size: Size?
+    var size: CGSize?
     
-    var center: Point?
+    var center: CGPoint?
+}
+
+extension LayoutInfo {
+    
+    init(_ view: UIView) {
+        size = view.frame.size
+        center = view.center
+    }
 }

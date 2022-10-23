@@ -7,19 +7,13 @@
 
 import UIKit
 
-class RectangleView: UIView, Item, Identifiable {
+class RectangleView: UIView {
     
-    var id: UUID
+    let uuidString: String
     
-    var layoutInfo: LayoutInfo
-    
-    var uiInfo: UIInfo
-    
-    init(id: UUID = UUID(), layoutInfo: LayoutInfo = .init(), uiInfo: UIInfo = .init()) {
-        self.id = id
-        self.layoutInfo = layoutInfo
-        self.uiInfo = uiInfo
-        super.init(frame: CGRect(origin: .zero, size: (layoutInfo.size ?? .zero).toCGSize))
+    init(uuidString: String, frame: CGRect) {
+        self.uuidString = uuidString
+        super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {

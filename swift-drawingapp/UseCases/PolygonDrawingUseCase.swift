@@ -9,5 +9,7 @@ import Foundation
 
 protocol PolygonDrawingUseCase {
     
-    func create(point: Point) -> RectangleView
+    func create(point: Point?) -> Rectangle
+    
+    func update(_ drawing: Drawing, rectangle: Rectangle)
 }

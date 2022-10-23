@@ -7,15 +7,15 @@
 
 import Foundation
 
-class Stroke: Item, Identifiable {
+struct Stroke: Item {
     
-    var id: UUID
+    var id: String
     
     var points: [Point]
     
     var ink: Ink
     
-    init(id: UUID = UUID(), positions: [Point] = [], ink: Ink) {
+    init(id: String = UUID().uuidString, positions: [Point] = [], ink: Ink) {
         self.id = id
         self.points = positions
         self.ink = ink
