@@ -9,7 +9,7 @@ import UIKit
 
 protocol ToolBarViewDelegate: AnyObject {
     
-    func toolBarView(_ toolBarView: ToolBarView, selectedTool: Tool)
+    func toolBarView(_ toolBarView: ToolBarView, selectedToolInfo: ToolInfo)
 }
 
 final class ToolBarView: UIView {
@@ -33,10 +33,10 @@ final class ToolBarView: UIView {
     @IBAction func didTapButton(sender: UIButton) {
         switch sender {
         case rectangleButton:
-            delegate?.toolBarView(self, selectedTool: PolygonTool())
+            delegate?.toolBarView(self, selectedToolInfo: ToolInfo(type: "polygon"))
             
         case drawingButton:
-            delegate?.toolBarView(self, selectedTool: InkTool(ink: Ink(lineWidth: 3, lineColor: "systemRed")))
+            delegate?.toolBarView(self, selectedToolInfo: ToolInfo(type: "ink", options: ["width": 3, "color": "systemRed"]))
             
         default:
             break

@@ -9,8 +9,6 @@ import UIKit
 
 protocol CanvasViewDelegate: AnyObject {
     
-    func canvasView(_ canvasView: CanvasView, selectedItem: Item)
-    
     func canvasView(_ canvasView: CanvasView, didTapEndedAt: CGPoint)
     
     func canvasView(_ canvasView: CanvasView, didDragBeganAt: CGPoint)
@@ -23,10 +21,6 @@ protocol CanvasViewDelegate: AnyObject {
 final class CanvasView: UIView {
     
     weak var delegate: CanvasViewDelegate?
-    
-    private var items: [Item] {
-        subviews.compactMap { $0 as? Item } + strokes.map { $0 as Item }
-    }
     
     private var strokes: [Stroke] = [] {
         didSet {
@@ -68,34 +62,40 @@ final class CanvasView: UIView {
         reset()
         
         strokes = drawing.items
-            .filter { $0 is Stroke }
+            .values
             .compactMap { $0 as? Stroke }
         
         drawing.items
-            .filter { $0 is RectangleView }
-            .compactMap { $0 as? RectangleView }
+            .values
+            .compactMap { $0 as? Rectangle }
             .forEach {
-                $0.frame = CGRect(origin: .zero, size: ($0.layoutInfo.size ?? .zero).toCGSize)
-                $0.backgroundColor = $0.uiInfo.backgroundColor?.toSystemColor.withAlphaComponent(0.8)
-                $0.center = ($0.layoutInfo.center ?? .zero).toCGPoint
-                addSubview($0)
+                let view = RectangleView(
+                    uuidString: $0.id,
+                    frame: CGRect(origin: .zero, size: ($0.layoutInfo?.size ?? .zero))
+                )
+                view.backgroundColor = $0.uiInfo?.backgroundColor?.withAlphaComponent(0.8)
+                view.center = ($0.layoutInfo?.center ?? .zero)
+                addSubview(view)
             }
         
         layoutIfNeeded()
         setNeedsLayout()
     }
     
-    func update(selectedItems: [Item]) {
-        items.compactMap { $0 as? UIView }
-            .forEach {
-                $0.layer.borderColor = UIColor.clear.cgColor
-                $0.layer.borderWidth = 3
-            }
+    func update(selectedItems: Drawing.DataType) {
         
-        selectedItems.compactMap { $0 as? UIView }
+        subviews.forEach {
+            $0.layer.borderColor = UIColor.clear.cgColor
+            $0.layer.borderWidth = 3
+        }
+        
+        subviews
+            .compactMap { $0 as? RectangleView }
             .forEach {
-                $0.layer.borderColor = UIColor.systemRed.cgColor
-                $0.layer.borderWidth = 3
+                if selectedItems[$0.uuidString] != nil {
+                    $0.layer.borderColor = UIColor.systemRed.cgColor
+                    $0.layer.borderWidth = 3
+                }
             }
     }
     
@@ -112,20 +112,12 @@ private extension CanvasView {
         addGestureRecognizer(panGestureRecognizer)
     }
     
-    func findSelectedItem(point: CGPoint) -> Item? {
-        return subviews.reversed().first { $0.frame.contains(point) } as? Item
-    }
-    
     @objc func handleTapGesture(sender: UITapGestureRecognizer) {
         let point = sender.location(in: self)
         switch sender.state {
         case .ended:
-            if let selectedItem = findSelectedItem(point: point) {
-                delegate?.canvasView(self, selectedItem: selectedItem)
-            } else {
-                delegate?.canvasView(self, didTapEndedAt: point)
-            }
-            
+            delegate?.canvasView(self, didTapEndedAt: point)
+
         default:
             break
         }

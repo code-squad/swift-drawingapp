@@ -7,9 +7,11 @@
 
 import Foundation
 
-struct Drawing {
+class Drawing {
     
-    var items: [Item] = []
+    typealias DataType = [String: Item]
     
-    var selectedItems: [Item] = []
+    var items: DataType = [:]
+    
+    var selectedItems: DataType = [:]
 }

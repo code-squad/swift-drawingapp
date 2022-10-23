@@ -5,7 +5,7 @@
 //  Created by Haeseok Lee on 2022/10/19.
 //
 
-import Foundation
+import UIKit
 
 struct Point {
     
@@ -14,4 +14,9 @@ struct Point {
     let y: Double
     
     static let zero = Point(x: 0, y: 0)
+}
+
+extension Point {
+    
+    var toCGPoint: CGPoint { .init(x: x, y: y) }
 }

@@ -11,16 +11,16 @@ import XCTest
 class CanvasViewModelTests: XCTestCase {
 
     
-    var sut: CanvasViewModel!
+    var sut: CanvasViewModelType!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = CanvasViewModel()
+        sut = CanvasViewModel(polygonDrawingUseCase: PolygonDrawingUseCaseImpl(), inkDrawingUseCase: InkDrawingUseCaseImpl(), toolSelectionUseCase: ToolSelectionUseCaseImpl(), itemSelectionUseCase: ItemSelectionUseCaseImpl())
     }
 
     override func tearDownWithError() throws {
         try super.tearDownWithError()
-        sut = CanvasViewModel()
+        sut = CanvasViewModel(polygonDrawingUseCase: PolygonDrawingUseCaseImpl(), inkDrawingUseCase: InkDrawingUseCaseImpl(), toolSelectionUseCase: ToolSelectionUseCaseImpl(), itemSelectionUseCase: ItemSelectionUseCaseImpl())
     }
 
     func test_draw_rectangle() {
@@ -32,13 +32,13 @@ class CanvasViewModelTests: XCTestCase {
         sut.draw(tool: tool, layoutInfo: layoutInfo, uiInfo: nil)
         
         // then
-        XCTAssertEqual(1, sut.drawing.items.count)
-        XCTAssertTrue(type(of: sut.drawing.items.first!) is RectangleView.Type)
+        XCTAssertEqual(1, sut.drawing.items.values.count)
+        XCTAssertTrue(type(of: sut.drawing.items.values.first!) is Rectangle.Type)
     }
     
     func test_draw_stroke() {
         // given
-        let tool = InkTool(ink: .init(lineWidth: 3, lineColor: .systemRed))
+        let tool = InkTool(ink: .init(lineWidth: 3, lineColor: "systemRed"))
         
         // when
         sut.draw(tool: tool, beganAt: Point(x: 100, y: 100))
@@ -51,28 +51,26 @@ class CanvasViewModelTests: XCTestCase {
         sut.draw(tool: tool, endedAt: Point(x: 100, y: 105))
         
         // then
-        XCTAssertEqual(1, sut.drawing.items.count)
-        XCTAssertTrue(type(of: sut.drawing.items.first!) is Stroke.Type)
+        XCTAssertEqual(1, sut.drawing.items.values.count)
+        XCTAssertTrue(type(of: sut.drawing.items.values.first!) is Stroke.Type)
     }
     
     func test_select_rectangle() {
         // given
-        let itemID = UUID()
-        let item = RectangleView(id: itemID, layoutInfo: .init(), uiInfo: .init())
+        let item = Rectangle()
         
         // when
         sut.select(item: item)
         
         // then
-        XCTAssertEqual(1, sut.drawing.selectedItems.count)
-        XCTAssertTrue(type(of: sut.drawing.selectedItems.first!) is RectangleView.Type)
-        XCTAssertEqual(sut.drawing.selectedItems.first!.id, itemID)
+        XCTAssertEqual(1, sut.drawing.selectedItems.values.count)
+        XCTAssertTrue(type(of: sut.drawing.selectedItems.values.first!) is Rectangle.Type)
+        XCTAssertEqual(sut.drawing.selectedItems.values.first!.id, item.id)
     }
     
     func test_select_when_double_tapped_rectangle() {
         // given
-        let itemID = UUID()
-        let item = RectangleView(id: itemID, layoutInfo: .init(), uiInfo: .init())
+        let item = Rectangle()
         
         // when
         sut.select(item: item)
