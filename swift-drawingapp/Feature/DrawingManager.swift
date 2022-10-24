@@ -14,7 +14,15 @@ class DrawingManager {
             delegate?.selectedShapesChanged(selectedShapes)
         }
     }
+    private let chatClient = DrawingChatClient()
+    
     weak var delegate: DrawingManagerDelegate?
+    
+    enum Error: Swift.Error {
+        case login
+        case send
+        case receive
+    }
     
     func createRandomRect() {
         let rectSize = Size(width: 100, height: 100)
@@ -50,6 +58,24 @@ class DrawingManager {
             selectedShapes.append(shape)
         }
         return shape
+    }
+    
+    func startSynchronize() async throws {
+        do { try await chatClient.login() }
+        catch { throw Error.login }
+        
+        let shapes: [ShapeData] = canvas.shapes.map { $0.points }
+        do { try await chatClient.sendShapes(shapes) }
+        catch { throw Error.send }
+        
+        do {
+            for try await shapes in chatClient.shapesStream {
+                (shapes as! [ShapeData])
+                    .map { Shape(points: $0) }
+                    .forEach { canvas.addShape($0) }
+            }
+        }
+        catch { throw Error.receive }
     }
 }
 
