@@ -79,7 +79,8 @@ class DrawingManager {
         do {
             for try await shapes in chatClient.shapesStream {
                 shapes.forEach {
-                    let shape = Shape(points: $0)
+                    let shape = ColoredShape(points: $0)
+                    shape.lineColor = .systemRed
                     canvas.addShape(shape)
                     receivedShapes.append(shape)
                 }
