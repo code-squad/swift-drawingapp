@@ -39,6 +39,7 @@
 		F2B5F94D28FC24DC00D5BE2F /* DrawingManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */; };
 		F2B5F94F28FC2EE800D5BE2F /* ColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */; };
 		F2B5F95328FC3BAF00D5BE2F /* DrawingManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F95228FC3BAF00D5BE2F /* DrawingManagerViewModel.swift */; };
+		F2CAB4F62906D21400FA5A8B /* AnyAsyncSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAB4F52906D21400FA5A8B /* AnyAsyncSequence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 		F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManagerViewController.swift; sourceTree = "<group>"; };
 		F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorList.swift; sourceTree = "<group>"; };
 		F2B5F95228FC3BAF00D5BE2F /* DrawingManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManagerViewModel.swift; sourceTree = "<group>"; };
+		F2CAB4F52906D21400FA5A8B /* AnyAsyncSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyAsyncSequence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 			children = (
 				F2B5F94828FC1F3B00D5BE2F /* Color+CGColor.swift */,
 				F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */,
+				F2CAB4F52906D21400FA5A8B /* AnyAsyncSequence.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -398,6 +401,7 @@
 				F2AEE0BD28FB05F40068B9E9 /* Size.swift in Sources */,
 				F2AEE0C428FB0B780068B9E9 /* Drawing.swift in Sources */,
 				F2AEE0B928FB04C60068B9E9 /* Rectangle.swift in Sources */,
+				F2CAB4F62906D21400FA5A8B /* AnyAsyncSequence.swift in Sources */,
 				F2AEE0C128FB07C10068B9E9 /* Shape.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
