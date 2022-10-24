@@ -21,6 +21,13 @@ class Shape {
     weak var delegate: ShapeDelegate?
 }
 
+extension Shape {
+    convenience init(points: [Point]) {
+        self.init()
+        self.points = points
+    }
+}
+
 protocol ShapeDelegate: AnyObject {
     func pointsChanged(_ points: [Point])
 }
