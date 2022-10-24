@@ -13,7 +13,14 @@ class DrawingChatClient {
     private let tcpManager = TCPManager(hostName: "localhost", port: 9090)
     
     lazy var shapesStream: AnyAsyncSequence<[ShapeData]> = tcpManager.messageStream
-        .map { try JSONDecoder().decode([ShapeData].self, from: $0) }
+        .compactMap { data in
+            let decoder = JSONDecoder()
+            guard
+                let shapesData = try? decoder.decode(Command.self, from: data),
+                let data = shapesData.data
+            else { return nil }
+            return try decoder.decode([ShapeData].self, from: data)
+        }
         .eraseToAnyAsyncSequence()
     
     func login() async throws {
@@ -44,6 +51,7 @@ class DrawingChatClient {
             data: shapesData
         )
         let commandData = try encoder.encode(command)
+        print(String(data: commandData, encoding: .utf8))
         try await tcpManager.send(data: commandData)
     }
     

@@ -68,11 +68,13 @@ class DrawingManager {
     
     func startSynchronize() async throws {
         do { try await chatClient.login() }
-        catch { throw Error.login }
+        catch { print(error); throw Error.login }
+        
+        try! await Task.sleep(nanoseconds: 1000000000)
         
         let shapes: [ShapeData] = canvas.shapes.map { $0.points }
         do { try await chatClient.sendShapes(shapes) }
-        catch { throw Error.send }
+        catch { print(error); throw Error.send }
         
         do {
             for try await shapes in chatClient.shapesStream {
@@ -83,7 +85,7 @@ class DrawingManager {
                 }
             }
         }
-        catch { throw Error.receive }
+        catch { print(error); throw Error.receive }
     }
 }
 

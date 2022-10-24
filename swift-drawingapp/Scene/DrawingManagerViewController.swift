@@ -32,6 +32,13 @@ class DrawingManagerViewController: UIViewController {
         return button
     }()
     
+    private lazy var syncButton = {
+        let button = UIButton(frame: CGRect(origin: .zero, size: .init(width: 100, height: 100)))
+        button.setTitle("동기화", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +49,9 @@ class DrawingManagerViewController: UIViewController {
     private func setupViews() {
         view.backgroundColor = .lightGray
         
-        let hStack = UIStackView(arrangedSubviews: [addRectButton, addDrawingButton])
+        let hStack = UIStackView(arrangedSubviews: [
+            addRectButton, addDrawingButton, syncButton
+        ])
         hStack.axis = .horizontal
         hStack.spacing = 10
         
@@ -63,6 +72,8 @@ class DrawingManagerViewController: UIViewController {
         addRectButton.addTarget(self, action: #selector(addRectButtonTapped), for: .touchUpInside)
         
         addDrawingButton.addTarget(self, action: #selector(addDrawingButtonTapped), for: .touchUpInside)
+        
+        syncButton.addTarget(self, action: #selector(syncButtonTapped), for: .touchUpInside)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapPoint))
         canvasView.addGestureRecognizer(tapGesture)
@@ -97,5 +108,10 @@ class DrawingManagerViewController: UIViewController {
             canvasView.removeGestureRecognizer(panGesture)
             viewModel.endDrawing()
         }
+    }
+    
+    @objc
+    private func syncButtonTapped() {
+        viewModel.startSync()
     }
 }
