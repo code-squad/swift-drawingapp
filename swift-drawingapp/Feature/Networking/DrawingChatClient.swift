@@ -12,9 +12,9 @@ typealias ShapeData = [Point]
 class DrawingChatClient {
     private let tcpManager = TCPManager(hostName: "localhost", port: 9090)
     
-    /// as! [ShapeData]로 꺼내 사용한다.
-    lazy var shapesStream: any AsyncSequence = tcpManager.messageStream
+    lazy var shapesStream: AnyAsyncSequence<[ShapeData]> = tcpManager.messageStream
         .map { try JSONDecoder().decode([ShapeData].self, from: $0) }
+        .eraseToAnyAsyncSequence()
     
     func login() async throws {
         tcpManager.start()

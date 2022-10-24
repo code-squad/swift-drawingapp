@@ -70,7 +70,7 @@ class DrawingManager {
         
         do {
             for try await shapes in chatClient.shapesStream {
-                (shapes as! [ShapeData])
+                shapes
                     .map { Shape(points: $0) }
                     .forEach { canvas.addShape($0) }
             }
