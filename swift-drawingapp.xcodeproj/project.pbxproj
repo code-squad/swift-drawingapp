@@ -175,6 +175,7 @@
 		F2062B42290568CA00868583 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				F2062B4529057B5400868583 /* DrawingChatClient.swift */,
 				F24CBCC52904D966007F98AF /* TCPManager.swift */,
 				F2062B43290568DF00868583 /* Messages.swift */,
 			);
@@ -193,7 +194,6 @@
 				F2AEE0C328FB0B780068B9E9 /* Drawing.swift */,
 				F2AEE0C528FB0D650068B9E9 /* Structures */,
 				F2062B42290568CA00868583 /* Networking */,
-				F2062B4529057B5400868583 /* DrawingChatClient.swift */,
 			);
 			path = Feature;
 			sourceTree = "<group>";

@@ -5,7 +5,8 @@
 //  Created by Sunghyun Kim on 2022/10/16.
 //
 
-import UIKit
+import Foundation
+import CoreGraphics
 
 typealias StyledShape = Shape & StyleApplying
 
