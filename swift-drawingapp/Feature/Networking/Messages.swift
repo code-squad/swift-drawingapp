@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct Command : Encodable {
+struct Command : Codable {
     var header : Header
     var id : String
     var length : Int?
     var data : Data?
     
-    enum Header: String, Encodable {
+    enum Header: String, Codable {
         case login = "0x10"
         case chat = "0x20"
     }

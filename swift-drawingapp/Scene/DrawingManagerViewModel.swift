@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class DrawingManagerViewModel: DrawingManagerDelegate {
     
@@ -13,6 +14,8 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
     private(set) var canvasViewModel: CanvasViewModel!
     
     private var addToPointStream: ((Point?) -> Void)?
+    
+    let errorMessage: PassthroughSubject<String, Never> = .init()
     
     init() {
         canvasViewModel = .init(canvas: drawingManager.canvas)
@@ -50,6 +53,16 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
         addToPointStream = nil
     }
     
+    func startSync() {
+        Task {
+            do {
+                try await drawingManager.startSynchronize()
+            } catch let error as DrawingManager.Error {
+                handleError(error)
+            } catch {}
+        }
+    }
+    
     func selectShape(at point: CGPoint) {
         let point = canvasViewModel.convertToPoint(point)
         drawingManager.selectShape(at: point)
@@ -63,5 +76,16 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
     
     func receivedShapesChanged(_ receivedShapes: [Shape]) {
         canvasViewModel.reloadCanvas()
+    }
+    
+    private func handleError(_ error: DrawingManager.Error) {
+        switch error {
+        case .login:
+            errorMessage.send("로그인 오류")
+        case .send:
+            errorMessage.send("데이터 전송 오류")
+        case .receive:
+            errorMessage.send("데이터 수신 오류")
+        }
     }
 }
