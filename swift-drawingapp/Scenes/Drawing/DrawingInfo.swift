@@ -8,24 +8,53 @@
 import Foundation
 import Combine
 
-final class DrawingInfo: Drawable {
+typealias DrawingInPort = Paintable & Touchable & StateControlProtocol
+typealias DrawingOutPort = SizePublishable & PointPublishable & StatePublishableProtocol
+
+final class DrawingInfo: DrawingInPort, DrawingOutPort {
     let color: Color
     let lineWidth: Double
 
     private(set) var area: Area
     private(set) var areaPublisher: CurrentValueSubject<Area, Never>
 
-    var pointsPublisher: Published<[Point]>.Publisher { $points }
-    @Published private var points: [Point] = []
+    private(set) var pointPublisher: CurrentValueSubject<Point?, Never>
+    private(set) var points: [Point] = []
 
-    init(color: Color, lineWidth: Double, area: Area) {
+    @Published private var isActive: Bool = true
+    var isActivePublisher: Published<Bool>.Publisher { $isActive }
+
+    init(color: Color, area: Area, lineWidth: Double) {
         self.color = color
         self.area = area
-        self.areaPublisher = .init(area)
         self.lineWidth = lineWidth
+        self.areaPublisher = .init(area)
+        self.pointPublisher = .init(nil)
     }
 
-    func resizeToDrawnArea(with points: [Point]) {
+    func setPoints(_ points: [Point]) {
+        pointPublisher.send(nil)
+        self.points = points
+        points.forEach { pointPublisher.send($0) }
+    }
+
+    func touch(location: Point) {
+        points.append(location)
+        pointPublisher.send(location)
+    }
+
+    func activate() {
+        points = []
+        pointPublisher.send(nil)
+        isActive = true
+    }
+
+    func deactivate() {
+        isActive = false
+        resizeToDrawnArea()
+    }
+
+    private func resizeToDrawnArea() {
         var minX: Double = 0
         var maxX: Double = 0
         var minY: Double = 0
@@ -56,6 +85,6 @@ final class DrawingInfo: Drawable {
             )
         )
         areaPublisher.send(area)
-        self.points = points.map { .init(x: $0.x - minX + lineWidth, y: $0.y - minY + lineWidth) }
+        setPoints(points.map { .init(x: $0.x - minX + lineWidth, y: $0.y - minY + lineWidth) })
     }
 }

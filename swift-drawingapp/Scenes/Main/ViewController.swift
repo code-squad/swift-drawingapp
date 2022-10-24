@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
     private let btnContainer: UIStackView = {
@@ -18,7 +19,13 @@ class ViewController: UIViewController {
     }()
     private let rectangleButton: UIButton = .create(title: "사각형", selector: #selector(drawRect))
     private let drawingButton: UIButton = .create(title: "드로잉", selector: #selector(beginDrawing))
-    private var paintStorage: PaintStorage = .init()
+
+    private var paintManager: PaintManager = .init()
+
+    private let rectanglePainter = RectanglePainter()
+    private let drawingPainer = DrawingPainter()
+
+    private var cancellables: Set<AnyCancellable> = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +37,60 @@ class ViewController: UIViewController {
         ])
         btnContainer.addArrangedSubview(rectangleButton)
         btnContainer.addArrangedSubview(drawingButton)
+
+        setRectangle()
+        setDrawing()
+    }
+
+    private func setRectangle() {
+        paintManager.rectanglePublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] rectangle in
+                guard
+                    let self,
+                    let rectangle
+                else { return }
+                let _view = RectangleView(info: rectangle)
+
+                self.view.addSubview(_view)
+                self.view.bringSubviewToFront(self.btnContainer)
+
+                rectangle.isActivePublisher
+                    .receive(on: RunLoop.main)
+                    .sink(receiveValue: _view.drawBorder)
+                    .store(in: &self.cancellables)
+            }
+            .store(in: &cancellables)
+    }
+
+    private func setDrawing() {
+        paintManager.drawingPublisher
+            .receive(on: RunLoop.main)
+            .sink { [weak self] drawing in
+                guard
+                    let self,
+                    let drawing
+                else { return }
+                let _view = DrawingView(info: drawing)
+                self.view.addSubview(_view)
+                self.view.bringSubviewToFront(self.btnContainer)
+
+                drawing.areaPublisher
+                    .receive(on: RunLoop.main)
+                    .sink(receiveValue: _view.setFrame)
+                    .store(in: &self.cancellables)
+
+                drawing.pointPublisher
+                    .receive(on: RunLoop.main)
+                    .sink(receiveValue: _view.draw)
+                    .store(in: &self.cancellables)
+
+                drawing.isActivePublisher
+                    .receive(on: RunLoop.main)
+                    .sink(receiveValue: _view.activeControl)
+                    .store(in: &self.cancellables)
+            }
+            .store(in: &cancellables)
     }
 
     @objc
@@ -45,9 +106,8 @@ class ViewController: UIViewController {
             ),
             size: .init(width: length, height: length)
         )
-        let _view = RectangleView(info: paintStorage.addRectangle(area: randomArea))
-        view.addSubview(_view)
-        view.bringSubviewToFront(btnContainer)
+        let paint = rectanglePainter.draw(color: Color.randomColor, area: randomArea, lineWidth: 4)
+        paintManager.addPaint(paint)
     }
 
     @objc
@@ -62,8 +122,28 @@ class ViewController: UIViewController {
                 height: Double(view.frame.height)
             )
         )
-        let _view = DrawingView(info: paintStorage.addDrawing(lineWidth: 8, area: area))
-        view.addSubview(_view)
-        view.bringSubviewToFront(btnContainer)
+        let paint = drawingPainer.draw(color: Color.randomColor, area: area, lineWidth: 8)
+        paintManager.addPaint(paint)
     }
 }
+
+// MARK: - 하단 선택용 Button
+extension UIButton {
+    static func create(title: String, selector: Selector) -> UIButton {
+        let button: UIButton = .init()
+        button.setTitle(title, for: .normal)
+        button.addTarget(nil, action: selector, for: .touchUpInside)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .white
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.borderWidth = 1
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.widthAnchor.constraint(equalToConstant: 80),
+            button.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        return button
+    }
+}
+
+
