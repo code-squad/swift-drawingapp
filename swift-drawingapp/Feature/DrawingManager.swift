@@ -18,10 +18,12 @@ class DrawingManager {
     
     func createRandomRect() {
         let rectSize = Size(width: 100, height: 100)
-        let originPoint = Point(
-            x: Double.random(in: 0...canvas.size.width-rectSize.width),
-            y: Double.random(in: 0...canvas.size.height-rectSize.height)
-        )
+        
+        var availableOriginBounds = canvas.size
+        availableOriginBounds.width -= rectSize.width
+        availableOriginBounds.height -= rectSize.height
+        
+        let originPoint = Point.random(in: availableOriginBounds)
         let rect = StyledRectangle(origin: originPoint, size: rectSize)
         rect.fillColor = Color.systemList.randomElement()
         canvas.addShape(rect)
@@ -39,13 +41,15 @@ class DrawingManager {
     }
     
     /// 해당 지점에 있는 도형의 선택 상태를 토글한다.
-    func selectShape(at point: Point) {
-        guard let shape = canvas.findShape(at: point) else { return }
+    @discardableResult
+    func selectShape(at point: Point) -> Shape? {
+        guard let shape = canvas.findShape(at: point) else { return nil }
         if let index = (selectedShapes.firstIndex { $0 === shape }) {
             selectedShapes.remove(at: index)
         } else {
             selectedShapes.append(shape)
         }
+        return shape
     }
 }
 
