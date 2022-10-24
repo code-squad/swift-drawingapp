@@ -10,10 +10,12 @@ import Foundation
 class DrawingManager {
     private(set) var canvas: Canvas = Canvas(size: .init(width: 500, height: 500))
     private(set) var selectedShapes: [Shape] = [] {
-        didSet {
-            delegate?.selectedShapesChanged(selectedShapes)
-        }
+        didSet { delegate?.selectedShapesChanged(selectedShapes) }
     }
+    private(set) var receivedShapes: [Shape] = [] {
+        didSet { delegate?.receivedShapesChanged(receivedShapes) }
+    }
+    
     private let chatClient = DrawingChatClient()
     
     weak var delegate: DrawingManagerDelegate?
@@ -51,7 +53,11 @@ class DrawingManager {
     /// 해당 지점에 있는 도형의 선택 상태를 토글한다.
     @discardableResult
     func selectShape(at point: Point) -> Shape? {
-        guard let shape = canvas.findShape(at: point) else { return nil }
+        guard
+            let shape = canvas.findShape(at: point),
+            !receivedShapes.contains(shape)
+        else { return nil }
+        
         if let index = (selectedShapes.firstIndex { $0 === shape }) {
             selectedShapes.remove(at: index)
         } else {
@@ -70,9 +76,11 @@ class DrawingManager {
         
         do {
             for try await shapes in chatClient.shapesStream {
-                shapes
-                    .map { Shape(points: $0) }
-                    .forEach { canvas.addShape($0) }
+                shapes.forEach {
+                    let shape = Shape(points: $0)
+                    canvas.addShape(shape)
+                    receivedShapes.append(shape)
+                }
             }
         }
         catch { throw Error.receive }
@@ -81,4 +89,5 @@ class DrawingManager {
 
 protocol DrawingManagerDelegate: AnyObject {
     func selectedShapesChanged(_ selectedShapes: [Shape])
+    func receivedShapesChanged(_ receivedShapes: [Shape])
 }

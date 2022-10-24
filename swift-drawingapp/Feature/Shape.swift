@@ -31,3 +31,9 @@ extension Shape {
 protocol ShapeDelegate: AnyObject {
     func pointsChanged(_ points: [Point])
 }
+
+extension Shape: Equatable {
+    static func == (lhs: Shape, rhs: Shape) -> Bool {
+        lhs.points == rhs.points
+    }
+}
