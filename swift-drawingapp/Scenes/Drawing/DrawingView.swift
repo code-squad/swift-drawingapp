@@ -9,30 +9,19 @@ import UIKit
 import Combine
 
 class DrawingView: UIView {
-    private let info: any Drawable
+    private let info: any DrawingInPort
 
     private let path: UIBezierPath = .init()
-    private var canDrawing: Bool = true
-    private var points: [CGPoint] = []
+    private var lastPoint: CGPoint? = nil
 
     private var cancellables: Set<AnyCancellable> = []
 
-    init(info: any Drawable) {
+    init(info: any DrawingInPort) {
         self.info = info
         super.init(frame: CGRect.frame(info.area))
         isMultipleTouchEnabled = false
         backgroundColor = .clear
         path.lineWidth = info.lineWidth
-
-        info.areaPublisher
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: setFrame)
-            .store(in: &cancellables)
-
-        info.pointsPublisher
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: drawPoints)
-            .store(in: &cancellables)
     }
 
     required init?(coder: NSCoder) {
@@ -40,27 +29,23 @@ class DrawingView: UIView {
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard canDrawing else { return }
         guard let touch = touches.first else { return }
+        info.activate()
         let location = touch.location(in: self)
-        points.append(location)
-        path.move(to: location)
+        info.touch(location: location.convertToPoint())
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard canDrawing else { return }
         guard let touch = touches.first else { return }
         let location = touch.location(in: self)
-        points.append(location)
-        path.addLine(to: location)
-        setNeedsDisplay()
+        info.touch(location: location.convertToPoint())
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard canDrawing else { return }
-        defer { points.removeAll() }
-        canDrawing = false
-        info.resizeToDrawnArea(with: points.map { Point(x: $0.x, y: $0.y) })
+        guard let touch = touches.first else { return }
+        let location = touch.location(in: self)
+        info.touch(location: location.convertToPoint())
+        info.deactivate()
     }
 
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -72,21 +57,29 @@ class DrawingView: UIView {
         path.stroke()
     }
 
-    private func setFrame(area: Area) {
+    func setFrame(area: Area) {
         frame = CGRect.frame(area)
     }
 
-    private func drawPoints(_ points: [Point]) {
-        path.removeAllPoints()
-        var isFirstPoint: Bool = true
-        points.forEach {
-            let point = CGPoint(x: $0.x, y: $0.y)
-            if isFirstPoint {
-                path.move(to: point)
-                isFirstPoint = false
-            }
-            path.addLine(to: point)
+    func draw(_ point: Point?) {
+        guard let point else {
+            lastPoint = nil
+            path.removeAllPoints()
+            return
         }
-        setNeedsDisplay()
+        if lastPoint == nil {
+            path.move(to: CGPoint(x: CGFloat(point.x), y: CGFloat(point.y)))
+        } else {
+            path.addLine(to: CGPoint(x: CGFloat(point.x), y: CGFloat(point.y)))
+            setNeedsDisplay()
+        }
+        lastPoint = CGPoint(x: point.x, y: point.y)
+    }
+
+    func activeControl(_ isActive: Bool) {
+        if isActive {
+            lastPoint = nil
+        }
+        isUserInteractionEnabled = isActive
     }
 }

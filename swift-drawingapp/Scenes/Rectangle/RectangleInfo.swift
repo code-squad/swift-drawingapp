@@ -8,24 +8,31 @@
 import Foundation
 import Combine
 
-protocol Selectable {
-    var isSelectedPublisher: Published<Bool>.Publisher { get }
-    func select()
-}
+typealias RectangleInPort = Paintable & StateControlProtocol
+typealias RectangleOutPort = SizePublishable & StatePublishableProtocol
 
-final class RectangleInfo: Paintable, Selectable {
+final class RectangleInfo: RectangleInPort, RectangleOutPort {
     let color: Color
+    let lineWidth: Double
+
     let area: Area
+    private(set) var areaPublisher: CurrentValueSubject<Area, Never>
 
-    var isSelectedPublisher: Published<Bool>.Publisher { $isSelected }
-    @Published private var isSelected: Bool = false
+    @Published private var isActive: Bool = false
+    var isActivePublisher: Published<Bool>.Publisher { $isActive }
 
-    init(color: Color, area: Area) {
+    init(color: Color, area: Area, lineWidth: Double) {
         self.color = color
         self.area = area
+        self.lineWidth = lineWidth
+        self.areaPublisher = .init(area)
     }
 
-    func select() {
-        isSelected.toggle()
+    func activate() {
+        isActive = true
+    }
+
+    func deactivate() {
+        isActive = false
     }
 }

@@ -9,18 +9,14 @@ import UIKit
 import Combine
 
 class RectangleView: UIView {
-    private let info: any Paintable & Selectable
-    private var cancellables: Set<AnyCancellable> = []
+    private let info: any RectangleInPort
+    private var isSelected: Bool = false
 
-    init(info: any Paintable & Selectable) {
+    init(info: any RectangleInPort) {
         self.info = info
         super.init(frame: CGRect.frame(info.area))
         isMultipleTouchEnabled = false
         backgroundColor = UIColor.system(info.color)
-        info.isSelectedPublisher
-            .receive(on: RunLoop.main)
-            .sink(receiveValue: drawBorder)
-            .store(in: &cancellables)
     }
 
     required init?(coder: NSCoder) {
@@ -29,11 +25,12 @@ class RectangleView: UIView {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        info.select()
+        isSelected ? info.deactivate() : info.activate()
     }
 
-    private func drawBorder(_ isSelected: Bool) {
+    func drawBorder(_ isActive: Bool) {
+        isSelected = isActive
         layer.borderColor = isSelected ? UIColor.systemRed.cgColor : UIColor.clear.cgColor
-        layer.borderWidth = isSelected ? 4 : 0
+        layer.borderWidth = isSelected ? info.lineWidth : 0
     }
 }
