@@ -113,11 +113,7 @@ class DrawingViewModel: DrawingViewModelProtocol {
     }
     
     private func findSquare(point: CGPoint) -> Square? {
-        let drawing = drawingStore.getData()
-            .compactMap { $0 as? Square }
-            .first { $0.isContain(point: point) }
-        
-        return drawing
+        return drawingStore.findSquare(point: point)
     }
     
 }
