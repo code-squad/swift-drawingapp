@@ -11,6 +11,7 @@ import CoreGraphics
 protocol DrawingStoreProtocol {
     func appendData(data: Shape)
     func getData() -> [Shape]
+    func findSquare(point: CGPoint) -> Square?
 }
 
 class DrawingStore: DrawingStoreProtocol {
@@ -25,5 +26,13 @@ class DrawingStore: DrawingStoreProtocol {
     
     func getData() -> [Shape] {
         return drawingList
+    }
+    
+    func findSquare(point: CGPoint) -> Square? {
+        let drawing = drawingList
+            .compactMap { $0 as? Square }
+            .first { $0.isContain(point: point) }
+        
+        return drawing
     }
 }
