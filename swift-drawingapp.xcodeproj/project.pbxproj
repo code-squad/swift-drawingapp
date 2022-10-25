@@ -24,6 +24,15 @@
 		48F465982907AE4D0083E64A /* DummySocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465972907AE4D0083E64A /* DummySocket.swift */; };
 		48F4659A2907C2370083E64A /* ColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465992907C2370083E64A /* ColorAssets.swift */; };
 		48F465A02907CB350083E64A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4659F2907CB350083E64A /* Color+Ext.swift */; };
+		48F465A42907D6120083E64A /* Test_SquareFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465A32907D6120083E64A /* Test_SquareFactory.swift */; };
+		48F465A52907D6610083E64A /* SquareFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FE356329024D4500BF33D7 /* SquareFactory.swift */; };
+		48F465A62907D67F0083E64A /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B8F55729037A7400022D44 /* Square.swift */; };
+		48F465A72907D6940083E64A /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B8F55529037A1700022D44 /* Shape.swift */; };
+		48F465A92907D6B10083E64A /* Test_Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465A82907D6B10083E64A /* Test_Square.swift */; };
+		48F465AB2907D8150083E64A /* Test_ColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465AA2907D8150083E64A /* Test_ColorAssets.swift */; };
+		48F465AC2907D81C0083E64A /* ColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465992907C2370083E64A /* ColorAssets.swift */; };
+		48F465AE2907D9650083E64A /* Teat_DrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465AD2907D9650083E64A /* Teat_DrawingStore.swift */; };
+		48F465AF2907D9690083E64A /* DrawingStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C7394F28F97B6300F3E155 /* DrawingStore.swift */; };
 		48FE356229024D3B00BF33D7 /* LineFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FE356129024D3B00BF33D7 /* LineFactory.swift */; };
 		48FE356429024D4500BF33D7 /* SquareFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FE356329024D4500BF33D7 /* SquareFactory.swift */; };
 		48FE356629024D5000BF33D7 /* DrawingFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48FE356529024D5000BF33D7 /* DrawingFactory.swift */; };
@@ -32,7 +41,6 @@
 		83A846E528725EFA00C777B1 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E428725EFA00C777B1 /* DrawingViewController.swift */; };
 		83A846EA28725EFE00C777B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 83A846E928725EFE00C777B1 /* Assets.xcassets */; };
 		83A846ED28725EFE00C777B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83A846EB28725EFE00C777B1 /* LaunchScreen.storyboard */; };
-		83A846F828725EFF00C777B1 /* swift_drawingappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846F728725EFF00C777B1 /* swift_drawingappTests.swift */; };
 		83A8470228725EFF00C777B1 /* swift_drawingappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A8470128725EFF00C777B1 /* swift_drawingappUITests.swift */; };
 		83A8470428725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A8470328725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift */; };
 /* End PBXBuildFile section */
@@ -72,6 +80,10 @@
 		48F465972907AE4D0083E64A /* DummySocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySocket.swift; sourceTree = "<group>"; };
 		48F465992907C2370083E64A /* ColorAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAssets.swift; sourceTree = "<group>"; };
 		48F4659F2907CB350083E64A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
+		48F465A32907D6120083E64A /* Test_SquareFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_SquareFactory.swift; sourceTree = "<group>"; };
+		48F465A82907D6B10083E64A /* Test_Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_Square.swift; sourceTree = "<group>"; };
+		48F465AA2907D8150083E64A /* Test_ColorAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_ColorAssets.swift; sourceTree = "<group>"; };
+		48F465AD2907D9650083E64A /* Teat_DrawingStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Teat_DrawingStore.swift; sourceTree = "<group>"; };
 		48FE356129024D3B00BF33D7 /* LineFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineFactory.swift; sourceTree = "<group>"; };
 		48FE356329024D4500BF33D7 /* SquareFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareFactory.swift; sourceTree = "<group>"; };
 		48FE356529024D5000BF33D7 /* DrawingFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingFactory.swift; sourceTree = "<group>"; };
@@ -83,7 +95,6 @@
 		83A846EC28725EFE00C777B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83A846EE28725EFE00C777B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		83A846F328725EFF00C777B1 /* swift-drawingappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-drawingappTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		83A846F728725EFF00C777B1 /* swift_drawingappTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_drawingappTests.swift; sourceTree = "<group>"; };
 		83A846FD28725EFF00C777B1 /* swift-drawingappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "swift-drawingappUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A8470128725EFF00C777B1 /* swift_drawingappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_drawingappUITests.swift; sourceTree = "<group>"; };
 		83A8470328725EFF00C777B1 /* swift_drawingappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_drawingappUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -236,7 +247,10 @@
 		83A846F628725EFF00C777B1 /* swift-drawingappTests */ = {
 			isa = PBXGroup;
 			children = (
-				83A846F728725EFF00C777B1 /* swift_drawingappTests.swift */,
+				48F465A32907D6120083E64A /* Test_SquareFactory.swift */,
+				48F465A82907D6B10083E64A /* Test_Square.swift */,
+				48F465AA2907D8150083E64A /* Test_ColorAssets.swift */,
+				48F465AD2907D9650083E64A /* Teat_DrawingStore.swift */,
 			);
 			path = "swift-drawingappTests";
 			sourceTree = "<group>";
@@ -414,7 +428,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A846F828725EFF00C777B1 /* swift_drawingappTests.swift in Sources */,
+				48F465AE2907D9650083E64A /* Teat_DrawingStore.swift in Sources */,
+				48F465A92907D6B10083E64A /* Test_Square.swift in Sources */,
+				48F465A62907D67F0083E64A /* Square.swift in Sources */,
+				48F465AC2907D81C0083E64A /* ColorAssets.swift in Sources */,
+				48F465A42907D6120083E64A /* Test_SquareFactory.swift in Sources */,
+				48F465A52907D6610083E64A /* SquareFactory.swift in Sources */,
+				48F465AF2907D9690083E64A /* DrawingStore.swift in Sources */,
+				48F465AB2907D8150083E64A /* Test_ColorAssets.swift in Sources */,
+				48F465A72907D6940083E64A /* Shape.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -576,6 +598,7 @@
 				CODE_SIGN_ENTITLEMENTS = "swift-drawingapp/swift-drawingapp.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "swift-drawingapp/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -603,6 +626,7 @@
 				CODE_SIGN_ENTITLEMENTS = "swift-drawingapp/swift-drawingapp.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_TESTING_SEARCH_PATHS = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "swift-drawingapp/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
