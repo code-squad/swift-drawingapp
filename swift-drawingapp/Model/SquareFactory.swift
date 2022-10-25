@@ -26,7 +26,7 @@ class SquareFactory: SquareFactoryProtocol {
         return Square(points: points)
     }
 
-    private func getRectPoints(rect: CGRect) -> [CGPoint] {
+    func getRectPoints(rect: CGRect) -> [CGPoint] {
         let rect = self.getRect(rect: rect)
         
         let leftTop = CGPoint(x: rect.origin.x, y: rect.origin.y)
@@ -37,13 +37,13 @@ class SquareFactory: SquareFactoryProtocol {
         return [leftTop, leftBottom, rightBottom, rightTop, leftTop]
     }
     
-    private func getRect(rect: CGRect) -> CGRect {
+    func getRect(rect: CGRect) -> CGRect {
         let possibleRange = possibleStartingPointRange(rect: rect)
         let startingPoint = randomStartingPoint(rangeX: possibleRange.rangeX, rangeY: possibleRange.rangeY)
         return CGRect(x: startingPoint.x, y: startingPoint.y, width: squareWidth, height: squareHeight)
     }
         
-    private func possibleStartingPointRange(rect: CGRect) -> (rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) {
+    func possibleStartingPointRange(rect: CGRect) -> (rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) {
         let maxX = rect.origin.x + rect.width - squareWidth
         let maxY = rect.origin.y + rect.height - squareHeight
         
@@ -53,7 +53,7 @@ class SquareFactory: SquareFactoryProtocol {
         return (rangeX, rangeY)
     }
     
-    private func randomStartingPoint(rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) -> CGPoint {
+    func randomStartingPoint(rangeX: Range<CGFloat>, rangeY: Range<CGFloat>) -> CGPoint {
         let x = CGFloat.random(in: rangeX)
         let y = CGFloat.random(in: rangeY)
         return CGPoint(x: x, y: y)

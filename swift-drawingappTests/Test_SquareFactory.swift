@@ -1,20 +1,19 @@
 //
-//  swift_drawingappTests.swift
+//  Test_SquareFactory.swift
 //  swift-drawingappTests
 //
-//  Created by JK on 2022/07/04.
+//  Created by 김상진 on 2022/10/25.
 //
 
 import XCTest
-@testable import swift_drawingapp
 
-class swift_drawingappTests: XCTestCase {
+class Test_SquareFactory: XCTestCase {
 
     override func setUpWithError() throws {}
     override func tearDownWithError() throws {}
 
     func test_getRange_성공() throws {
-        let squareMaker = PathMaker()
+        let squareMaker = SquareFactory()
         
         let rect = CGRect(x: 0, y: 0, width: 300, height: 500)
         let range = squareMaker.possibleStartingPointRange(rect: rect)
@@ -23,7 +22,7 @@ class swift_drawingappTests: XCTestCase {
     }
 
     func test_getRandomStartingPoint_범위_안에_존재() {
-        let squareMaker = PathMaker()
+        let squareMaker = SquareFactory()
         
         let range = squareMaker.randomStartingPoint(rangeX: 0..<200, rangeY: 0..<300)
         XCTAssertTrue(range.x < 200)
@@ -31,7 +30,7 @@ class swift_drawingappTests: XCTestCase {
     }
     
     func test_getRect_범위_안에_존재() {
-        let squareMaker = PathMaker()
+        let squareMaker = SquareFactory()
         
         let rect = CGRect(x: 0, y: 0, width: 300, height: 500)
         let square = squareMaker.getRect(rect: rect)
@@ -40,4 +39,5 @@ class swift_drawingappTests: XCTestCase {
         XCTAssertTrue(square.size.width == 100)
         XCTAssertTrue(square.size.height == 100)
     }
+
 }

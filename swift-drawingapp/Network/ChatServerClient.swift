@@ -44,7 +44,6 @@ extension ChatServerClient: DummyScoketDelegate {
             guard let data = data else { return }
             let command = try JSONDecoder().decode(Command.self, from: data)
             
-            print(command)
             if let shapeData = command.data {
                 if command.id == "line" {
                     let shape: Line = try decodeShape(from: shapeData)
