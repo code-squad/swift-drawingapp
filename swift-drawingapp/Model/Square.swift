@@ -8,8 +8,8 @@
 import Foundation
 import CoreGraphics
 
-class Square: Shape, Identifiable {
-    let uuid: UUID = UUID()
+class Square: Shape, Identifiable, Codable {
+    var uuid: UUID = UUID()
     var points: [CGPoint]
     
     init(points: [CGPoint]) {
@@ -29,5 +29,12 @@ class Square: Shape, Identifiable {
         let rangeX = minX...maxX
         let rangeY = minY...maxY
         return rangeX.contains(point.x) && rangeY.contains(point.y)
+    }
+    
+    func toJsonData() -> Data? {
+        if let jsonData = try? JSONEncoder().encode(self) {
+            return jsonData
+        }
+        return nil
     }
 }

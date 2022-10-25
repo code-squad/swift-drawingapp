@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import QuartzCore
 
-class LineLayerMaker {
+class DrawingMaker {
     
     private var tempLayer = CAShapeLayer()
     private var bezierPath = UIBezierPath()
@@ -26,7 +26,6 @@ class LineLayerMaker {
         
         tempLayer.lineWidth = 4
         tempLayer.fillColor = UIColor.clear.cgColor
-        tempLayer.strokeColor = UIColor.clear.randomSystemColor().cgColor
         
         return tempLayer
     }

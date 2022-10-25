@@ -118,14 +118,19 @@ extension DrawingViewController {
 
 // MARK: - OUTPUT
 extension DrawingViewController: ViewModelDelegate {
-    func drawSquare(square: Square) {
-        let layer = drawingLayerMaker.makeSquareLayer(square: square)
+    func drawSquare(square: Square, color: ColorAssets) {
+        let layer = drawingLayerMaker.makeSquareLayer(square: square, color: color)
         self.canvasView.layer.addSublayer(layer)
     }
     
-    func startLineDraw(line: Line) {
+    func drawLine(line: Line, color: ColorAssets) {
+        let layer = drawingLayerMaker.makeLineLayer(line: line, color: color)
+        self.canvasView.layer.addSublayer(layer)
+    }
+    
+    func startLineDraw(line: Line, color: ColorAssets) {
         // guard문 없앨 방법 고민
-        guard let layer = drawingLayerMaker.startLineDrawing(line: line) else {
+        guard let layer = drawingLayerMaker.startLineDrawing(line: line, color: color) else {
             return
         }
         self.canvasView.layer.addSublayer(layer)
@@ -141,13 +146,5 @@ extension DrawingViewController: ViewModelDelegate {
     
     func selectSquare(square: Square) {
         canvasView.selectSquare(square: square)
-    }
-}
-
-extension UIColor {
-    func randomSystemColor() -> UIColor {
-        let colors: [UIColor] = [.systemBlue, .systemCyan, .systemCyan, .systemBrown, .systemIndigo, .systemPurple, .systemTeal, .systemYellow, .systemMint]
-        
-        return colors.randomElement() ?? self
     }
 }
