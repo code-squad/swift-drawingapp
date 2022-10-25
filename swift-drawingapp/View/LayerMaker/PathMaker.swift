@@ -9,13 +9,13 @@ import Foundation
 import CoreGraphics
 import UIKit
 
-class SquareLayerMaker {
+class PathMaker {
     
     init() {
         
     }
     
-    func makeSquare(points: [CGPoint]) -> CAShapeLayer {
+    func makePath(points: [CGPoint]) -> UIBezierPath {
         let path = UIBezierPath()
         
         for (i, point) in points.enumerated() {
@@ -27,10 +27,7 @@ class SquareLayerMaker {
             }
         }
         
-        let shapeLayer = CAShapeLayer()
-        shapeLayer.path = path.cgPath
-        shapeLayer.fillColor = UIColor.clear.randomSystemColor().cgColor
         
-        return shapeLayer
+        return path
     }
 }

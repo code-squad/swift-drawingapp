@@ -3,63 +3,64 @@
 //
 
 import Foundation
-import Starscream
+import CoreGraphics
 
 protocol ChatServerClientProtocol {
-    func connect(id: String?)
+    var delegate: ChatServerDelegate? { get set }
+    func login(id: String?)
+    func sendData(shape: Shape)
 }
 
-class ChatServerClient: WebSocketDelegate, ChatServerClientProtocol {
+protocol ChatServerDelegate: AnyObject {
+    func loginSucceed()
+    func dataReceived(shape: Shape)
+}
+
+class ChatServerClient: ChatServerClientProtocol {
+
+    private var socket = DummySocket()
+    weak var delegate: ChatServerDelegate?
     
-    init() {}
-    
-    private var socket: WebSocket?
-    private var id: String?
-    
-    func connect(id: String?) {
-        self.id = id
-        let url = URL(string: "http://127.0.0.1:8080/chatserver")!
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5
-        socket = WebSocket(request: request)
-        socket?.delegate = self
-        socket?.connect()
+    init() {
+        socket.delegate = self
+    }
+
+    func sendData(shape: Shape) {
+        // for문 돌려서 데이터 쏘기
     }
     
-    func didReceive(event: WebSocketEvent, client: WebSocket) {
-        switch event {
-        case .connected(let headers):
-            print("websocket is connected: \(headers)")
-            login(id: self.id)
-        case .disconnected(let reason, let code):
-            print("websocket is disconnected: \(reason) with code: \(code)")
-        case .text(let text):
-            print("received text: \(text)")
-        case .binary(let data):
-            print("Received data: \(data.count)")
-        case .ping(_):
-            break
-        case .pong(_):
-            break
-        case .viabilityChanged(_):
-            break
-        case .reconnectSuggested(_):
-            break
-        case .cancelled:
-            print("websocket is canclled")
-        case .error(let error):
-            print("websocket is error = \(error!)")
-        }
-    }
-    
-    private func login(id: String?) {
-        guard let loginId = id,
-              let jsonString = Command(header: "0x10", id: loginId).toJsonString() else {
-            return
-        }
-        socket?.write(string: jsonString) {
-            print("login success")
-        }
+    func login(id: String?) {
+//        guard let loginId = id,
+//              let jsonString = Command(header: "0x10", id: loginId, data: nil).toJsonString() else {
+//            return
+//        }
+        socket.login()
     }
 }
 
+extension ChatServerClient: DummyScoketDelegate {
+    func pushData(data: Data?) {
+        do {
+            guard let data = data else { return }
+            let command = try JSONDecoder().decode(Command.self, from: data)
+            
+            print(command)
+            if let shapeData = command.data {
+                if command.id == "line" {
+                    let shape: Line = try decodeShape(from: shapeData)
+                    delegate?.dataReceived(shape: shape)
+                } else if command.id == "square" {
+                    let shape: Square = try decodeShape(from: shapeData)
+                    delegate?.dataReceived(shape: shape)
+                }
+            }
+        } catch {
+            
+        }
+    }
+    
+    func decodeShape<T : Decodable>(from data : Data) throws -> T
+    {
+        return try JSONDecoder().decode(T.self, from: data)
+    }
+}

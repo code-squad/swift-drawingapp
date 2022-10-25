@@ -13,8 +13,9 @@ import QuartzCore
 // viewModel에서 로직 처리 후 출력값을 전달하기 때문에, 기대되는 출력값들을 delegate로 정의하고 ViewController와 연결
 protocol ViewModelDelegate: AnyObject {
     func selectSquare(square: Square)
-    func drawSquare(square: Square)
-    func startLineDraw(line: Line)
+    func drawSquare(square: Square, color: ColorAssets)
+    func drawLine(line: Line, color: ColorAssets)
+    func startLineDraw(line: Line, color: ColorAssets)
     func updateLineDraw(point: CGPoint)
     func endLineDraw()
 }
@@ -35,10 +36,9 @@ protocol DrawingViewModelProtocol {
 }
 
 class DrawingViewModel: DrawingViewModelProtocol {
-    
     private let drawingStore: DrawingStoreProtocol
     private let drawingFactory: DrawingFactoryProtocol
-    private let chatServerClient: ChatServerClientProtocol
+    private var chatServerClient: ChatServerClientProtocol
     
     weak var delegate: ViewModelDelegate?
     
@@ -52,6 +52,8 @@ class DrawingViewModel: DrawingViewModelProtocol {
         self.drawingStore = drawingStore
         self.drawingFactory = drawingFactory
         self.chatServerClient = chatServerClient
+        
+        self.chatServerClient.delegate = self
     }
     
     func handleTouchesBegan(point: CGPoint) {
@@ -60,7 +62,7 @@ class DrawingViewModel: DrawingViewModelProtocol {
             processRectSelection(point: point)
         case .line:
             let line = drawingFactory.startLinePoint(point: point)
-            delegate?.startLineDraw(line: line)
+            delegate?.startLineDraw(line: line, color: ColorAssets.randomColor())
         case .none:
             return
         }
@@ -89,7 +91,7 @@ class DrawingViewModel: DrawingViewModelProtocol {
         let square = drawingFactory.makeSquare(rect: rect)
         appendDrawing(shape: square)
         
-        delegate?.drawSquare(square: square)
+        delegate?.drawSquare(square: square, color: ColorAssets.randomColor())
     }
     
     func handleLineButtonSelected() {
@@ -97,7 +99,7 @@ class DrawingViewModel: DrawingViewModelProtocol {
     }
     
     func connectServer(id: String?) {
-        chatServerClient.connect(id: id)
+        chatServerClient.login(id: id)
     }
     
     private func appendDrawing(shape: Shape) {
@@ -118,4 +120,21 @@ class DrawingViewModel: DrawingViewModelProtocol {
         return drawing
     }
     
+}
+
+extension DrawingViewModel: ChatServerDelegate {
+    func loginSucceed() {
+        drawingStore.getData().forEach { shape in
+            chatServerClient.sendData(shape: shape)
+        }
+    }
+    
+    func dataReceived(shape: Shape) {
+        if let square = shape as? Square {
+            delegate?.drawSquare(square: square, color: .systemGray)
+        }
+        if let line = shape as? Line {
+            delegate?.drawLine(line: line, color: .systemGray)
+        }
+    }
 }

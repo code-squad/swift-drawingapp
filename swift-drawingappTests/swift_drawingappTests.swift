@@ -14,7 +14,7 @@ class swift_drawingappTests: XCTestCase {
     override func tearDownWithError() throws {}
 
     func test_getRange_성공() throws {
-        let squareMaker = SquareLayerMaker()
+        let squareMaker = PathMaker()
         
         let rect = CGRect(x: 0, y: 0, width: 300, height: 500)
         let range = squareMaker.possibleStartingPointRange(rect: rect)
@@ -23,7 +23,7 @@ class swift_drawingappTests: XCTestCase {
     }
 
     func test_getRandomStartingPoint_범위_안에_존재() {
-        let squareMaker = SquareLayerMaker()
+        let squareMaker = PathMaker()
         
         let range = squareMaker.randomStartingPoint(rangeX: 0..<200, rangeY: 0..<300)
         XCTAssertTrue(range.x < 200)
@@ -31,7 +31,7 @@ class swift_drawingappTests: XCTestCase {
     }
     
     func test_getRect_범위_안에_존재() {
-        let squareMaker = SquareLayerMaker()
+        let squareMaker = PathMaker()
         
         let rect = CGRect(x: 0, y: 0, width: 300, height: 500)
         let square = squareMaker.getRect(rect: rect)

@@ -8,8 +8,8 @@
 import Foundation
 import CoreGraphics
 
-class Line: Shape, Identifiable {
-    let uuid: UUID = UUID()
+class Line: Shape, Identifiable, Codable {
+    var uuid: UUID = UUID()
     var points: [CGPoint] = []
     
     init(points: [CGPoint]) {
@@ -17,5 +17,12 @@ class Line: Shape, Identifiable {
     }
     
     init() {}
+    
+    func toJsonData() -> Data? {
+        if let jsonData = try? JSONEncoder().encode(self) {
+            return jsonData
+        }
+        return nil
+    }
 }
 
