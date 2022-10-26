@@ -51,7 +51,6 @@ class DrawingChatClient {
             data: shapesData
         )
         let commandData = try encoder.encode(command)
-        print(String(data: commandData, encoding: .utf8))
         try await tcpManager.send(data: commandData)
     }
     

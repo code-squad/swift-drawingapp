@@ -25,6 +25,9 @@ extension Color {
     
     static let systemRed: Color = .init(uiColor: .systemRed)
     
+    static let yellow: Color = .init(uiColor: .systemYellow)
+    static let blue: Color = .init(uiColor: .systemBlue)
+    
     init(uiColor: UIColor) {
         let (r, g, b, _) = uiColor.rgba
         self.init(red: r, green: g, blue: b)

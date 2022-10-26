@@ -68,25 +68,38 @@ class DrawingManager {
     
     func startSynchronize() async throws {
         do { try await chatClient.login() }
-        catch { print(error); throw Error.login }
+        catch {
+            print("DrawingManager 로그인 오류", error)
+            throw Error.login
+        }
         
         try! await Task.sleep(nanoseconds: 1000000000)
         
         let shapes: [ShapeData] = canvas.shapes.map { $0.points }
         do { try await chatClient.sendShapes(shapes) }
-        catch { print(error); throw Error.send }
+        catch {
+            print("DrawingManager 전송 오류", error)
+            throw Error.send
+        }
         
-        do {
-            for try await shapes in chatClient.shapesStream {
-                shapes.forEach {
-                    let shape = ColoredShape(points: $0)
-                    shape.lineColor = .systemRed
-                    canvas.addShape(shape)
-                    receivedShapes.append(shape)
+        Task { @MainActor in
+            do {
+                for try await shapes in chatClient.shapesStream {
+                    shapes.forEach {
+                        let shape = ColoredShape(points: $0)
+                        shape.fillColor = .yellow
+                        shape.lineColor = .blue
+                        canvas.addShape(shape)
+                        receivedShapes.append(shape)
+                    }
                 }
             }
+            catch {
+                print("DrawingManager 수신 오류", error)
+                throw Error.receive
+            }
         }
-        catch { print(error); throw Error.receive }
+        
     }
 }
 

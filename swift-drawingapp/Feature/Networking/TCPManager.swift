@@ -48,7 +48,7 @@ class TCPManager {
     }
     
     private func receiveNextMessage() {
-        self.connection.receive(minimumIncompleteLength: 4, maximumLength: 1024) { content, context, isComplete, error in
+        self.connection.receive(minimumIncompleteLength: 4, maximumLength: 25000) { content, context, isComplete, error in
             if let content {
                 self.addToMessageStream?(.success(content))
             }
