@@ -16,9 +16,13 @@ class DrawingManager {
         didSet { delegate?.receivedShapesChanged(receivedShapes) }
     }
     
-    private let chatClient = DrawingChatClient()
+    private var chatClient: DrawingChatServiceProviding!
     
     weak var delegate: DrawingManagerDelegate?
+    
+    func setChatServiceProvider(_ chatClient: DrawingChatServiceProviding) {
+        self.chatClient = chatClient
+    }
     
     enum Error: Swift.Error {
         case login
@@ -75,8 +79,7 @@ class DrawingManager {
         
         try! await Task.sleep(nanoseconds: 1000000000)
         
-        let shapes: [ShapeData] = canvas.shapes.map { $0.points }
-        do { try await chatClient.sendShapes(shapes) }
+        do { try await chatClient.sendShapes(canvas.shapes) }
         catch {
             print("DrawingManager 전송 오류", error)
             throw Error.send
@@ -84,13 +87,10 @@ class DrawingManager {
         
         Task { @MainActor in
             do {
-                for try await shapes in chatClient.shapesStream {
+                for try await shapes in chatClient.shapeStream {
                     shapes.forEach {
-                        let shape = ColoredShape(points: $0)
-                        shape.fillColor = .yellow
-                        shape.lineColor = .blue
-                        canvas.addShape(shape)
-                        receivedShapes.append(shape)
+                        canvas.addShape($0)
+                        receivedShapes.append($0)
                     }
                 }
             }
