@@ -5,6 +5,7 @@
 //  Created by JK on 2022/07/04.
 //
 
+import Combine
 import UIKit
 
 class DrawingViewController: UIViewController {
@@ -22,13 +23,11 @@ class DrawingViewController: UIViewController {
         return view
     }()
 
-    let rectProvider: RectProvidable
-    let drawingHandler: DrawingHandleable
-    var isDrawing: Bool = false
+    private let viewModel: ViewModelProtocol
+    private var currentDrawingID: UUID?
 
-    init(rectProvider: RectProvidable, drawingHandler: DrawingHandleable) {
-        self.rectProvider = rectProvider
-        self.drawingHandler = drawingHandler
+    init(viewModel: ViewModelProtocol) {
+        self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -71,20 +70,31 @@ class DrawingViewController: UIViewController {
     }
 
     private func addRectView() {
-        let rect = rectProvider.createRect()
+        let rect = viewModel.createRect()
+        drawRect(rect)
+    }
 
-        let rectView = RectView(id: rect.id)
-        rectView.frame = .init(
-            origin: .random(min: .zero, max: .init(x: view.frame.maxX - 100, y: buttonStackView.frame.minY - 100)),
-            size: .init(width: 100, height: 100)
+    private func drawRect(_ rect: Rect) {
+        let rectView = RectView(
+            id: rect.id,
+            frame: .init(
+                origin: .init(
+                    x: rect.position.cgPoint.x * (view.frame.maxX - 100),
+                    y: rect.position.cgPoint.y * (buttonStackView.frame.minY - 100)
+                ),
+                size: rect.size.cgSize
+            ),
+            color: rect.color.uiColor.withAlphaComponent(0.6)
         )
-        rectView.backgroundColor = .random.withAlphaComponent(0.6)
         rectView.addTarget(self, action: #selector(didTapRectView), for: .touchUpInside)
         view.addSubview(rectView)
     }
 
     @objc
     private func didTapDrawingButton() {
+        let drawing = viewModel.startDrawing()
+        currentDrawingID = drawing.id
+        drawingCanvasView.drawingColor = drawing.color.uiColor
         drawingCanvasView.enableDrawing()
     }
 
@@ -95,15 +105,9 @@ class DrawingViewController: UIViewController {
 }
 
 extension DrawingViewController: DrawingCanvasViewDelegate {
-    func drawingCanvasView(didDrawTo path: CGPoint, state: DrawingCanvasView.DrawingState) {
-        switch state {
-        case .began:
-            drawingHandler.startDrawing()
-            drawingHandler.draw(path: .init(x: path.x, y: path.y))
-        case .onGoing:
-            drawingHandler.draw(path: .init(x: path.x, y: path.y))
-        case .ended:
-            drawingHandler.endDrawing()
-        }
+    func drawingCanvasView(didDrawTo path: CGPoint) {
+        guard let id = currentDrawingID else { return }
+
+        viewModel.draw(id: id, path: .init(x: path.x, y: path.y))
     }
 }

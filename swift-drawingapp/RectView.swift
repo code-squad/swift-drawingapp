@@ -15,10 +15,11 @@ final class RectView: UIButton {
         }
     }
 
-    init(id: UUID) {
+    init(id: UUID, frame: CGRect, color: UIColor) {
         self.id = id
-        super.init(frame: .zero)
+        super.init(frame: frame)
 
+        backgroundColor = color
         layer.borderColor = UIColor.systemRed.cgColor
     }
 
