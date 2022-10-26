@@ -19,6 +19,7 @@
 		007198702906E0BC0094CBB2 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071986F2906E0BC0094CBB2 /* Position.swift */; };
 		007198722906E0C70094CBB2 /* DrawingColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007198712906E0C70094CBB2 /* DrawingColor.swift */; };
 		007198742906E5AA0094CBB2 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 007198732906E5AA0094CBB2 /* Size.swift */; };
+		0071987629097E990094CBB2 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071987529097E990094CBB2 /* ChatService.swift */; };
 		0071987829097EAF0094CBB2 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071987729097EAF0094CBB2 /* Command.swift */; };
 		0071987A29097EB90094CBB2 /* CommandResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0071987929097EB90094CBB2 /* CommandResponse.swift */; };
 		83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83A846E028725EFA00C777B1 /* AppDelegate.swift */; };
@@ -61,6 +62,7 @@
 		0071986F2906E0BC0094CBB2 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		007198712906E0C70094CBB2 /* DrawingColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingColor.swift; sourceTree = "<group>"; };
 		007198732906E5AA0094CBB2 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		0071987529097E990094CBB2 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 		0071987729097EAF0094CBB2 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
 		0071987929097EB90094CBB2 /* CommandResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandResponse.swift; sourceTree = "<group>"; };
 		83A846DD28725EFA00C777B1 /* swift-drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-drawingapp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +144,7 @@
 				007198712906E0C70094CBB2 /* DrawingColor.swift */,
 				0071987729097EAF0094CBB2 /* Command.swift */,
 				0071987929097EB90094CBB2 /* CommandResponse.swift */,
+				0071987529097E990094CBB2 /* ChatService.swift */,
 				83A846E928725EFE00C777B1 /* Assets.xcassets */,
 				83A846EB28725EFE00C777B1 /* LaunchScreen.storyboard */,
 				83A846EE28725EFE00C777B1 /* Info.plist */,
@@ -311,6 +314,7 @@
 				0071986C28FC2F8C0094CBB2 /* Drawing.swift in Sources */,
 				0071985A28FA824C0094CBB2 /* DrawingButton.swift in Sources */,
 				0071986E2906DCD10094CBB2 /* ViewModel.swift in Sources */,
+				0071987629097E990094CBB2 /* ChatService.swift in Sources */,
 				0071985C28FBCF5C0094CBB2 /* DrawingColor+UIColor.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
 			);

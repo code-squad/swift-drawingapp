@@ -17,6 +17,17 @@ protocol ViewModelProtocol {
 class ViewModel: ViewModelProtocol {
     private var rectDict: [UUID: Rect] = .init()
     private var drawingDict: [UUID: Drawing] = .init()
+    private let chatService: ChatServiceProtocol
+
+    init(chatService: ChatServiceProtocol) {
+        self.chatService = chatService
+
+        chatService.connect()
+    }
+
+    deinit {
+        chatService.disconnect()
+    }
 
     func createRect() -> Rect {
         let id = UUID()
