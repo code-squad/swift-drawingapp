@@ -1,4 +1,18 @@
 # swift-drawingapp
+## Step 2
+
+![step2](assets/step2.gif)
+
+각 클라이언트는 서버에 로그인하고 로그인이 성공하면 자신의 도형을 서버로 전송한다. 이후 도형을 수신할 수 있도록 TCP 통신을 시작한다.
+
+#### 의존 방향
+
+모델과 챗클라이언트 사이에 DrawingChatServiceProviding를 두어 의존성을 역전시킨다.
+
+```
+DrawingManager -> DrawingChatServiceProviding 프로토콜 <- DrawingChatClient -> TCPManager
+```
+
 ## Step 1
 
 ![picture](assets/picture.png)
@@ -26,3 +40,4 @@
 - 입력을 DrawingManager로 전달하며 Canvas 뷰/뷰모델을 사용하여 출력한다.
 
 ![step1_animate](assets/step1_animate.gif)
+
