@@ -9,4 +9,7 @@ import Foundation
 
 struct Rect: Identifiable {
     let id: UUID
+    let position: Position
+    let color: DrawingColor
+    let size: Size
 }

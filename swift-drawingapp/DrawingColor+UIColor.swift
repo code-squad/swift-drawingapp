@@ -7,35 +7,32 @@
 
 import UIKit
 
-extension UIColor {
-    static var random: UIColor {
-        let random = Int.random(in: 0...10)
+extension DrawingColor {
 
-        switch random {
-        case 0:
+    var uiColor: UIColor {
+        switch self {
+        case .blue:
             return .systemBlue
-        case 1:
+        case .brown:
             return .systemBrown
-        case 2:
+        case .cyan:
             return .systemCyan
-        case 3:
+        case .green:
             return .systemGreen
-        case 4:
+        case .indigo:
             return .systemIndigo
-        case 5:
+        case .mint:
             return .systemMint
-        case 6:
+        case .orange:
             return .systemOrange
-        case 7:
+        case .pink:
             return .systemPink
-        case 8:
+        case .purple:
             return .systemPurple
-        case 9:
+        case .teal:
             return .systemTeal
-        case 10:
+        case .yellow:
             return .systemYellow
-        default:
-            return .systemBlue
         }
     }
 }

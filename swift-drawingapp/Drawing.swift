@@ -9,5 +9,6 @@ import Foundation
 
 struct Drawing: Identifiable {
     let id: UUID
-    let paths: [DrawingPath]
+    var paths: [DrawingPath]
+    let color: DrawingColor
 }

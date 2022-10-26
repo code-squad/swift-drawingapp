@@ -17,10 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        window.rootViewController = DrawingViewController(
-            rectProvider: RectProvider(),
-            drawingHandler: DrawingHandler()
-        )
+        window.rootViewController = DrawingViewController(viewModel: ViewModel())
         window.makeKeyAndVisible()
     }
 

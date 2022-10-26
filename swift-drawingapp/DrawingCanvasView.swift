@@ -8,7 +8,7 @@
 import UIKit
 
 protocol DrawingCanvasViewDelegate {
-    func drawingCanvasView(didDrawTo path: CGPoint, state: DrawingCanvasView.DrawingState)
+    func drawingCanvasView(didDrawTo path: CGPoint)
 }
 
 final class DrawingCanvasView: UIView {
@@ -24,7 +24,7 @@ final class DrawingCanvasView: UIView {
     }()
 
     private var lastPoint: CGPoint = .zero
-    private var drawingColor: UIColor = .random
+    var drawingColor: UIColor = .white
     private var isDrawing: Bool = false {
         didSet {
             isDrawing ? showIsDrawing() : hideIsDrawing()
@@ -60,9 +60,8 @@ final class DrawingCanvasView: UIView {
             return
         }
 
-        drawingColor = .random
         lastPoint = touch.location(in: self)
-        delegate?.drawingCanvasView(didDrawTo: lastPoint, state: .began)
+        delegate?.drawingCanvasView(didDrawTo: lastPoint)
     }
 
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -74,7 +73,7 @@ final class DrawingCanvasView: UIView {
         let currentPoint = touch.location(in: self)
         drawLine(from: lastPoint, to: currentPoint)
         lastPoint = currentPoint
-        delegate?.drawingCanvasView(didDrawTo: lastPoint, state: .onGoing)
+        delegate?.drawingCanvasView(didDrawTo: lastPoint)
     }
 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -85,7 +84,6 @@ final class DrawingCanvasView: UIView {
 
         mergeImage()
         isDrawing = false
-        delegate?.drawingCanvasView(didDrawTo: lastPoint, state: .ended)
     }
 
     private func drawLine(from fromPoint: CGPoint, to toPoint: CGPoint) {
@@ -132,13 +130,5 @@ final class DrawingCanvasView: UIView {
     private func hideIsDrawing() {
         layer.borderColor = UIColor.gray.cgColor
         layer.borderWidth = 0
-    }
-}
-
-extension DrawingCanvasView {
-    enum DrawingState {
-        case began
-        case onGoing
-        case ended
     }
 }
