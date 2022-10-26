@@ -41,6 +41,7 @@
 		F2B5F95328FC3BAF00D5BE2F /* DrawingManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F95228FC3BAF00D5BE2F /* DrawingManagerViewModel.swift */; };
 		F2CAB4F62906D21400FA5A8B /* AnyAsyncSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAB4F52906D21400FA5A8B /* AnyAsyncSequence.swift */; };
 		F2CAB4F82906DC8400FA5A8B /* StyledShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAB4F72906DC8400FA5A8B /* StyledShape.swift */; };
+		F2E73AD7290940AE00C47326 /* DrawingChatServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E73AD6290940AE00C47326 /* DrawingChatServiceProviding.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		F2B5F95228FC3BAF00D5BE2F /* DrawingManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManagerViewModel.swift; sourceTree = "<group>"; };
 		F2CAB4F52906D21400FA5A8B /* AnyAsyncSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyAsyncSequence.swift; sourceTree = "<group>"; };
 		F2CAB4F72906DC8400FA5A8B /* StyledShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyledShape.swift; sourceTree = "<group>"; };
+		F2E73AD6290940AE00C47326 /* DrawingChatServiceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingChatServiceProviding.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				F2B5F93528FBCD2800D5BE2F /* DrawingManager.swift */,
+				F2E73AD6290940AE00C47326 /* DrawingChatServiceProviding.swift */,
 				F2AEE0BE28FB066C0068B9E9 /* Canvas.swift */,
 				F2AEE0C028FB07C10068B9E9 /* Shape.swift */,
 				F2CAB4F72906DC8400FA5A8B /* StyledShape.swift */,
@@ -386,6 +389,7 @@
 				F2AEE0C728FB0E530068B9E9 /* StyleApplying.swift in Sources */,
 				F2B5F94028FBE0AA00D5BE2F /* CanvasView.swift in Sources */,
 				F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */,
+				F2E73AD7290940AE00C47326 /* DrawingChatServiceProviding.swift in Sources */,
 				F2B5F93428FBBF1300D5BE2F /* Selectable.swift in Sources */,
 				F2B5F94728FBF2C700D5BE2F /* CanvasViewModel.swift in Sources */,
 				F2B5F95328FC3BAF00D5BE2F /* DrawingManagerViewModel.swift in Sources */,

@@ -27,6 +27,7 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
             return shapeVM
         }
         drawingManager.delegate = self
+        drawingManager.setChatServiceProvider(DrawingChatClient())
     }
     
     func createRandomRect() {

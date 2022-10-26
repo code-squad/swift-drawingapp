@@ -9,17 +9,24 @@ import Foundation
 
 typealias ShapeData = [Point]
 
-class DrawingChatClient {
+class DrawingChatClient: DrawingChatServiceProviding {
+    
     private let tcpManager = TCPManager(hostName: "localhost", port: 9090)
     
-    lazy var shapesStream: AnyAsyncSequence<[ShapeData]> = tcpManager.messageStream
+    lazy var shapeStream: AnyAsyncSequence<[Shape]> = tcpManager.messageStream
         .compactMap { data in
             let decoder = JSONDecoder()
             guard
                 let shapesData = try? decoder.decode(Command.self, from: data),
                 let data = shapesData.data
             else { return nil }
-            return try decoder.decode([ShapeData].self, from: data)
+            let shapes = try decoder.decode([ShapeData].self, from: data)
+            return shapes.map {
+                let shape = ColoredShape(points: $0)
+                shape.fillColor = .yellow
+                shape.lineColor = .blue
+                return shape
+            }
         }
         .eraseToAnyAsyncSequence()
     
@@ -41,9 +48,9 @@ class DrawingChatClient {
         try await tcpManager.send(data: data)
     }
     
-    func sendShapes(_ shapes: [ShapeData]) async throws {
+    func sendShapes(_ shapes: [Shape]) async throws {
         let encoder = JSONEncoder()
-        let shapesData = try encoder.encode(shapes)
+        let shapesData = try encoder.encode(shapes.map { $0.points })
         let command = Command(
             header: .chat,
             id: UUID().uuidString,
