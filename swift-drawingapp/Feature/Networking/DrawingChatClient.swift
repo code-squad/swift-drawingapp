@@ -46,6 +46,11 @@ class DrawingChatClient: DrawingChatServiceProviding {
         )
         let data = try JSONEncoder().encode(command)
         try await tcpManager.send(data: data)
+        
+        for try await message in tcpManager.messageStream {
+            let command = try JSONDecoder().decode(CommandResponse.self, from: message)
+            break
+        }
     }
     
     func sendShapes(_ shapes: [Shape]) async throws {

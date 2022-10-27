@@ -77,8 +77,6 @@ class DrawingManager {
             throw Error.login
         }
         
-        try! await Task.sleep(nanoseconds: 1000000000)
-        
         do { try await chatClient.sendShapes(canvas.shapes) }
         catch {
             print("DrawingManager 전송 오류", error)
