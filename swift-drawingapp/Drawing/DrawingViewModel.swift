@@ -9,18 +9,18 @@ import Combine
 import Foundation
 
 protocol DrawingViewModelProtocol {
-    func createRect() -> Rect
     func startDrawing() -> Drawing
     func draw(id: UUID, path: DrawingPath)
 }
 
 class DrawingViewModel: DrawingViewModelProtocol {
-    private var rectDict: [UUID: Rect] = .init()
     private var drawingDict: [UUID: Drawing] = .init()
     private let chatService: ChatServiceProtocol
+    private let rectsSubject: PassthroughSubject<[Rect], Never>
 
     init(chatService: ChatServiceProtocol) {
         self.chatService = chatService
+        rectsSubject = .init()
 
         chatService.connect()
     }
@@ -29,12 +29,10 @@ class DrawingViewModel: DrawingViewModelProtocol {
         chatService.disconnect()
     }
 
-    func createRect() -> Rect {
-        let id = UUID()
-        let rect = Rect(id: id, position: .random, color: .random, size: .init(width: 100, height: 100))
-        rectDict[id] = rect
+    func createRect() {
+        let rect = Rect(id: UUID(), position: .random, color: .random, size: .init(width: 100, height: 100))
 
-        return rect
+        rectsSubject.send([rect])
     }
 
     func startDrawing() -> Drawing {
@@ -47,5 +45,17 @@ class DrawingViewModel: DrawingViewModelProtocol {
 
     func draw(id: UUID, path: DrawingPath) {
         drawingDict[id]?.paths.append(path)
+    }
+}
+
+extension DrawingViewModel: DrawingViewInputHandleable {
+    func didTapCreateRectButton() {
+        createRect()
+    }
+}
+
+extension DrawingViewModel: DrawingViewOutputHandleable {
+    var rects: AnyPublisher<[Rect], Never> {
+        rectsSubject.eraseToAnyPublisher()
     }
 }
