@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        window.rootViewController = DrawingViewController(viewModel: ViewModel(chatService: ChatService()))
+        window.rootViewController = DrawingViewController(viewModel: DrawingViewModel(chatService: ChatService()))
         window.makeKeyAndVisible()
     }
 
