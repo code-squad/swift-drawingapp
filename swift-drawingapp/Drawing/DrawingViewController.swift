@@ -8,6 +8,14 @@
 import Combine
 import UIKit
 
+protocol DrawingViewInputHandleable {
+    func didTapCreateRectButton()
+}
+
+protocol DrawingViewOutputHandleable {
+    var rects: AnyPublisher<[Rect], Never> { get }
+}
+
 class DrawingViewController: UIViewController {
     private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
@@ -24,10 +32,20 @@ class DrawingViewController: UIViewController {
     }()
 
     private let viewModel: DrawingViewModelProtocol
+    private let inputHandler: DrawingViewInputHandleable
+    private let outputHandler: DrawingViewOutputHandleable
     private var currentDrawingID: UUID?
+    private var cancelBag: Set<AnyCancellable>
 
-    init(viewModel: DrawingViewModelProtocol) {
+    init(
+        viewModel: DrawingViewModelProtocol,
+        inputHandler: DrawingViewInputHandleable,
+        outputHandler: DrawingViewOutputHandleable
+    ) {
         self.viewModel = viewModel
+        self.inputHandler = inputHandler
+        self.outputHandler = outputHandler
+        cancelBag = .init()
 
         super.init(nibName: nil, bundle: nil)
     }
@@ -40,6 +58,7 @@ class DrawingViewController: UIViewController {
         super.viewDidLoad()
 
         setUI()
+        bind()
     }
 
     private func setUI() {
@@ -64,14 +83,19 @@ class DrawingViewController: UIViewController {
         drawingCanvasView.delegate = self
     }
 
-    @objc
-    private func didTapRectButton() {
-        addRectView()
+    private func bind() {
+        outputHandler.rects
+            .sink { rects in
+                rects.forEach {
+                    self.drawRect($0)
+                }
+            }
+            .store(in: &cancelBag)
     }
 
-    private func addRectView() {
-        let rect = viewModel.createRect()
-        drawRect(rect)
+    @objc
+    private func didTapRectButton() {
+        inputHandler.didTapCreateRectButton()
     }
 
     private func drawRect(_ rect: Rect) {
