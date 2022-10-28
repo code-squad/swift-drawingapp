@@ -8,13 +8,13 @@
 import Combine
 import Foundation
 
-protocol ViewModelProtocol {
+protocol DrawingViewModelProtocol {
     func createRect() -> Rect
     func startDrawing() -> Drawing
     func draw(id: UUID, path: DrawingPath)
 }
 
-class ViewModel: ViewModelProtocol {
+class DrawingViewModel: DrawingViewModelProtocol {
     private var rectDict: [UUID: Rect] = .init()
     private var drawingDict: [UUID: Drawing] = .init()
     private let chatService: ChatServiceProtocol

@@ -23,10 +23,10 @@ class DrawingViewController: UIViewController {
         return view
     }()
 
-    private let viewModel: ViewModelProtocol
+    private let viewModel: DrawingViewModelProtocol
     private var currentDrawingID: UUID?
 
-    init(viewModel: ViewModelProtocol) {
+    init(viewModel: DrawingViewModelProtocol) {
         self.viewModel = viewModel
 
         super.init(nibName: nil, bundle: nil)
