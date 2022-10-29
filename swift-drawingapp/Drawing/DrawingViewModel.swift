@@ -8,19 +8,18 @@
 import Combine
 import Foundation
 
-protocol DrawingViewModelProtocol {
-    func startDrawing() -> Drawing
-    func draw(id: UUID, path: DrawingPath)
-}
-
-class DrawingViewModel: DrawingViewModelProtocol {
-    private var drawingDict: [UUID: Drawing] = .init()
+class DrawingViewModel {
     private let chatService: ChatServiceProtocol
     private let rectsSubject: PassthroughSubject<[Rect], Never>
+    private let drawingsSubject: PassthroughSubject<[Drawing], Never>
+    private let currentDrawingColorSubject: PassthroughSubject<DrawingColor, Never>
+    private var currentDrawing: Drawing?
 
     init(chatService: ChatServiceProtocol) {
         self.chatService = chatService
         rectsSubject = .init()
+        drawingsSubject = .init()
+        currentDrawingColorSubject = .init()
 
         chatService.connect()
     }
@@ -29,22 +28,26 @@ class DrawingViewModel: DrawingViewModelProtocol {
         chatService.disconnect()
     }
 
-    func createRect() {
+    private func createRect() {
         let rect = Rect(id: UUID(), position: .random, color: .random, size: .init(width: 100, height: 100))
 
-        rectsSubject.send([rect])
+        sendRects([rect])
     }
 
-    func startDrawing() -> Drawing {
-        let id = UUID()
-        let drawing = Drawing(id: id, paths: [], color: .random)
-        drawingDict[id] = drawing
-
-        return drawing
+    private func sendRects(_ rects: [Rect]) {
+        rectsSubject.send(rects)
     }
 
-    func draw(id: UUID, path: DrawingPath) {
-        drawingDict[id]?.paths.append(path)
+    private func startDrawing() {
+        let currentDrawingColor: DrawingColor = .random
+        let drawing = Drawing(id: UUID(), paths: [], color: currentDrawingColor)
+
+        currentDrawing = drawing
+        currentDrawingColorSubject.send(currentDrawingColor)
+    }
+
+    private func sendDrawings(_ drawings: [Drawing]) {
+        drawingsSubject.send(drawings)
     }
 }
 
@@ -52,10 +55,32 @@ extension DrawingViewModel: DrawingViewInputHandleable {
     func didTapCreateRectButton() {
         createRect()
     }
+
+    func didTapDrawingButton() {
+        startDrawing()
+    }
+
+    func draw(to path: DrawingPath) {
+        currentDrawing?.paths.append(path)
+    }
+
+    func endDrawing() {
+        guard let currentDrawing = currentDrawing else { return }
+
+        sendDrawings([currentDrawing])
+    }
 }
 
 extension DrawingViewModel: DrawingViewOutputHandleable {
-    var rects: AnyPublisher<[Rect], Never> {
+    var rectsPublisher: AnyPublisher<[Rect], Never> {
         rectsSubject.eraseToAnyPublisher()
+    }
+
+    var currentDrawingColorPublisher: AnyPublisher<DrawingColor, Never> {
+        currentDrawingColorSubject.eraseToAnyPublisher()
+    }
+
+    var drawingsPublisher: AnyPublisher<[Drawing], Never> {
+        drawingsSubject.eraseToAnyPublisher()
     }
 }

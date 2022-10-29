@@ -10,10 +10,15 @@ import UIKit
 
 protocol DrawingViewInputHandleable {
     func didTapCreateRectButton()
+    func didTapDrawingButton()
+    func draw(to path: DrawingPath)
+    func endDrawing()
 }
 
 protocol DrawingViewOutputHandleable {
-    var rects: AnyPublisher<[Rect], Never> { get }
+    var rectsPublisher: AnyPublisher<[Rect], Never> { get }
+    var currentDrawingColorPublisher: AnyPublisher<DrawingColor, Never> { get }
+    var drawingsPublisher: AnyPublisher<[Drawing], Never> { get }
 }
 
 class DrawingViewController: UIViewController {
@@ -31,18 +36,14 @@ class DrawingViewController: UIViewController {
         return view
     }()
 
-    private let viewModel: DrawingViewModelProtocol
     private let inputHandler: DrawingViewInputHandleable
     private let outputHandler: DrawingViewOutputHandleable
-    private var currentDrawingID: UUID?
     private var cancelBag: Set<AnyCancellable>
 
     init(
-        viewModel: DrawingViewModelProtocol,
         inputHandler: DrawingViewInputHandleable,
         outputHandler: DrawingViewOutputHandleable
     ) {
-        self.viewModel = viewModel
         self.inputHandler = inputHandler
         self.outputHandler = outputHandler
         cancelBag = .init()
@@ -84,10 +85,25 @@ class DrawingViewController: UIViewController {
     }
 
     private func bind() {
-        outputHandler.rects
+        outputHandler.rectsPublisher
             .sink { rects in
                 rects.forEach {
                     self.drawRect($0)
+                }
+            }
+            .store(in: &cancelBag)
+
+        outputHandler.currentDrawingColorPublisher
+            .sink { color in
+                self.drawingCanvasView.drawingColor = color.uiColor
+                self.drawingCanvasView.enableDrawing()
+            }
+            .store(in: &cancelBag)
+
+        outputHandler.drawingsPublisher
+            .sink { drawings in
+                drawings.forEach {
+                    self.drawingCanvasView.addDrawing($0)
                 }
             }
             .store(in: &cancelBag)
@@ -116,10 +132,7 @@ class DrawingViewController: UIViewController {
 
     @objc
     private func didTapDrawingButton() {
-        let drawing = viewModel.startDrawing()
-        currentDrawingID = drawing.id
-        drawingCanvasView.drawingColor = drawing.color.uiColor
-        drawingCanvasView.enableDrawing()
+        inputHandler.didTapDrawingButton()
     }
 
     @objc
@@ -130,8 +143,10 @@ class DrawingViewController: UIViewController {
 
 extension DrawingViewController: DrawingCanvasViewDelegate {
     func drawingCanvasView(didDrawTo path: CGPoint) {
-        guard let id = currentDrawingID else { return }
+        inputHandler.draw(to: .init(x: path.x, y: path.y))
+    }
 
-        viewModel.draw(id: id, path: .init(x: path.x, y: path.y))
+    func endDrawing() {
+        inputHandler.endDrawing()
     }
 }

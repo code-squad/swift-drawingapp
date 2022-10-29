@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         let viewModel = DrawingViewModel(chatService: ChatService())
         window.rootViewController = DrawingViewController(
-            viewModel: viewModel,
             inputHandler: viewModel,
             outputHandler: viewModel
         )
