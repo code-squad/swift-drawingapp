@@ -10,18 +10,10 @@ import Foundation
 struct Command : Codable {
     let header : String
     let id : String
-    let length : Int? = nil
+    let length : Int?
     let data : Data?
-    
-    func toJsonString() -> String? {
-        if let jsonData = try? JSONEncoder().encode(self) {
-            if let jsonString = String(data: jsonData, encoding: .utf8) {
-                return jsonString
-            }
-        }
-        return nil
-    }
-    
+    let shapeType: String?
+        
     func toJsonData() -> Data? {
         if let jsonData = try? JSONEncoder().encode(self) {
             return jsonData
@@ -29,3 +21,4 @@ struct Command : Codable {
         return nil
     }
 }
+

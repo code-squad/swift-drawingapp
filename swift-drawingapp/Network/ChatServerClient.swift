@@ -7,7 +7,7 @@ import CoreGraphics
 
 protocol ChatServerClientProtocol {
     var delegate: ChatServerDelegate? { get set }
-    func login(id: String?)
+    func login(id: String)
     func sendData(shape: Shape)
 }
 
@@ -17,49 +17,93 @@ protocol ChatServerDelegate: AnyObject {
 }
 
 class ChatServerClient: ChatServerClientProtocol {
-
-    private var socket = DummySocket()
+    
+    private var socket = SocketManager(host: "localhost", port: 9090)
     weak var delegate: ChatServerDelegate?
+    var userId: String?
     
     init() {
         socket.delegate = self
     }
 
     func sendData(shape: Shape) {
-        // for문 돌려서 데이터 쏘기
+        guard let commandData = convertToCommand(shape: shape) else {
+            return
+        }
+        socket.sendData(data: commandData)
     }
     
-    func login(id: String?) {
-//        guard let loginId = id,
-//              let jsonString = Command(header: "0x10", id: loginId, data: nil).toJsonString() else {
-//            return
-//        }
-        socket.login()
+    func login(id: String) {
+        guard let jsonData = Command(header: ChatRequestTyoe.login.rawValue, id: id, length: nil, data: nil, shapeType: nil).toJsonData() else {
+            return
+        }
+        self.userId = id
+        socket.connect()
+        socket.sendData(data: jsonData)
+    }
+    
+    func convertToCommand(shape: Shape) -> Data? {
+        if let square = shape as? Square {
+            let squareData = square.toJsonData()
+            return Command(header: ChatRequestTyoe.chat.rawValue, id: userId!, length: squareData?.count, data: squareData, shapeType: "square").toJsonData()
+        }
+        
+        if let line = shape as? Line {
+            let lineData = line.toJsonData()
+            return Command(header: ChatRequestTyoe.chat.rawValue, id: userId!, length: lineData?.count, data: lineData, shapeType: "line").toJsonData()
+        }
+        
+        return nil
     }
 }
 
-extension ChatServerClient: DummyScoketDelegate {
-    func pushData(data: Data?) {
-        do {
-            guard let data = data else { return }
-            let command = try JSONDecoder().decode(Command.self, from: data)
-            
-            if let shapeData = command.data {
-                if command.id == "line" {
-                    let shape: Line = try decodeShape(from: shapeData)
-                    delegate?.dataReceived(shape: shape)
-                } else if command.id == "square" {
-                    let shape: Square = try decodeShape(from: shapeData)
-                    delegate?.dataReceived(shape: shape)
-                }
+extension ChatServerClient: SocketManagerDelegate {
+    func dataReceived(data: Data) {
+        guard let command = try? JSONDecoder().decode(Command.self, from: data) else {
+            print("Wrong Command Format")
+            return
+        }
+        guard let reponseType = ChatResponseType(rawValue: command.header) else {
+            print("Undefined response")
+            return
+        }
+        
+        switch reponseType {
+        case .loginSucceed:
+            if command.id == userId {
+                delegate?.loginSucceed()
             }
-        } catch {
-            
+        case .shapePushed:
+            guard let shape = try? convertToShape(command: command) else {
+                print("Decoding Error")
+                return
+            }
+            delegate?.dataReceived(shape: shape)
         }
     }
     
-    func decodeShape<T : Decodable>(from data : Data) throws -> T
-    {
-        return try JSONDecoder().decode(T.self, from: data)
+    func convertToShape(command: Command) throws -> Shape? {
+        guard let shapeData = command.data else {
+            throw ChatClientError.commandDataIsNil
+        }
+        
+        if command.shapeType == "line" {
+            guard let line = try? JSONDecoder().decode(Line.self, from: shapeData) else {
+                throw ChatClientError.failToDecodeLineData
+            }
+            return line
+        } else if command.shapeType == "square" {
+            guard let square = try? JSONDecoder().decode(Square.self, from: shapeData) else {
+                throw ChatClientError.failToDecodeSquareData
+            }
+            return square
+        }
+        return nil
     }
+}
+
+enum ChatClientError: Error {
+    case commandDataIsNil
+    case failToDecodeLineData
+    case failToDecodeSquareData
 }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4808EF5C290BF4ED00303E27 /* SocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4808EF5B290BF4ED00303E27 /* SocketManager.swift */; };
+		4808EF61290CEED300303E27 /* ChatReponseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4808EF60290CEED300303E27 /* ChatReponseType.swift */; };
 		48B1D8D029055F360073BEB5 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 48B1D8CF29055F360073BEB5 /* NetworkExtension.framework */; };
 		48B8F55629037A1700022D44 /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B8F55529037A1700022D44 /* Shape.swift */; };
 		48B8F55829037A7400022D44 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48B8F55729037A7400022D44 /* Square.swift */; };
@@ -63,6 +65,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4808EF5B290BF4ED00303E27 /* SocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketManager.swift; sourceTree = "<group>"; };
+		4808EF60290CEED300303E27 /* ChatReponseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatReponseType.swift; sourceTree = "<group>"; };
 		48B1D8CD29055F360073BEB5 /* swift-drawingapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "swift-drawingapp.entitlements"; sourceTree = "<group>"; };
 		48B1D8CF29055F360073BEB5 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		48B8F55529037A1700022D44 /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
@@ -182,6 +186,8 @@
 				48D474B8290420F200733F4F /* ChatServerClient.swift */,
 				48F107A82904FEE4004D00C7 /* Command.swift */,
 				48F465972907AE4D0083E64A /* DummySocket.swift */,
+				4808EF5B290BF4ED00303E27 /* SocketManager.swift */,
+				4808EF60290CEED300303E27 /* ChatReponseType.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -404,6 +410,7 @@
 				48B8F55829037A7400022D44 /* Square.swift in Sources */,
 				48C7395728FBC99400F3E155 /* DrawingMaker.swift in Sources */,
 				48C7396128FC492100F3E155 /* DrawingLayerMaker.swift in Sources */,
+				4808EF5C290BF4ED00303E27 /* SocketManager.swift in Sources */,
 				83A846E528725EFA00C777B1 /* DrawingViewController.swift in Sources */,
 				48F4659A2907C2370083E64A /* ColorAssets.swift in Sources */,
 				48B8F55629037A1700022D44 /* Shape.swift in Sources */,
@@ -414,6 +421,7 @@
 				48C7395228F97C2200F3E155 /* PathMaker.swift in Sources */,
 				48D474B9290420F200733F4F /* ChatServerClient.swift in Sources */,
 				48C7395928FBCF2100F3E155 /* DrawingTypeButton.swift in Sources */,
+				4808EF61290CEED300303E27 /* ChatReponseType.swift in Sources */,
 				48C7395028F97B6300F3E155 /* DrawingStore.swift in Sources */,
 				48FE356229024D3B00BF33D7 /* LineFactory.swift in Sources */,
 				48C7395528FA5D1400F3E155 /* DrawingViewModel.swift in Sources */,
