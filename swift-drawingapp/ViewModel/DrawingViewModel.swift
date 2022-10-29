@@ -32,7 +32,7 @@ protocol DrawingViewModelProtocol {
     func handleTouchesEnded()
     func handleSquareButtonSelected(rect: CGRect)
     func handleLineButtonSelected()
-    func connectServer(id: String?)
+    func connectServer(id: String)
 }
 
 class DrawingViewModel: DrawingViewModelProtocol {
@@ -98,7 +98,7 @@ class DrawingViewModel: DrawingViewModelProtocol {
         self.drawingMode = .line
     }
     
-    func connectServer(id: String?) {
+    func connectServer(id: String) {
         chatServerClient.login(id: id)
     }
     
@@ -126,11 +126,15 @@ extension DrawingViewModel: ChatServerDelegate {
     }
     
     func dataReceived(shape: Shape) {
-        if let square = shape as? Square {
-            delegate?.drawSquare(square: square, color: .systemGray)
-        }
-        if let line = shape as? Line {
-            delegate?.drawLine(line: line, color: .systemGray)
+        DispatchQueue.main.async {
+            if let square = shape as? Square {
+                self.delegate?.drawSquare(square: square, color: .systemGray)
+                return
+            }
+            if let line = shape as? Line {
+                self.delegate?.drawLine(line: line, color: .systemGray)
+                return
+            }
         }
     }
 }

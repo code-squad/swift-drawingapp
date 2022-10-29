@@ -104,7 +104,9 @@ extension DrawingViewController {
         let alert = UIAlertController(title: "로그인", message: "id를 입력해주세요", preferredStyle: .alert)
         alert.addTextField()
         let ok  = UIAlertAction(title: "로그인", style: .default) { [weak self] _ in
-            let id = alert.textFields?[0].text
+            guard let id = alert.textFields?[0].text else {
+                return
+            }
             self?.viewModel.connectServer(id: id)
         }
         let cancel = UIAlertAction(title: "취소", style: .cancel)
