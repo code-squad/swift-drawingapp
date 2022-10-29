@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-class Square: Shape, Identifiable, Codable {
+class Square: Shape, Identifiable, Codable, Equatable {
     var uuid: UUID = UUID()
     var points: [CGPoint]
     
@@ -36,5 +36,9 @@ class Square: Shape, Identifiable, Codable {
             return jsonData
         }
         return nil
+    }
+    
+    static func == (lhs: Square, rhs: Square) -> Bool {
+        lhs.points == rhs.points
     }
 }
