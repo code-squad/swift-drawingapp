@@ -18,12 +18,13 @@ protocol ChatServerDelegate: AnyObject {
 
 class ChatServerClient: ChatServerClientProtocol {
     
-    private var socket = SocketManager(host: "localhost", port: 9090)
+    private var socket: SocketManagerProtocol
     weak var delegate: ChatServerDelegate?
     var userId: String?
     
-    init() {
-        socket.delegate = self
+    init(socket: SocketManagerProtocol) {
+        self.socket = socket
+        self.socket.delegate = self
     }
 
     func sendData(shape: Shape) {
