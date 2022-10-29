@@ -23,7 +23,6 @@
 		48D474B9290420F200733F4F /* ChatServerClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D474B8290420F200733F4F /* ChatServerClient.swift */; };
 		48F107A72904DC7C004D00C7 /* Starscream in Frameworks */ = {isa = PBXBuildFile; productRef = 48F107A62904DC7C004D00C7 /* Starscream */; };
 		48F107A92904FEE4004D00C7 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F107A82904FEE4004D00C7 /* Command.swift */; };
-		48F465982907AE4D0083E64A /* DummySocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465972907AE4D0083E64A /* DummySocket.swift */; };
 		48F4659A2907C2370083E64A /* ColorAssets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465992907C2370083E64A /* ColorAssets.swift */; };
 		48F465A02907CB350083E64A /* Color+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F4659F2907CB350083E64A /* Color+Ext.swift */; };
 		48F465A42907D6120083E64A /* Test_SquareFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F465A32907D6120083E64A /* Test_SquareFactory.swift */; };
@@ -81,7 +80,6 @@
 		48C7396028FC492100F3E155 /* DrawingLayerMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingLayerMaker.swift; sourceTree = "<group>"; };
 		48D474B8290420F200733F4F /* ChatServerClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatServerClient.swift; sourceTree = "<group>"; };
 		48F107A82904FEE4004D00C7 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
-		48F465972907AE4D0083E64A /* DummySocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummySocket.swift; sourceTree = "<group>"; };
 		48F465992907C2370083E64A /* ColorAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorAssets.swift; sourceTree = "<group>"; };
 		48F4659F2907CB350083E64A /* Color+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Ext.swift"; sourceTree = "<group>"; };
 		48F465A32907D6120083E64A /* Test_SquareFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Test_SquareFactory.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 			children = (
 				48D474B8290420F200733F4F /* ChatServerClient.swift */,
 				48F107A82904FEE4004D00C7 /* Command.swift */,
-				48F465972907AE4D0083E64A /* DummySocket.swift */,
 				4808EF5B290BF4ED00303E27 /* SocketManager.swift */,
 				4808EF60290CEED300303E27 /* ChatReponseType.swift */,
 			);
@@ -406,7 +403,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48F465982907AE4D0083E64A /* DummySocket.swift in Sources */,
 				48B8F55829037A7400022D44 /* Square.swift in Sources */,
 				48C7395728FBC99400F3E155 /* DrawingMaker.swift in Sources */,
 				48C7396128FC492100F3E155 /* DrawingLayerMaker.swift in Sources */,
