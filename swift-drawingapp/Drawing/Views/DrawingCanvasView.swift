@@ -9,18 +9,14 @@ import UIKit
 
 protocol DrawingCanvasViewDelegate {
     func drawingCanvasView(didDrawTo path: CGPoint)
+    func endDrawing()
 }
 
 final class DrawingCanvasView: UIView {
-    private let mainImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    private let tempImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    private let tempDrawingView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     private var lastPoint: CGPoint = .zero
@@ -35,18 +31,13 @@ final class DrawingCanvasView: UIView {
     init() {
         super.init(frame: .zero)
         isUserInteractionEnabled = true
-        addSubview(mainImageView)
-        addSubview(tempImageView)
+        addSubview(tempDrawingView)
 
         NSLayoutConstraint.activate([
-            mainImageView.topAnchor.constraint(equalTo: topAnchor),
-            mainImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            mainImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            mainImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            tempImageView.topAnchor.constraint(equalTo: topAnchor),
-            tempImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tempImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tempImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            tempDrawingView.topAnchor.constraint(equalTo: topAnchor),
+            tempDrawingView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            tempDrawingView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tempDrawingView.trailingAnchor.constraint(equalTo: trailingAnchor),
         ])
     }
 
@@ -82,40 +73,47 @@ final class DrawingCanvasView: UIView {
             return
         }
 
-        mergeImage()
+        delegate?.endDrawing()
+
+        clearTemps()
         isDrawing = false
     }
 
     private func drawLine(from fromPoint: CGPoint, to toPoint: CGPoint) {
-        UIGraphicsBeginImageContext(frame.size)
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return
-        }
-        tempImageView.image?.draw(in: bounds)
+        let path = UIBezierPath()
+        path.move(to: fromPoint)
+        path.addLine(to: toPoint)
 
-        context.move(to: fromPoint)
-        context.addLine(to: toPoint)
-
-        context.setLineCap(.round)
-        context.setBlendMode(.normal)
-        context.setLineWidth(8)
-        context.setStrokeColor(drawingColor.cgColor)
-
-        context.strokePath()
-
-        tempImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-
-        UIGraphicsEndImageContext()
+        let shape = CAShapeLayer()
+        shape.path = path.cgPath
+        shape.lineWidth = 8
+        shape.fillColor = nil
+        shape.strokeColor = drawingColor.cgColor
+        tempDrawingView.layer.addSublayer(shape)
     }
 
-    private func mergeImage() {
-        UIGraphicsBeginImageContext(frame.size)
-        mainImageView.image?.draw(in: bounds, blendMode: .normal, alpha: 1.0)
-        tempImageView.image?.draw(in: bounds, blendMode: .normal, alpha: 1.0)
-        mainImageView.image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
+    func clearTemps() {
+        tempDrawingView.layer.sublayers = nil
+    }
 
-        tempImageView.image = nil
+    func addDrawing(_ drawing: Drawing) {
+        let path = UIBezierPath()
+        drawing.paths
+            .enumerated()
+            .forEach {
+                if $0.offset == 0 {
+                    path.move(to: .init(x: $0.element.x, y: $0.element.y))
+                } else {
+                    path.addLine(to: .init(x: $0.element.x, y: $0.element.y))
+                }
+            }
+
+        let shape = CAShapeLayer()
+        shape.path = path.cgPath
+        shape.lineWidth = 8
+        shape.strokeColor = drawingColor.cgColor
+        shape.fillColor = nil
+        layer.addSublayer(shape)
     }
 
     func enableDrawing() {
