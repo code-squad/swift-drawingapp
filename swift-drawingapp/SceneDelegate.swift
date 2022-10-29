@@ -38,7 +38,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         )
         
         let drawingStore = DrawingStore()
-        let chatServerClient = ChatServerClient()
+        let socketManager = SocketManager(host: "localhost", port: 9090)
+        let chatServerClient = ChatServerClient(socket: socketManager)
         
         let drawingVM = DrawingViewModel(
             drawingStore: drawingStore,

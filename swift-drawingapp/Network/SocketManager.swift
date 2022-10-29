@@ -12,7 +12,14 @@ protocol SocketManagerDelegate: AnyObject {
     func dataReceived(data: Data)
 }
 
-class SocketManager {
+protocol SocketManagerProtocol {
+    var delegate: SocketManagerDelegate? { get set }
+    func connect()
+    func disconnect()
+    func sendData(data: Data)
+}
+
+class SocketManager: SocketManagerProtocol {
     
     private let chatQueue = DispatchQueue(label: "ray.chat")
     weak var delegate: SocketManagerDelegate?
