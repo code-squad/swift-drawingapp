@@ -8,33 +8,51 @@
 import Combine
 import Foundation
 
+protocol CreateRectUseCase {
+    func createRect(position: Position, color: DrawingColor, size: Size)
+}
+
+protocol RectsPublisherUseCase {
+    var rectsPublisher: AnyPublisher<[Rect], Never> { get }
+}
+
 class DrawingViewModel {
+    private let createRectUseCase: CreateRectUseCase
+    private let rectsPublisherUseCase: RectsPublisherUseCase
     private let chatService: ChatServiceProtocol
     private let rectsSubject: PassthroughSubject<[Rect], Never>
     private let drawingsSubject: PassthroughSubject<[Drawing], Never>
     private let currentDrawingColorSubject: PassthroughSubject<DrawingColor, Never>
     private var currentDrawing: Drawing?
+    private var cancelBag: Set<AnyCancellable>
 
-    init(chatService: ChatServiceProtocol) {
+    init(
+        chatService: ChatServiceProtocol,
+        createRectUseCase: CreateRectUseCase,
+        rectsPublisherUseCase: RectsPublisherUseCase
+    ) {
         self.chatService = chatService
+        self.createRectUseCase = createRectUseCase
+        self.rectsPublisherUseCase = rectsPublisherUseCase
         rectsSubject = .init()
         drawingsSubject = .init()
         currentDrawingColorSubject = .init()
+        cancelBag = .init()
 
         chatService.connect()
+
+        rectsPublisherUseCase.rectsPublisher
+            .sink { rects in
+                self.addRects(rects)
+            }
+            .store(in: &cancelBag)
     }
 
     deinit {
         chatService.disconnect()
     }
 
-    private func createRect() {
-        let rect = Rect(id: UUID(), position: .random, color: .random, size: .init(width: 100, height: 100))
-
-        sendRects([rect])
-    }
-
-    private func sendRects(_ rects: [Rect]) {
+    private func addRects(_ rects: [Rect]) {
         rectsSubject.send(rects)
     }
 
@@ -53,7 +71,11 @@ class DrawingViewModel {
 
 extension DrawingViewModel: DrawingViewInputHandleable {
     func didTapCreateRectButton() {
-        createRect()
+        createRectUseCase.createRect(
+            position: .random,
+            color: .random,
+            size: .init(width: 100, height: 100)
+        )
     }
 
     func didTapDrawingButton() {
