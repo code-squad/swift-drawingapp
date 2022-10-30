@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol StyleApplying: AnyObject {
+protocol StyleApplying {
     var fillColor: Color? { get set }
     var lineColor: Color? { get set }
 }
