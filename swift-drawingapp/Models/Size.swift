@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Size {
+struct Size: Codable {
     
     let width: Double
     

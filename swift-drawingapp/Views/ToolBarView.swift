@@ -30,6 +30,14 @@ final class ToolBarView: UIView {
         }
     }
     
+    @IBOutlet private weak var syncButton: UIButton! {
+        willSet {
+            newValue.layer.borderColor = UIColor.black.cgColor
+            newValue.layer.borderWidth = 0.5
+        }
+    }
+    
+    
     @IBAction func didTapButton(sender: UIButton) {
         switch sender {
         case rectangleButton:
@@ -37,6 +45,9 @@ final class ToolBarView: UIView {
             
         case drawingButton:
             delegate?.toolBarView(self, selectedToolInfo: ToolInfo(type: "ink", options: ["width": 3, "color": "systemRed"]))
+            
+        case syncButton:
+            delegate?.toolBarView(self, selectedToolInfo: ToolInfo(type: "sync"))
             
         default:
             break

@@ -7,17 +7,17 @@
 
 import UIKit
 
-struct LayoutInfo {
+struct LayoutInfo: Codable {
     
-    var size: CGSize?
+    var size: Size?
     
-    var center: CGPoint?
+    var center: Point?
 }
 
 extension LayoutInfo {
     
     init(_ view: UIView) {
-        size = view.frame.size
-        center = view.center
+        size = view.frame.size.toSize
+        center = view.center.toPoint
     }
 }

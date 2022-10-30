@@ -9,7 +9,12 @@ import Foundation
 
 protocol ItemSelectionUseCase {
     
+    var drawing: Drawing { get }
+    
+    @discardableResult
     func select(_ drawing: Drawing, item: Item) -> Drawing.DataType
     
     func find(items: [Item], point: Point) -> Item?
+    
+    func setPresenter(with port: ItemSelectionPresenterPort)
 }

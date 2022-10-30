@@ -61,20 +61,29 @@ final class CanvasView: UIView {
     func update(drawing: Drawing) {
         reset()
         
-        strokes = drawing.items
-            .values
+        strokes = drawing.items.values
             .compactMap { $0 as? Stroke }
         
-        drawing.items
-            .values
+        drawing.items.values
             .compactMap { $0 as? Rectangle }
             .forEach {
+                
                 let view = RectangleView(
                     uuidString: $0.id,
-                    frame: CGRect(origin: .zero, size: ($0.layoutInfo?.size ?? .zero))
+                    frame: CGRect(origin: .zero, size: ($0.layoutInfo?.size?.toCGSize ?? .zero))
                 )
-                view.backgroundColor = $0.uiInfo?.backgroundColor?.withAlphaComponent(0.8)
-                view.center = ($0.layoutInfo?.center ?? .zero)
+                
+                if drawing.selectedItems[$0.id] != nil {
+                    view.layer.borderColor = UIColor.systemRed.cgColor
+                    view.layer.borderWidth = 3
+                } else {
+                    view.layer.borderColor = $0.uiInfo?.borderColor?.toSystemColor.cgColor
+                    view.layer.borderWidth = $0.uiInfo?.borderWidth ?? 3.0
+                }
+
+                view.backgroundColor = $0.uiInfo?.backgroundColor?.toSystemColor.withAlphaComponent(0.8)
+                view.center = ($0.layoutInfo?.center?.toCGPoint ?? .zero)
+                
                 addSubview(view)
             }
         

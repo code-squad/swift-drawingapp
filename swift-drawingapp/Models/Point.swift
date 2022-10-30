@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Point {
+struct Point: Codable {
     
     let x: Double
     

@@ -9,7 +9,14 @@ import Foundation
 
 protocol PolygonDrawingUseCase {
     
+    var drawing: Drawing { get }
+    
+    @discardableResult
+    func draw(tool: Tool, layoutInfo: LayoutInfo?, uiInfo: UIInfo?) -> Drawing
+    
     func create(point: Point?) -> Rectangle
     
     func update(_ drawing: Drawing, rectangle: Rectangle)
+    
+    func setPresenter(with port: PolygonDrawingPresenterPort)
 }

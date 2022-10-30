@@ -11,7 +11,12 @@ class Drawing {
     
     typealias DataType = [String: Item]
     
-    var items: DataType = [:]
+    var items: DataType
     
-    var selectedItems: DataType = [:]
+    var selectedItems: DataType
+    
+    init(items: DataType = [:], selectedItems: DataType = [:]) {
+        self.items = items
+        self.selectedItems = selectedItems
+    }
 }

@@ -7,9 +7,11 @@
 
 import Foundation
 
-struct Ink {
+struct Ink: Codable {
     
     var lineWidth: Double
     
     var lineColor: String
+    
+    static let `default` = Ink(lineWidth: 3, lineColor: "systemBlue")
 }
