@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol Selectable: AnyObject {
+protocol SelectableShape: ShapeProtocol {
     func contains(_ point: Point) -> Bool
 }
