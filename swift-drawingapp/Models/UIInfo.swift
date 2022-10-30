@@ -7,20 +7,20 @@
 
 import UIKit
 
-struct UIInfo {
+struct UIInfo: Codable {
     
-    var backgroundColor: UIColor?
+    var backgroundColor: String?
     
-    var borderColor: CGColor?
+    var borderColor: String?
     
-    var borderWidth: CGFloat?
+    var borderWidth: Double?
 }
 
 extension UIInfo {
     
     init(_ view: UIView) {
-        backgroundColor = view.backgroundColor
-        borderColor = view.layer.borderColor
+        backgroundColor = view.backgroundColor?.toString
+        borderColor = view.layer.borderColor?.toString
         borderWidth = view.layer.borderWidth
     }
 }

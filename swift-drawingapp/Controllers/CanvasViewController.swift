@@ -13,12 +13,33 @@ final class CanvasViewController: UIViewController {
     
     @IBOutlet private weak var toolbarView: ToolBarView!
     
-    private var selectedTool: Tool = PolygonTool()
+    private let polygonDrawingUseCase: PolygonDrawingUseCase
     
-    private var viewModel: CanvasViewModelType
+    private let inkDrawingUseCase: InkDrawingUseCase
     
-    init?(coder: NSCoder, viewModel: CanvasViewModelType) {
-        self.viewModel = viewModel
+    private let toolSelectionUseCase: ToolSelectionUseCase
+    
+    private let itemSelectionUseCase: ItemSelectionUseCase
+    
+    private let drawingOrSelectionUseCase: SelectionOrDrawingUseCase
+    
+    private let syncUseCase: SyncUseCase
+    
+    init?(
+        coder: NSCoder,
+        polygonDrawingUseCase: PolygonDrawingUseCase,
+        inkDrawingUseCase: InkDrawingUseCase,
+        toolSelectionUseCase: ToolSelectionUseCase,
+        itemSelectionUseCase: ItemSelectionUseCase,
+        drawingOrSelectionUseCase: SelectionOrDrawingUseCase,
+        syncUseCase: SyncUseCase
+    ) {
+        self.polygonDrawingUseCase = polygonDrawingUseCase
+        self.inkDrawingUseCase = inkDrawingUseCase
+        self.toolSelectionUseCase = toolSelectionUseCase
+        self.itemSelectionUseCase = itemSelectionUseCase
+        self.drawingOrSelectionUseCase = drawingOrSelectionUseCase
+        self.syncUseCase = syncUseCase
         super.init(coder: coder)
     }
     
@@ -36,51 +57,100 @@ final class CanvasViewController: UIViewController {
 private extension CanvasViewController {
     
     func setup() {
+        // Input
         canvasView.delegate = self
         toolbarView.delegate = self
+        
+        // Output
+        polygonDrawingUseCase.setPresenter(with: self)
+        inkDrawingUseCase.setPresenter(with: self)
+        toolSelectionUseCase.setPresenter(with: self)
+        itemSelectionUseCase.setPresenter(with: self)
+    }
+    
+    func presentLoginViewController() {
+        guard let viewController = UIStoryboard(name: "LoginViewController", bundle: .main).instantiateViewController(identifier: "LoginViewController") as? LoginViewController else { return }
+        viewController.delegate = self
+        present(viewController, animated: true)
     }
 }
+
+// MARK: - LoginViewControllerDelegate
+
+extension CanvasViewController: LoginViewControllerDelegate {
+    
+    func loginViewController(_ viewController: LoginViewController, loginWithID: String) {
+        syncUseCase.login(user: syncUseCase.create(id: loginWithID), drawing: polygonDrawingUseCase.drawing)
+        syncUseCase.start(by: syncUseCase.currentLoggedInUser)
+    }
+}
+
+// MARK: - ToolBarViewDelegate
 
 extension CanvasViewController: ToolBarViewDelegate {
     
     func toolBarView(_ toolBarView: ToolBarView, selectedToolInfo: ToolInfo) {
-        selectedTool = viewModel.select(toolInfo: selectedToolInfo)
+        toolSelectionUseCase.select(toolInfo: selectedToolInfo)
     }
 }
+
+// MARK: - CanvasViewDelegate
 
 extension CanvasViewController: CanvasViewDelegate {
     
     func canvasView(_ canvasView: CanvasView, selectedItem: Item) {
-        let items = viewModel.select(item: selectedItem)
-        canvasView.update(selectedItems: items)
+        itemSelectionUseCase.select(itemSelectionUseCase.drawing, item: selectedItem)
     }
     
     func canvasView(_ canvasView: CanvasView, didTapEndedAt: CGPoint) {
-        let rectangles = canvasView.subviews
-            .reversed()
-            .compactMap {
-                Rectangle(id: ($0 as? RectangleView)?.uuidString ?? UUID().uuidString, layoutInfo: LayoutInfo($0), uiInfo: UIInfo($0))
-            }
-        if let item = viewModel.find(items: rectangles, point: didTapEndedAt.toPoint) {
-            canvasView.update(selectedItems: viewModel.select(item: item))
-        } else {
-            let drawing = viewModel.draw(tool: selectedTool, layoutInfo: .init(center: didTapEndedAt), uiInfo: nil)
-            canvasView.update(drawing: drawing)
-        }
+        let rectangles = canvasView.subviews.reversed()
+            .compactMap { Rectangle(id: ($0 as? RectangleView)?.uuidString ?? UUID().uuidString, layoutInfo: LayoutInfo($0), uiInfo: UIInfo($0)) }
+        drawingOrSelectionUseCase.selectOrDraw(items: rectangles, point: didTapEndedAt.toPoint)
     }
     
     func canvasView(_ canvasView: CanvasView, didDragBeganAt: CGPoint) {
-        let drawing = viewModel.draw(tool: selectedTool, beganAt: didDragBeganAt.toPoint)
-        canvasView.update(drawing: drawing)
+        inkDrawingUseCase.draw(tool: inkDrawingUseCase.selectedTool, beganAt: didDragBeganAt.toPoint)
     }
     
     func canvasView(_ canvasView: CanvasView, didDragValueChangedAt: CGPoint) {
-        let drawing = viewModel.draw(tool: selectedTool, valueChangedAt: didDragValueChangedAt.toPoint)
-        canvasView.update(drawing: drawing)
+        inkDrawingUseCase.draw(tool: inkDrawingUseCase.selectedTool, valueChangedAt: didDragValueChangedAt.toPoint)
     }
     
     func canvasView(_ canvasView: CanvasView, didDragEndedAt: CGPoint) {
-        let drawing = viewModel.draw(tool: selectedTool, endedAt: didDragEndedAt.toPoint)
+        inkDrawingUseCase.draw(tool: inkDrawingUseCase.selectedTool, endedAt: didDragEndedAt.toPoint)
+    }
+}
+
+
+// MARK: - PolygonDrawingPort, InkDrawingPort
+
+extension CanvasViewController: PolygonDrawingPresenterPort, InkDrawingPresenterPort {
+    
+    func update(drawing: Drawing) {
         canvasView.update(drawing: drawing)
+    }
+}
+
+// MARK: - ToolSelectionPort
+
+extension CanvasViewController: ToolSelectionPresenterPort {
+    
+    func update(tool: Tool) {
+        switch tool.self {
+        case is SyncTool:
+            presentLoginViewController()
+            
+        default:
+            break
+        }
+    }
+}
+
+// MARK: - ItemSelectionPort
+
+extension CanvasViewController: ItemSelectionPresenterPort {
+    
+    func update(selectedItems: Drawing.DataType) {
+        canvasView.update(selectedItems: selectedItems)
     }
 }

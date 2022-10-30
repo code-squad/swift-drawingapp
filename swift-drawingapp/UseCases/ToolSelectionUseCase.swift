@@ -9,5 +9,10 @@ import Foundation
 
 protocol ToolSelectionUseCase {
     
-    func create(toolInfo: ToolInfo) -> Tool
+    var selectedTool: Tool { get }
+    
+    @discardableResult
+    func select(toolInfo: ToolInfo) -> Tool
+    
+    func setPresenter(with port: ToolSelectionPresenterPort)
 }

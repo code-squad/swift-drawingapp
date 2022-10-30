@@ -7,28 +7,24 @@
 
 import UIKit
 
-protocol Item {
+class Item: Codable {
     
-    var id: String { get }
+    var id: String
 
-    var layoutInfo: LayoutInfo? { get set }
+    var layoutInfo: LayoutInfo? = nil
     
-    var uiInfo: UIInfo? { get set }
+    var uiInfo: UIInfo? = nil
     
-    var frame: CGRect { get }
+    var toJSON: String { "" }
+    
+    init(id: String, layoutInfo: LayoutInfo? = nil, uiInfo: UIInfo? = nil) {
+        self.id = id
+        self.layoutInfo = layoutInfo
+        self.uiInfo = uiInfo
+    }
 }
 
 extension Item {
-     
-    var layoutInfo: LayoutInfo? {
-        get { return nil }
-        set {}
-    }
-    
-    var uiInfo: UIInfo? {
-        get { return nil }
-        set {}
-    }
     
     var frame: CGRect {
         guard let centerX = layoutInfo?.center?.x, let centerY = layoutInfo?.center?.y,

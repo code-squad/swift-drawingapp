@@ -18,10 +18,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f55-7O-YWu" userLabel="ToolBarView" customClass="ToolBarView" customModule="swift_drawingapp" customModuleProvider="target">
-                                <rect key="frame" x="334" y="974" width="100" height="50"/>
+                                <rect key="frame" x="309" y="974" width="150" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ghC-fV-a3U">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="50"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r42-KL-KA3">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -49,7 +49,22 @@
                                                     <action selector="didTapButtonWithSender:" destination="f55-7O-YWu" eventType="touchUpInside" id="JSM-Kw-qrJ"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lNY-op-gHY" userLabel="Sync Button">
+                                                <rect key="frame" x="100" y="0.0" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="lNY-op-gHY" secondAttribute="height" multiplier="1:1" id="4EJ-Td-k5E"/>
+                                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="50" id="RlR-re-BoM"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="sync_button"/>
+                                                <connections>
+                                                    <action selector="didTapButtonWithSender:" destination="f55-7O-YWu" eventType="touchUpInside" id="lB6-vG-aBn"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="lNY-op-gHY" firstAttribute="width" secondItem="lNY-op-gHY" secondAttribute="height" multiplier="1:1" id="Hby-bK-bTg"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -62,6 +77,7 @@
                                 <connections>
                                     <outlet property="drawingButton" destination="UDA-PQ-HBG" id="KT3-gS-xaO"/>
                                     <outlet property="rectangleButton" destination="r42-KL-KA3" id="AUV-Yg-v5G"/>
+                                    <outlet property="syncButton" destination="lNY-op-gHY" id="sJb-zm-lGo"/>
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgG-wK-5Xm" customClass="CanvasView" customModule="swift_drawingapp" customModuleProvider="target">
@@ -94,6 +110,7 @@
     <resources>
         <image name="drawing_button" width="104" height="91"/>
         <image name="rectangle_button" width="104" height="90"/>
+        <image name="sync_button" width="74" height="65"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
