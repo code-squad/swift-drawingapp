@@ -9,12 +9,12 @@ import Foundation
 
 struct Canvas {
     private(set) var size: Size
-    private(set) var shapes: [any ShapeProtocol] = []
+    private(set) var shapes: [UUID: any ShapeProtocol] = [:]
     
     @discardableResult
     mutating func addShape(_ shape: any ShapeProtocol) -> Bool {
         guard shape.canAdd(to: size) else { return false }
-        shapes.append(shape)
+        shapes[shape.id] = shape
         return true
     }
 
@@ -22,5 +22,11 @@ struct Canvas {
         return shapes
             .compactMap { $0 as? any SelectableShape }
             .last { $0.contains(point) }
+    }
+    
+    mutating func transformShape(id: UUID, transform: (any ShapeProtocol) -> any ShapeProtocol) {
+        guard let targetShape = shapes[id] else { return }
+        let result = transform(targetShape)
+        shapes[id] = result
     }
 }

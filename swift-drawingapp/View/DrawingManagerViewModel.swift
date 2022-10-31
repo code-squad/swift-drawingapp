@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-class DrawingManagerViewModel: DrawingManagerDelegate {
+class DrawingManagerViewModel {
     
-    private let drawingManager = DrawingManager()
+    private let drawingManager = DrawingAppModel()
     private(set) var canvasViewModel: CanvasViewModel!
     
     private var addToPointStream: ((Point?) -> Void)?
@@ -26,7 +26,6 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
             }
             return shapeVM
         }
-        drawingManager.delegate = self
         drawingManager.setChatServiceProvider(DrawingChatClient())
     }
     
@@ -58,7 +57,7 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
         Task {
             do {
                 try await drawingManager.startSynchronize()
-            } catch let error as DrawingManager.Error {
+            } catch let error as DrawingAppModel.Error {
                 handleError(error)
             } catch {}
         }
@@ -79,7 +78,7 @@ class DrawingManagerViewModel: DrawingManagerDelegate {
         canvasViewModel.reloadCanvas()
     }
     
-    private func handleError(_ error: DrawingManager.Error) {
+    private func handleError(_ error: DrawingAppModel.Error) {
         switch error {
         case .login:
             errorMessage.send("로그인 오류")

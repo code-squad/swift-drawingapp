@@ -8,7 +8,7 @@
 import Foundation
 
 struct Rectangle: SelectableShape, StyleApplying {
-    var id: UUID
+    let id: UUID = UUID()
     
     var origin: Point
     var size: Size
