@@ -7,8 +7,10 @@
 
 import Foundation
 
+typealias ShapeData = [Point]
+
 protocol DrawingChatServiceProviding {
     func login() async throws
     func sendShapes(_ shapes: [Shape]) async throws
-    var shapeStream: AnyAsyncSequence<[Shape]> { get }
+    var shapeStream: AnyAsyncSequence<[ShapeData]> { get }
 }

@@ -20,25 +20,23 @@ class TCPManager {
     }
     
     // MARK: - Message Stream
-    private(set) lazy var messageStream = AsyncThrowingStream<Data, Error> { continuation in
-        addToMessageStream = { result in
-            continuation.yield(with: result)
-        }
+    private(set) lazy var messageStream = AsyncThrowingStream<Data, Error> {
+        messageContinuation = $0
     }
     
-    private var addToMessageStream: ((Result<Data, Error>) -> Void)?
+    private var messageContinuation: AsyncThrowingStream<Data, Error>.Continuation?
     
     // MARK: - State Stream
-    private(set) lazy var stateStream = AsyncStream<NWConnection.State> { continuation in
-        addToStateStream = { state in
-            continuation.yield(state)
-        }
+    private(set) lazy var stateStream = AsyncStream<NWConnection.State> {
+        stateContinuation = $0
     }
     
-    private var addToStateStream: ((NWConnection.State) -> Void)?
+    private var stateContinuation: AsyncStream<NWConnection.State>.Continuation?
     
     func start() {
-        self.connection.stateUpdateHandler = { self.addToStateStream?($0) }
+        self.connection.stateUpdateHandler = { state in
+            self.stateContinuation?.yield(state)
+        }
         self.receiveNextMessage()
         self.connection.start(queue: networkQueue)
     }
@@ -50,10 +48,10 @@ class TCPManager {
     private func receiveNextMessage() {
         self.connection.receive(minimumIncompleteLength: 4, maximumLength: 25000) { content, context, isComplete, error in
             if let content {
-                self.addToMessageStream?(.success(content))
+                self.messageContinuation?.yield(content)
             }
             if let error = error {
-                self.addToMessageStream?(.failure(error))
+                self.messageContinuation?.finish(throwing: error)
                 self.stop()
                 return
             }
