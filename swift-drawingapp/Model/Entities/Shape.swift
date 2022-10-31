@@ -8,7 +8,7 @@
 import Foundation
 
 struct Shape: ShapeProtocol, StyleApplying {
-    var id: UUID
+    let id: UUID = UUID()
     
     private(set) var points: [Point] = []
     

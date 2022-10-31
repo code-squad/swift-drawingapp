@@ -29,7 +29,7 @@
 		F2AEE0BB28FB05C40068B9E9 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0BA28FB05C30068B9E9 /* Point.swift */; };
 		F2AEE0BD28FB05F40068B9E9 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0BC28FB05F40068B9E9 /* Size.swift */; };
 		F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2AEE0C828FB0E7B0068B9E9 /* Color.swift */; };
-		F2B5F93628FBCD2800D5BE2F /* DrawingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93528FBCD2800D5BE2F /* DrawingManager.swift */; };
+		F2B5F93628FBCD2800D5BE2F /* DrawingAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93528FBCD2800D5BE2F /* DrawingAppModel.swift */; };
 		F2B5F93A28FBD39C00D5BE2F /* ShapeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */; };
 		F2B5F93C28FBD84700D5BE2F /* CanvasTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */; };
 		F2B5F94028FBE0AA00D5BE2F /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */; };
@@ -88,7 +88,7 @@
 		F2AEE0BA28FB05C30068B9E9 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F2AEE0BC28FB05F40068B9E9 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		F2AEE0C828FB0E7B0068B9E9 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		F2B5F93528FBCD2800D5BE2F /* DrawingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingManager.swift; sourceTree = "<group>"; };
+		F2B5F93528FBCD2800D5BE2F /* DrawingAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppModel.swift; sourceTree = "<group>"; };
 		F2B5F93928FBD39C00D5BE2F /* ShapeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeTests.swift; sourceTree = "<group>"; };
 		F2B5F93B28FBD84700D5BE2F /* CanvasTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasTests.swift; sourceTree = "<group>"; };
 		F2B5F93F28FBE0AA00D5BE2F /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
@@ -152,8 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				F2B5F94A28FC1F4600D5BE2F /* App */,
-				F2B5F94128FBE0AD00D5BE2F /* Scene */,
-				F2AEE0C228FB0B3C0068B9E9 /* Feature */,
+				F2B5F94128FBE0AD00D5BE2F /* View */,
+				F2AEE0C228FB0B3C0068B9E9 /* Model */,
 				F2B5F94B28FC1F4F00D5BE2F /* Shared */,
 			);
 			path = "swift-drawingapp";
@@ -205,18 +205,18 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
-		F2AEE0C228FB0B3C0068B9E9 /* Feature */ = {
+		F2AEE0C228FB0B3C0068B9E9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F2B5F93528FBCD2800D5BE2F /* DrawingAppModel.swift */,
 				F2028602290EAF5D00DF6BA5 /* Entities */,
-				F2B5F93528FBCD2800D5BE2F /* DrawingManager.swift */,
 				F2E73AD6290940AE00C47326 /* DrawingChatServiceProviding.swift */,
 				F2062B42290568CA00868583 /* Networking */,
 			);
-			path = Feature;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		F2B5F94128FBE0AD00D5BE2F /* Scene */ = {
+		F2B5F94128FBE0AD00D5BE2F /* View */ = {
 			isa = PBXGroup;
 			children = (
 				F2B5F94C28FC24DC00D5BE2F /* DrawingManagerViewController.swift */,
@@ -226,7 +226,7 @@
 				F2B5F94228FBF0FD00D5BE2F /* ShapeView.swift */,
 				F2B5F94428FBF1BB00D5BE2F /* ShapeViewModel.swift */,
 			);
-			path = Scene;
+			path = View;
 			sourceTree = "<group>";
 		};
 		F2B5F94A28FC1F4600D5BE2F /* App */ = {
@@ -397,7 +397,7 @@
 				83A846E528725EFA00C777B1 /* ViewController.swift in Sources */,
 				F2B5F94328FBF0FD00D5BE2F /* ShapeView.swift in Sources */,
 				F2AEE0BB28FB05C40068B9E9 /* Point.swift in Sources */,
-				F2B5F93628FBCD2800D5BE2F /* DrawingManager.swift in Sources */,
+				F2B5F93628FBCD2800D5BE2F /* DrawingAppModel.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
 				F202860E290EAF5D00DF6BA5 /* ShapeProtocol.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,

@@ -8,6 +8,8 @@
 import Foundation
 
 struct Path: SelectableShape, StyleApplying {
+    let id: UUID = UUID()
+    
     private(set) var points: [Point] = []
     
     var fillColor: Color?
@@ -19,11 +21,5 @@ struct Path: SelectableShape, StyleApplying {
     
     mutating func addPoint(_ point: Point) {
         points.append(point)
-    }
-    
-    mutating func addPoints(_ pointStream: AnyAsyncSequence<Point>) async throws {
-        for try await point in pointStream {
-            addPoint(point)
-        }
     }
 }
