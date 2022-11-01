@@ -49,6 +49,7 @@ class CanvasView: UIView {
     
     func setCanvasModel(_ canvasModel: CanvasViewRepresentable) {
         self.canvasModel = canvasModel
+        self.canvasModel.setSizeOfView(bounds.size)
     }
     
     // MARK: - Private

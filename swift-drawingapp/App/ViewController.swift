@@ -15,7 +15,7 @@ class ViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let drawingVC = DrawingManagerViewController()
+        let drawingVC = DrawingAppViewController()
         drawingVC.modalPresentationStyle = .fullScreen
         present(drawingVC, animated: false)
     }
