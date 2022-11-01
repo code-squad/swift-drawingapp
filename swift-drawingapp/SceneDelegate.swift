@@ -17,11 +17,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         self.window = window
+
         let rectRepository = RectRepository()
+        let drawingRepository = DrawingRepository()
+
         let viewModel = DrawingViewModel(
             chatService: ChatService(),
             createRectUseCase: rectRepository,
-            rectsPublisherUseCase: rectRepository
+            rectsPublisherUseCase: rectRepository,
+            createDrawingUseCase: drawingRepository,
+            addDrawingPathUseCase: drawingRepository,
+            endDrawingUseCase: drawingRepository,
+            drawingPublisherUseCase: drawingRepository
         )
         window.rootViewController = DrawingViewController(
             inputHandler: viewModel,
