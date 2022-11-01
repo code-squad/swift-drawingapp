@@ -65,32 +65,18 @@ class DrawingAppModel {
     }
     
     func startSynchronize() async throws {
-//        do { try await chatClient.login() }
-//        catch {
-//            print("DrawingAppModel 로그인 오류", error)
-//            throw Error.login
-//        }
-//
-//        do { try await chatClient.sendShapes(canvas.shapes) }
-//        catch {
-//            print("DrawingAppModel 전송 오류", error)
-//            throw Error.send
-//        }
-//
-//        Task { @MainActor in
-//            do {
-//                for try await shapes in chatClient.shapeStream {
-//                    shapes.forEach {
-//                        canvas.addShape($0)
-//                        receivedShapes.append($0)
-//                    }
-//                }
-//            }
-//            catch {
-//                print("DrawingAppModel 수신 오류", error)
-//                throw Error.receive
-//            }
-//        }
+        try await chatClient.login()
+        try await chatClient.sendShapes(Array(canvas.shapes.values))
+
+        Task { @MainActor in
+            for try await shapes in chatClient.shapeStream {
+                shapes.forEach { shapeData in
+                    let shape = Shape(points: shapeData, fillColor: .yellow, lineColor: .blue)
+                    canvas.addShape(shape)
+                    receivedShapes.append(shape)
+                }
+            }
+        }
         
     }
 }
