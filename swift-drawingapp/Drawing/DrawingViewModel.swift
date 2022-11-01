@@ -16,40 +16,72 @@ protocol RectsPublisherUseCase {
     var rectsPublisher: AnyPublisher<[Rect], Never> { get }
 }
 
+protocol CreateDrawingUseCase {
+    func createDrawing(color: DrawingColor) -> UUID
+}
+
+protocol AddDrawingPathUseCase {
+    func addPath(toID id: UUID, _ path: DrawingPath)
+}
+
+protocol EndDrawingUseCase {
+    func endDrawing(id: UUID)
+}
+
+protocol DrawingsPublisherUseCase {
+    var drawingsPublisher: AnyPublisher<[Drawing], Never> { get }
+}
+
 class DrawingViewModel {
     private let createRectUseCase: CreateRectUseCase
     private let rectsPublisherUseCase: RectsPublisherUseCase
-    private let chatService: ChatServiceProtocol
+    private let createDrawingUseCase: CreateDrawingUseCase
+    private let addDrawingPathUseCase: AddDrawingPathUseCase
+    private let endDrawingUseCase: EndDrawingUseCase
+    private let drawingPublisherUseCase: DrawingsPublisherUseCase
+
     private let rectsSubject: PassthroughSubject<[Rect], Never>
     private let drawingsSubject: PassthroughSubject<[Drawing], Never>
     private let currentDrawingColorSubject: PassthroughSubject<DrawingColor, Never>
-    private var currentDrawing: Drawing?
+    private var currentDrawingID: UUID?
     private var cancelBag: Set<AnyCancellable>
 
     init(
         chatService: ChatServiceProtocol,
         createRectUseCase: CreateRectUseCase,
-        rectsPublisherUseCase: RectsPublisherUseCase
+        rectsPublisherUseCase: RectsPublisherUseCase,
+        createDrawingUseCase: CreateDrawingUseCase,
+        addDrawingPathUseCase: AddDrawingPathUseCase,
+        endDrawingUseCase: EndDrawingUseCase,
+        drawingPublisherUseCase: DrawingsPublisherUseCase
     ) {
-        self.chatService = chatService
         self.createRectUseCase = createRectUseCase
         self.rectsPublisherUseCase = rectsPublisherUseCase
+        self.createDrawingUseCase = createDrawingUseCase
+        self.addDrawingPathUseCase = addDrawingPathUseCase
+        self.endDrawingUseCase = endDrawingUseCase
+        self.drawingPublisherUseCase = drawingPublisherUseCase
+
         rectsSubject = .init()
         drawingsSubject = .init()
         currentDrawingColorSubject = .init()
         cancelBag = .init()
 
-        chatService.connect()
+        subscribe()
+    }
 
+    private func subscribe() {
         rectsPublisherUseCase.rectsPublisher
             .sink { rects in
                 self.addRects(rects)
             }
             .store(in: &cancelBag)
-    }
 
-    deinit {
-        chatService.disconnect()
+        drawingPublisherUseCase.drawingsPublisher
+            .sink { drawings in
+                self.addDrawings(drawings)
+            }
+            .store(in: &cancelBag)
     }
 
     private func addRects(_ rects: [Rect]) {
@@ -58,13 +90,11 @@ class DrawingViewModel {
 
     private func startDrawing() {
         let currentDrawingColor: DrawingColor = .random
-        let drawing = Drawing(id: UUID(), paths: [], color: currentDrawingColor)
-
-        currentDrawing = drawing
+        currentDrawingID = createDrawingUseCase.createDrawing(color: currentDrawingColor)
         currentDrawingColorSubject.send(currentDrawingColor)
     }
 
-    private func sendDrawings(_ drawings: [Drawing]) {
+    private func addDrawings(_ drawings: [Drawing]) {
         drawingsSubject.send(drawings)
     }
 }
@@ -83,13 +113,15 @@ extension DrawingViewModel: DrawingViewInputHandleable {
     }
 
     func draw(to path: DrawingPath) {
-        currentDrawing?.paths.append(path)
+        guard let id = currentDrawingID else { return }
+
+        addDrawingPathUseCase.addPath(toID: id, path)
     }
 
     func endDrawing() {
-        guard let currentDrawing = currentDrawing else { return }
+        guard let id = currentDrawingID else { return }
 
-        sendDrawings([currentDrawing])
+        endDrawingUseCase.endDrawing(id: id)
     }
 }
 
