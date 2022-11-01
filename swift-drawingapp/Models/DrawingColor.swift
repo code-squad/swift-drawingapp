@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum DrawingColor {
+enum DrawingColor: Codable {
     case blue
     case brown
     case cyan

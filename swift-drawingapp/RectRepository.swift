@@ -6,14 +6,24 @@
 //
 
 import Combine
+import Foundation
 
 final class RectRepository {
     private let chatService: ChatServiceProtocol
     private var rectsSubject: PassthroughSubject<[Rect], Never>
+    private var cancelBag: Set<AnyCancellable>
 
     init(chatService: ChatServiceProtocol) {
         self.chatService = chatService
         rectsSubject = .init()
+        cancelBag = .init()
+
+        chatService.dataPublisher
+            .sink { data in
+                guard let rect = try? JSONDecoder().decode(Rect.self, from: data) else { return }
+                self.rectsSubject.send([rect])
+            }
+            .store(in: &cancelBag)
     }
 }
 
@@ -31,6 +41,7 @@ extension RectRepository: CreateRectUseCase {
         )
 
         rectsSubject.send([rect])
+        chatService.chat(message: rect)
     }
 }
 

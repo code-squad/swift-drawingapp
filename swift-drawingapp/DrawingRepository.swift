@@ -12,11 +12,20 @@ final class DrawingRepository {
     private let chatService: ChatServiceProtocol
     private var drawingDict: [UUID: Drawing]
     private var drawingsSubject: PassthroughSubject<[Drawing], Never>
+    private var cancelBag: Set<AnyCancellable>
 
     init(chatService: ChatServiceProtocol) {
         self.chatService = chatService
         drawingDict = .init()
         drawingsSubject = .init()
+        cancelBag = .init()
+
+        chatService.dataPublisher
+            .sink { data in
+                guard let drawing = try? JSONDecoder().decode(Drawing.self, from: data) else { return }
+                self.drawingsSubject.send([drawing])
+            }
+            .store(in: &cancelBag)
     }
 }
 
@@ -40,6 +49,7 @@ extension DrawingRepository: EndDrawingUseCase {
         guard let drawing = drawingDict[id] else { return }
 
         drawingsSubject.send([drawing])
+        chatService.chat(message: drawing)
     }
 }
 

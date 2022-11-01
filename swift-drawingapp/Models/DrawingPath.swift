@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DrawingPath {
+struct DrawingPath: Codable {
     let x: Double
     let y: Double
 }

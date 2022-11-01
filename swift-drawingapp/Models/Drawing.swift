@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Drawing: Identifiable {
+struct Drawing: Identifiable, Codable {
     let id: UUID
     var paths: [DrawingPath]
     let color: DrawingColor

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Size {
+struct Size: Codable {
     let width: Double
     let height: Double
 }
