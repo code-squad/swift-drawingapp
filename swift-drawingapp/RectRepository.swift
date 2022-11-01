@@ -8,9 +8,11 @@
 import Combine
 
 final class RectRepository {
-    var rectsSubject: PassthroughSubject<[Rect], Never>
+    private let chatService: ChatServiceProtocol
+    private var rectsSubject: PassthroughSubject<[Rect], Never>
 
-    init() {
+    init(chatService: ChatServiceProtocol) {
+        self.chatService = chatService
         rectsSubject = .init()
     }
 }
