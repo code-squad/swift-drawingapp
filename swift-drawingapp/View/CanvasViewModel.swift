@@ -9,7 +9,7 @@ import Foundation
 import Combine
 import CoreGraphics
 
-struct CanvasViewModel: CanvasViewRepresentable {
+class CanvasViewModel: CanvasViewRepresentable {
     var shapes: any Publisher<[(UUID, ShapeViewRepresentable)], Never> {
         shapesPublisher
     }
@@ -20,13 +20,13 @@ struct CanvasViewModel: CanvasViewRepresentable {
     
     private let shapesPublisher: PassthroughSubject<[(UUID, ShapeViewRepresentable)], Never> = .init()
     
-    private var scaleFactor: ScaleFactor2D!
+    private(set) var scaleFactor: ScaleFactor2D!
     
     init(canvas: Canvas) {
         self.canvas = canvas
     }
     
-    mutating func setSizeOfView(_ size: CGSize) {
+    func setSizeOfView(_ size: CGSize) {
         scaleFactor = ScaleFactor2D(
             widthFactor: size.width / canvas.size.width,
             heightFactor: size.height / canvas.size.height)

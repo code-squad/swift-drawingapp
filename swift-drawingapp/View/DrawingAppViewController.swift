@@ -1,5 +1,5 @@
 //
-//  DrawingManagerViewController.swift
+//  DrawingAppViewController.swift
 //  swift-drawingapp
 //
 //  Created by Sunghyun Kim on 2022/10/16.
@@ -7,14 +7,20 @@
 
 import UIKit
 
-class DrawingManagerViewController: UIViewController {
+protocol DrawingAppDriving {
+    func createRandomRect()
+    func selectShape(at: CGPoint)
+    func drawPath(cgPointStream: AnyAsyncSequence<CGPoint>)
+    func startSync()
+}
+
+class DrawingAppViewController: UIViewController {
     
-    private let viewModel = DrawingAppViewModel()
+    private var driver: DrawingAppDriving!
     
     private lazy var canvasView = {
         let cv = CanvasView(frame: view.bounds)
         cv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        cv.setViewModel(viewModel.canvasViewModel)
         return cv
     }()
     
@@ -79,23 +85,40 @@ class DrawingManagerViewController: UIViewController {
         canvasView.addGestureRecognizer(tapGesture)
     }
     
+    // MARK: - Setter
+    
+    func setCanvasViewModel(_ canvasViewModel: CanvasViewRepresentable) {
+        canvasView.setCanvasModel(canvasViewModel)
+    }
+    
+    func setAppDriver(_ driver: DrawingAppDriving) {
+        self.driver = driver
+    }
+    
     @objc
     private func addRectButtonTapped() {
-        viewModel.createRandomRect()
+        driver.createRandomRect()
     }
     
     @objc
     private func tapPoint(_ tapGesture: UITapGestureRecognizer) {
         let point = tapGesture.location(in: canvasView)
-        viewModel.selectShape(at: point)
+        driver.selectShape(at: point)
     }
     
-    @objc
-    private func addDrawingButtonTapped() {
+    // MARK: - 패스 드로잉
+    
+    private var pointContinuation: AsyncStream<CGPoint>.Continuation?
+
+    private lazy var panGesture = {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan))
         canvasView.addGestureRecognizer(panGesture)
-        
-        viewModel.startDrawing()
+        return panGesture
+    }()
+    @objc
+    private func addDrawingButtonTapped() {
+        let stream = AsyncStream<CGPoint> { pointContinuation = $0 }
+        driver.drawPath(cgPointStream: stream.eraseToAnyAsyncSequence())
     }
     
     @objc
@@ -103,15 +126,15 @@ class DrawingManagerViewController: UIViewController {
         switch panGesture.state {
         case .began, .changed:
             let point = panGesture.location(in: canvasView)
-            viewModel.addPointToDrawing(point)
+            pointContinuation?.yield(point)
         default:
-            canvasView.removeGestureRecognizer(panGesture)
-            viewModel.endDrawing()
+            pointContinuation?.finish()
+            pointContinuation = nil
         }
     }
     
     @objc
     private func syncButtonTapped() {
-        viewModel.startSync()
+        driver.startSync()
     }
 }
