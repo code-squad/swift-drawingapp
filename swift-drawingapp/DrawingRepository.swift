@@ -9,10 +9,12 @@ import Combine
 import Foundation
 
 final class DrawingRepository {
-    var drawingDict: [UUID: Drawing]
-    var drawingsSubject: PassthroughSubject<[Drawing], Never>
+    private let chatService: ChatServiceProtocol
+    private var drawingDict: [UUID: Drawing]
+    private var drawingsSubject: PassthroughSubject<[Drawing], Never>
 
-    init() {
+    init(chatService: ChatServiceProtocol) {
+        self.chatService = chatService
         drawingDict = .init()
         drawingsSubject = .init()
     }

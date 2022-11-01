@@ -18,8 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         self.window = window
 
-        let rectRepository = RectRepository()
-        let drawingRepository = DrawingRepository()
+        let chatService = ChatService()
+        let rectRepository = RectRepository(chatService: chatService)
+        let drawingRepository = DrawingRepository(chatService: chatService)
 
         let viewModel = DrawingViewModel(
             chatService: ChatService(),
