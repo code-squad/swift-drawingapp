@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Combine
 
 class DrawingAppModel {
     
     @Published private(set) var canvas: Canvas = Canvas(size: .init(width: 500, height: 500))
-    @Published private(set) var selectedShapeIDs: [UUID] = []
-    @Published private(set) var receivedShapes: [any ShapeProtocol] = []
+    let selectedShapeIDs: CurrentValueSubject<[UUID], Never> = .init([])
+    let receivedShapes: CurrentValueSubject<[any ShapeProtocol], Never> = .init([])
     
     private var chatClient: DrawingChatServiceProviding!
     
@@ -53,27 +54,27 @@ class DrawingAppModel {
     func selectShape(at point: Point) -> (any SelectableShape)? {
         guard
             let selectedShape = canvas.findShape(at: point),
-            !(receivedShapes.contains { $0.id == selectedShape.id }) // 네트워크로 수신한 도형은 선택하지 못한다.
+            !(receivedShapes.value.contains { $0.id == selectedShape.id }) // 네트워크로 수신한 도형은 선택하지 못한다.
         else { return nil }
         
-        if let index = (selectedShapeIDs.firstIndex { $0 == selectedShape.id }) {
-            selectedShapeIDs.remove(at: index)
+        if let index = (selectedShapeIDs.value.firstIndex { $0 == selectedShape.id }) {
+            selectedShapeIDs.value.remove(at: index)
         } else {
-            selectedShapeIDs.append(selectedShape.id)
+            selectedShapeIDs.value.append(selectedShape.id)
         }
         return selectedShape
     }
     
     func startSynchronize() async throws {
         try await chatClient.login()
-        try await chatClient.sendShapes(Array(canvas.shapes.values))
+        try await chatClient.sendShapes(Array(canvas.shapes))
 
         Task { @MainActor in
             for try await shapes in chatClient.shapeStream {
                 shapes.forEach { shapeData in
                     let shape = Shape(points: shapeData, fillColor: .yellow, lineColor: .blue)
                     canvas.addShape(shape)
-                    receivedShapes.append(shape)
+                    receivedShapes.value.append(shape)
                 }
             }
         }

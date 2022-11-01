@@ -13,6 +13,18 @@ protocol ShapeViewRepresentable {
     var cgLineColor: CGColor? { get }
 }
 
+struct AnyShapeViewModel: ShapeViewRepresentable {
+    var cgPoints: [CGPoint]
+    var cgFillColor: CGColor?
+    var cgLineColor: CGColor?
+    
+    init(_ shapeViewModel: ShapeViewRepresentable) {
+        self.cgPoints = shapeViewModel.cgPoints
+        self.cgFillColor = shapeViewModel.cgFillColor
+        self.cgLineColor = shapeViewModel.cgLineColor
+    }
+}
+
 class ShapeView: UIView {
     
     lazy private var shape = {

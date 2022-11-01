@@ -33,8 +33,8 @@ class CanvasViewModel: CanvasViewRepresentable {
     }
     
     func setCanvas(_ canvas: Canvas) {
-        let shapes = canvas.shapes.map { id, shape in
-            (id, convertToShapeViewModel(shape))
+        let shapes = canvas.shapes.map { shape in
+            (shape.id, convertToShapeViewModel(shape))
         }
         shapesPublisher.send(shapes)
     }
