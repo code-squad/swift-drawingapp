@@ -86,7 +86,7 @@ class DrawingViewController: UIViewController {
 
     private func bind() {
         outputHandler.rectsPublisher
-            .subscribe(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.main)
             .sink { rects in
                 rects.forEach {
                     self.drawRect($0)
@@ -95,7 +95,7 @@ class DrawingViewController: UIViewController {
             .store(in: &cancelBag)
 
         outputHandler.currentDrawingColorPublisher
-            .subscribe(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.main)
             .sink { color in
                 self.drawingCanvasView.drawingColor = color.uiColor
                 self.drawingCanvasView.enableDrawing()
@@ -103,7 +103,7 @@ class DrawingViewController: UIViewController {
             .store(in: &cancelBag)
 
         outputHandler.drawingsPublisher
-            .subscribe(on: DispatchQueue.main)
+            .receive(on: DispatchQueue.main)
             .sink { drawings in
                 drawings.forEach {
                     self.drawingCanvasView.addDrawing($0)

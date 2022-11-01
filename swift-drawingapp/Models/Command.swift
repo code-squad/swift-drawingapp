@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Command: Encodable {
+struct Command: Codable {
     let header: String
     let id: String
     let length: Int?

@@ -111,7 +111,7 @@ final class DrawingCanvasView: UIView {
         let shape = CAShapeLayer()
         shape.path = path.cgPath
         shape.lineWidth = 8
-        shape.strokeColor = drawingColor.cgColor
+        shape.strokeColor = drawing.color.uiColor.cgColor
         shape.fillColor = nil
         layer.addSublayer(shape)
     }

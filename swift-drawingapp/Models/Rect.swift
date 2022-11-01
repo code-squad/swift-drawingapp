@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Rect: Identifiable {
+struct Rect: Identifiable, Codable {
     let id: UUID
     let position: Position
     let color: DrawingColor

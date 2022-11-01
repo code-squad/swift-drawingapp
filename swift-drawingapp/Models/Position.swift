@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Position {
+struct Position: Codable {
     let x: Double
     let y: Double
 }
