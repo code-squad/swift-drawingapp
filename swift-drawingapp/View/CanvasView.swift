@@ -8,10 +8,24 @@
 import UIKit
 import Combine
 
+protocol CanvasViewRepresentable {
+    
+    var shapes: any Publisher<[(UUID, ShapeViewRepresentable)], Never> { get }
+    var transformShape: (UUID, ShapeViewRepresentable) -> ShapeViewRepresentable { get }
+    /// 뷰에 맞도록 좌표계를 컨버팅하는 데에 쓴다
+    mutating func setSizeOfView(_ size: CGSize)
+}
+
+extension CanvasViewRepresentable {
+    var transformShape: (UUID, ShapeViewRepresentable) -> ShapeViewRepresentable {
+        { $1 }
+    }
+}
+
 class CanvasView: UIView {
     
-    private var viewModel: CanvasViewModel!
-    private var shapeViews: [ObjectIdentifier: ShapeView] = [:]
+    private var canvasModel: CanvasViewRepresentable!
+    private var shapeViews: [UUID: ShapeView] = [:]
     
     private var cancelBag = Set<AnyCancellable>()
     
@@ -33,41 +47,36 @@ class CanvasView: UIView {
     
     // MARK: - Setter
     
-    func setViewModel(_ viewModel: CanvasViewModel) {
-        self.viewModel = viewModel
-        viewModel.setSizeOfView(bounds.size)
-        setupBindings()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        viewModel.setSizeOfView(bounds.size)
-        viewModel.reloadCanvas()
+    func setCanvasModel(_ canvasModel: CanvasViewRepresentable) {
+        self.canvasModel = canvasModel
     }
     
     // MARK: - Private
     
-    private func setupBindings() {
-        viewModel.$shapeVMs
+    private func setupStates() {
+        canvasModel.shapes
             .sink(receiveValue: updateShapeViews)
             .store(in: &cancelBag)
     }
     
-    private func updateShapeViews(_ shapeVMs: [ShapeViewModel]) {
+    private func updateShapeViews(_ shapes: [(UUID, ShapeViewRepresentable)]) {
+        let shapes = shapes.map { id, shape in
+            (id, canvasModel.transformShape(id, shape))
+        }
+        
         var shapeIDs = Array(shapeViews.keys)
         
-        for shapeVM in shapeVMs {
+        for (id, shape) in shapes {
             // 기존 Shape 뷰 업데이트
-            if let index = shapeIDs.firstIndex(of: shapeVM.id) {
-                shapeViews[shapeVM.id]?.updateShape(shapeVM)
+            if let index = shapeIDs.firstIndex(of: id) {
+                shapeViews[id]?.updateShape(shape)
                 shapeIDs.remove(at: index)
             }
             // 신규 Shape 뷰 생성
             else {
-                let shapeView = makeShapeView(shapeVM)
+                let shapeView = createShapeView(shape)
                 addSubview(shapeView)
-                shapeViews[shapeVM.id] = shapeView
+                shapeViews[id] = shapeView
             }
         }
         
@@ -78,9 +87,9 @@ class CanvasView: UIView {
         }
     }
     
-    private func makeShapeView(_ shapeVM: ShapeViewModel) -> ShapeView {
+    private func createShapeView(_ shape: ShapeViewRepresentable) -> ShapeView {
         let shapeView = ShapeView(frame: bounds)
-        shapeView.updateShape(shapeVM)
+        shapeView.updateShape(shape)
         return shapeView
     }
 }
