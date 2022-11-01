@@ -8,6 +8,8 @@
 import UIKit
 
 protocol DrawingAppDriving {
+    var canvasViewRepresenter: CanvasViewRepresentable { get }
+    
     func createRandomRect()
     func selectShape(at: CGPoint)
     func drawPath(cgPointStream: AnyAsyncSequence<CGPoint>)
@@ -18,9 +20,10 @@ class DrawingAppViewController: UIViewController {
     
     private var driver: DrawingAppDriving!
     
-    private lazy var canvasView = {
+    private lazy var canvasView: CanvasView = {
         let cv = CanvasView(frame: view.bounds)
         cv.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        cv.setCanvasModel(driver.canvasViewRepresenter)
         return cv
     }()
     
@@ -87,10 +90,6 @@ class DrawingAppViewController: UIViewController {
     
     // MARK: - Setter
     
-    func setCanvasViewModel(_ canvasViewModel: CanvasViewRepresentable) {
-        canvasView.setCanvasModel(canvasViewModel)
-    }
-    
     func setAppDriver(_ driver: DrawingAppDriving) {
         self.driver = driver
     }
@@ -110,8 +109,9 @@ class DrawingAppViewController: UIViewController {
     
     private var pointContinuation: AsyncStream<CGPoint>.Continuation?
 
-    private lazy var panGesture = {
+    private lazy var panGesture: UIPanGestureRecognizer = {
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(didPan))
+        panGesture.isEnabled = false
         canvasView.addGestureRecognizer(panGesture)
         return panGesture
     }()
@@ -119,6 +119,7 @@ class DrawingAppViewController: UIViewController {
     private func addDrawingButtonTapped() {
         let stream = AsyncStream<CGPoint> { pointContinuation = $0 }
         driver.drawPath(cgPointStream: stream.eraseToAnyAsyncSequence())
+        panGesture.isEnabled = true
     }
     
     @objc
@@ -128,6 +129,7 @@ class DrawingAppViewController: UIViewController {
             let point = panGesture.location(in: canvasView)
             pointContinuation?.yield(point)
         default:
+            panGesture.isEnabled = false
             pointContinuation?.finish()
             pointContinuation = nil
         }

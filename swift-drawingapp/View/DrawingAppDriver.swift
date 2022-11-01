@@ -11,13 +11,24 @@ import Combine
 
 class DrawingAppDriver: DrawingAppDriving {
     
+    var canvasViewRepresenter: CanvasViewRepresentable {
+        return canvasViewModel
+    }
+    
     private let model = DrawingAppModel()
-    private lazy var canvasViewModel: CanvasViewModel = CanvasViewModel(canvas: model.canvas)
+    private lazy var canvasViewModel = CanvasViewModel(canvas: model.canvas)
     
     let errorMessage: PassthroughSubject<String, Never> = .init()
     
+    private var cancelBag = Set<AnyCancellable>()
+    
     init() {
         model.setChatServiceProvider(DrawingChatClient())
+        
+        model.$canvas.sink { canvas in
+            self.canvasViewModel.setCanvas(canvas)
+        }
+        .store(in: &cancelBag)
     }
     
     func createRandomRect() {

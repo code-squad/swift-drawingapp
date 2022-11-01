@@ -8,12 +8,12 @@
 import UIKit
 import Combine
 
-protocol CanvasViewRepresentable {
+protocol CanvasViewRepresentable: AnyObject {
     
     var shapes: any Publisher<[(UUID, ShapeViewRepresentable)], Never> { get }
     var transformShape: (UUID, ShapeViewRepresentable) -> ShapeViewRepresentable { get }
     /// 뷰에 맞도록 좌표계를 컨버팅하는 데에 쓴다
-    mutating func setSizeOfView(_ size: CGSize)
+    func setSizeOfView(_ size: CGSize)
 }
 
 extension CanvasViewRepresentable {
@@ -50,11 +50,14 @@ class CanvasView: UIView {
     func setCanvasModel(_ canvasModel: CanvasViewRepresentable) {
         self.canvasModel = canvasModel
         self.canvasModel.setSizeOfView(bounds.size)
+        
+        setupStates()
     }
     
     // MARK: - Private
     
     private func setupStates() {
+        cancelBag = []
         canvasModel.shapes
             .sink(receiveValue: updateShapeViews)
             .store(in: &cancelBag)
