@@ -7,6 +7,12 @@
 
 import UIKit
 
+protocol ShapeViewRepresentable {
+    var cgPoints: [CGPoint] { get }
+    var cgFillColor: CGColor? { get }
+    var cgLineColor: CGColor? { get }
+}
+
 class ShapeView: UIView {
     
     lazy private var shape = {
@@ -17,12 +23,12 @@ class ShapeView: UIView {
         return shape
     }()
     
-    func updateShape(_ viewModel: ShapeViewModel) {
+    func updateShape(_ shapeModel: ShapeViewRepresentable) {
         shape.path = nil
-        guard let path = makePath(from: viewModel.points) else { return }
+        guard let path = makePath(from: shapeModel.cgPoints) else { return }
         shape.path = path.cgPath
-        shape.fillColor = viewModel.fillColor
-        shape.strokeColor = viewModel.lineColor
+        shape.fillColor = shapeModel.cgFillColor
+        shape.strokeColor = shapeModel.cgLineColor
     }
     
     private func makePath(from points: [CGPoint]) -> UIBezierPath? {

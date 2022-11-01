@@ -11,7 +11,6 @@ import Combine
 class DrawingAppViewModel {
     
     private let model = DrawingAppModel()
-    private(set) var canvasViewModel: CanvasViewModel!
     
     private var addToPointStream: ((Point?) -> Void)?
     
