@@ -8,6 +8,7 @@
 import Foundation
 import CoreGraphics
 import Combine
+import UIKit.UIColor
 
 class DrawingAppDriver: DrawingAppDriving {
     
@@ -16,7 +17,17 @@ class DrawingAppDriver: DrawingAppDriving {
     }
     
     private let model = DrawingAppModel()
-    private lazy var canvasViewModel = CanvasViewModel(canvas: model.canvas)
+    private lazy var canvasViewModel: CanvasViewModel = {
+        let canvasVM = CanvasViewModel(canvas: model.canvas)
+        canvasVM.transformShape = { id, shape in
+            var shape = AnyShapeViewModel(shape)
+            if self.model.selectedShapeIDs.value.contains(id) {
+                shape.cgLineColor = UIColor.systemRed.cgColor
+            }
+            return shape
+        }
+        return canvasVM
+    }()
     
     let errorMessage: PassthroughSubject<String, Never> = .init()
     
@@ -27,6 +38,16 @@ class DrawingAppDriver: DrawingAppDriving {
         
         model.$canvas.sink { canvas in
             self.canvasViewModel.setCanvas(canvas)
+        }
+        .store(in: &cancelBag)
+        
+        model.receivedShapes.sink { shapes in
+            self.canvasViewModel.setCanvas(self.model.canvas)
+        }
+        .store(in: &cancelBag)
+        
+        model.selectedShapeIDs.sink { ids in
+            self.canvasViewModel.setCanvas(self.model.canvas)
         }
         .store(in: &cancelBag)
     }
@@ -52,8 +73,8 @@ class DrawingAppDriver: DrawingAppDriving {
         }
     }
     
-    func selectShape(at point: CGPoint) {
-        let point = point / canvasViewModel.scaleFactor
+    func selectShape(at cgPoint: CGPoint) {
+        let point = cgPoint / canvasViewModel.scaleFactor
         model.selectShape(at: point)
     }
     

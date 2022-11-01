@@ -9,12 +9,12 @@ import Foundation
 
 struct Canvas {
     private(set) var size: Size
-    private(set) var shapes: [UUID: any ShapeProtocol] = [:]
+    private(set) var shapes: [any ShapeProtocol] = []
     
     @discardableResult
     mutating func addShape(_ shape: any ShapeProtocol) -> Bool {
         guard shape.canAdd(to: size) else { return false }
-        shapes[shape.id] = shape
+        shapes.append(shape)
         return true
     }
 
@@ -25,8 +25,8 @@ struct Canvas {
     }
     
     mutating func transformShape(id: UUID, transform: (any ShapeProtocol) -> any ShapeProtocol) {
-        guard let targetShape = shapes[id] else { return }
-        let result = transform(targetShape)
-        shapes[id] = result
+        guard let targetIndex = shapes.firstIndex(where: { $0.id == id }) else { return }
+        let result = transform(shapes[targetIndex])
+        shapes[targetIndex] = result
     }
 }
