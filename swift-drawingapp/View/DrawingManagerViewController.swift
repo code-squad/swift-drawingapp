@@ -9,7 +9,7 @@ import UIKit
 
 class DrawingManagerViewController: UIViewController {
     
-    private let viewModel = DrawingManagerViewModel()
+    private let viewModel = DrawingAppViewModel()
     
     private lazy var canvasView = {
         let cv = CanvasView(frame: view.bounds)

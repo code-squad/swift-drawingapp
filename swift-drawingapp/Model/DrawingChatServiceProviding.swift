@@ -14,3 +14,9 @@ protocol DrawingChatServiceProviding {
     func sendShapes(_ shapes: [any ShapeProtocol]) async throws
     var shapeStream: AnyAsyncSequence<[ShapeData]> { get }
 }
+
+enum DrawingChatServiceError: Error {
+    case network
+    case decoding
+    case encoding
+}
