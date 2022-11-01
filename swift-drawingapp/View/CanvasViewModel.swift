@@ -8,13 +8,11 @@
 import Foundation
 import CoreGraphics
 
-typealias StyledShape = Shape & StyleApplying
-
 class CanvasViewModel: CanvasDelegate {
     
     @Published private(set) var shapeVMs: [ShapeViewModel] = []
     
-    var transformShape: ((StyledShape, ShapeViewModel) -> ShapeViewModel)?
+    var transformShape: ((any ShapeProtocol, ShapeViewModel) -> ShapeViewModel)?
     
     private var canvas: Canvas
     

@@ -8,6 +8,8 @@
 import Foundation
 import os.log
 
+fileprivate typealias Error = DrawingChatServiceError
+
 class DrawingChatClient: DrawingChatServiceProviding {
     
     private let tcpManager = TCPManager(hostName: "localhost", port: 9090)
@@ -23,12 +25,6 @@ class DrawingChatClient: DrawingChatServiceProviding {
             return shapes
         }
         .eraseToAnyAsyncSequence()
-    
-    enum Error: Swift.Error {
-        case network
-        case decoding
-        case encoding
-    }
     
     func login() async throws {
         tcpManager.start()

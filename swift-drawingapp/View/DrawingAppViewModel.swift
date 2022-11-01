@@ -1,5 +1,5 @@
 //
-//  DrawingManagerViewModel.swift
+//  DrawingAppViewModel.swift
 //  swift-drawingapp
 //
 //  Created by Sunghyun Kim on 2022/10/16.
@@ -8,9 +8,9 @@
 import Foundation
 import Combine
 
-class DrawingManagerViewModel {
+class DrawingAppViewModel {
     
-    private let drawingManager = DrawingAppModel()
+    private let model = DrawingAppModel()
     private(set) var canvasViewModel: CanvasViewModel!
     
     private var addToPointStream: ((Point?) -> Void)?
@@ -18,19 +18,19 @@ class DrawingManagerViewModel {
     let errorMessage: PassthroughSubject<String, Never> = .init()
     
     init() {
-        canvasViewModel = .init(canvas: drawingManager.canvas)
+        canvasViewModel = .init(canvas: model.canvas)
         canvasViewModel.transformShape = { (shape, shapeVM) in
             var shapeVM = shapeVM
-            if (self.drawingManager.selectedShapes.contains { $0 === shape }) {
+            if (self.model.selectedShapeIDs.contains { $0 == shape.id }) {
                 shapeVM.lineColor = Color.systemRed.cgColor
             }
             return shapeVM
         }
-        drawingManager.setChatServiceProvider(DrawingChatClient())
+        model.setChatServiceProvider(DrawingChatClient())
     }
     
     func createRandomRect() {
-        drawingManager.createRandomRect()
+        model.createRandomRect()
     }
     
     func startDrawing() {
@@ -40,7 +40,7 @@ class DrawingManagerViewModel {
                 else { continuation.finish() }
             }
         }
-        drawingManager.createDrawing(pointStream: pointStream)
+        model.createDrawing(pointStream: pointStream.eraseToAnyAsyncSequence())
     }
     
     func addPointToDrawing(_ point: CGPoint) {
@@ -56,8 +56,8 @@ class DrawingManagerViewModel {
     func startSync() {
         Task {
             do {
-                try await drawingManager.startSynchronize()
-            } catch let error as DrawingAppModel.Error {
+                try await model.startSynchronize()
+            } catch let error as DrawingChatServiceError {
                 handleError(error)
             } catch {}
         }
@@ -65,27 +65,10 @@ class DrawingManagerViewModel {
     
     func selectShape(at point: CGPoint) {
         let point = canvasViewModel.convertToPoint(point)
-        drawingManager.selectShape(at: point)
+        model.selectShape(at: point)
     }
     
-    // MARK: - DrawingManagerDelegate
-    
-    func selectedShapesChanged(_ selectedShapes: [Shape]) {
-        canvasViewModel.reloadCanvas()
-    }
-    
-    func receivedShapesChanged(_ receivedShapes: [Shape]) {
-        canvasViewModel.reloadCanvas()
-    }
-    
-    private func handleError(_ error: DrawingAppModel.Error) {
-        switch error {
-        case .login:
-            errorMessage.send("로그인 오류")
-        case .send:
-            errorMessage.send("데이터 전송 오류")
-        case .receive:
-            errorMessage.send("데이터 수신 오류")
-        }
+    private func handleError(_ error: DrawingChatServiceError) {
+        // 구현 필요
     }
 }
