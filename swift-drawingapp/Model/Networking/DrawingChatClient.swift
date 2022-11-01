@@ -66,7 +66,7 @@ class DrawingChatClient: DrawingChatServiceProviding {
         }
     }
     
-    func sendShapes(_ shapes: [Shape]) async throws {
+    func sendShapes(_ shapes: [any ShapeProtocol]) async throws {
         let encoder = JSONEncoder()
         var shapesData: Data!
         try assertEncoding {

@@ -11,6 +11,6 @@ typealias ShapeData = [Point]
 
 protocol DrawingChatServiceProviding {
     func login() async throws
-    func sendShapes(_ shapes: [Shape]) async throws
+    func sendShapes(_ shapes: [any ShapeProtocol]) async throws
     var shapeStream: AnyAsyncSequence<[ShapeData]> { get }
 }
