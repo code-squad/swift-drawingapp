@@ -7,15 +7,6 @@
 
 import UIKit
 
-protocol DrawingAppDriving {
-    var canvasViewRepresenter: CanvasViewRepresentable { get }
-    
-    func createRandomRect()
-    func selectShape(at: CGPoint)
-    func drawPath(cgPointStream: AnyAsyncSequence<CGPoint>)
-    func startSync()
-}
-
 class DrawingAppViewController: UIViewController {
     
     private var driver: DrawingAppDriving!
