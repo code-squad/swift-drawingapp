@@ -9,12 +9,16 @@ import Foundation
 import CoreGraphics
 
 class Line: Shape, Identifiable, Codable {
-    var uuid: UUID
-    var points: [CGPoint]
+    let uuid: UUID
+    private(set) var points: [CGPoint]
     
     init(points: [CGPoint]) {
         self.uuid = UUID()
         self.points = points
+    }
+    
+    func append(point: CGPoint) {
+        self.points.append(point)
     }
     
     func toJsonData() -> Data? {
