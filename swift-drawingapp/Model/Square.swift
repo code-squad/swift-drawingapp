@@ -13,6 +13,7 @@ class Square: Shape, Identifiable, Codable, Equatable {
     var points: [CGPoint]
     
     init(points: [CGPoint]) {
+        self.uuid = UUID()
         self.points = points
     }
     
