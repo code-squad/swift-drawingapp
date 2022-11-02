@@ -8,15 +8,18 @@
 import UIKit
 import Combine
 
-class RectangleView: UIView {
-    private let info: any RectangleInPort
+final class RectangleView: UIView, PictureView {
+    private let lineWidth: CGFloat
+    private weak var port: DrawUIInPort?
+
     private var isSelected: Bool = false
 
-    init(info: any RectangleInPort) {
-        self.info = info
-        super.init(frame: CGRect.frame(info.area))
+    init(frame: CGRect, color: UIColor, lineWidth: CGFloat, port: DrawUIInPort) {
+        self.lineWidth = lineWidth
+        self.port = port
+        super.init(frame: frame)
         isMultipleTouchEnabled = false
-        backgroundColor = UIColor.system(info.color)
+        backgroundColor = color
     }
 
     required init?(coder: NSCoder) {
@@ -25,12 +28,14 @@ class RectangleView: UIView {
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        isSelected ? info.deactivate() : info.activate()
+        port?.touch(on: self, at: nil)
     }
 
-    func drawBorder(_ isActive: Bool) {
-        isSelected = isActive
+    func selected(at point: Point?) {
+        isSelected.toggle()
         layer.borderColor = isSelected ? UIColor.systemRed.cgColor : UIColor.clear.cgColor
-        layer.borderWidth = isSelected ? info.lineWidth : 0
+        layer.borderWidth = isSelected ? lineWidth : 0
     }
 }
+
+
