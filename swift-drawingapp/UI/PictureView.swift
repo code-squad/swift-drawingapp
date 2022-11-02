@@ -5,7 +5,7 @@
 //  Created by taehyeon.lee on 2022/11/02.
 //
 
-import Foundation
+import UIKit
 
 protocol PictureView where Self: UIView {
     init(frame: CGRect, color: UIColor, lineWidth: CGFloat, port: DrawUIInPort)

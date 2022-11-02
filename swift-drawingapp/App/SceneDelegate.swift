@@ -7,6 +7,8 @@
 
 import UIKit
 
+let service = Service() // 레퍼런스 저장용 임시
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -22,6 +24,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let canvasVC = CanvasViewController()
         canvasVC.setPort(canvasViewModel)
         canvasViewModel.setUIPort(canvasVC)
+        let repository = SyncRepository()
+//        let service = Service()
+        repository.setInPort(painter)
+        repository.setOutPort(service)
+        service.setRepositoryInPort(repository)
+        painter.setDataPort(repository)
         window?.rootViewController = canvasVC
         window?.makeKeyAndVisible()
     }

@@ -7,10 +7,20 @@
 
 import Foundation
 
-protocol Picture: Identifiable {
-    var color: Color { get }
-    var points: [Point] { get }
-    var lineWidth: Double { get }
+class Picture: Identifiable, Codable {
+    let color: Color
+    private(set) var points: [Point]
+    let lineWidth: Double
 
-    func selected(on location: Point?)
+    init(color: Color, points: [Point], lineWidth: Double) {
+        self.color = color
+        self.points = points
+        self.lineWidth = lineWidth
+    }
+
+    func addPoint(_ point: Point) {
+        points.append(point)
+    }
+
+    func selected(on location: Point?) {}
 }

@@ -9,13 +9,35 @@ import Foundation
 
 class Painter {
     private weak var presenterPort: (DrawPresenterOutPort & TouchPresenterOutPort)?
+    private weak var dataPort: (DataOutPort)?
 
-    private var pictures: [any Picture] = []
+    private var pictures: [Picture] = []
 
     func setPresenterPort(_ presenterPort: (DrawPresenterOutPort & TouchPresenterOutPort)) {
         self.presenterPort = presenterPort
     }
+
+    func setDataPort(_ dataPort: DataOutPort) {
+        self.dataPort = dataPort
+    }
 }
+
+// MARK: - SyncUseCase
+extension Painter: SyncUseCase {
+    func syncAll() {
+        Task {
+            guard await dataPort?.login() ?? false else { return }
+            dataPort?.sendPictures(pictures)
+        }
+    }
+}
+
+extension Painter: DataInPort {
+    func addPictures(_ pictures: [Picture]) {
+        self.pictures.append(contentsOf: pictures)
+    }
+}
+
 // MARK: - TouchUseCase
 extension Painter: TouchUseCase {
     func touch(index: Int, coordinate: Point?) {
@@ -24,6 +46,7 @@ extension Painter: TouchUseCase {
         presenterPort?.touch(index: index, at: coordinate)
     }
 }
+
 // MARK: - DrawUseCase
 extension Painter: DrawUseCase {
     func drawRectangle(inside area: Area) {
