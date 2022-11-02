@@ -36,6 +36,18 @@
 		8E53A3DB29127B01003AAB4F /* DrawPresenterInPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3DA29127B01003AAB4F /* DrawPresenterInPort.swift */; };
 		8E53A3DD29127B2C003AAB4F /* TouchPresenterInPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3DC29127B2C003AAB4F /* TouchPresenterInPort.swift */; };
 		8E53A3DF29127B9F003AAB4F /* DrawUIInPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3DE29127B9F003AAB4F /* DrawUIInPort.swift */; };
+		8E53A3E129129092003AAB4F /* SyncRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3E029129092003AAB4F /* SyncRepository.swift */; };
+		8E53A3E3291291A5003AAB4F /* SyncPresenterInPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3E2291291A5003AAB4F /* SyncPresenterInPort.swift */; };
+		8E53A3E529129222003AAB4F /* SyncUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3E429129222003AAB4F /* SyncUseCase.swift */; };
+		8E53A3E82912AD1B003AAB4F /* DataOutPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3E72912AD1B003AAB4F /* DataOutPort.swift */; };
+		8E53A3EA2912B131003AAB4F /* RepositoryOutPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3E92912B131003AAB4F /* RepositoryOutPort.swift */; };
+		8E53A3EC2912B18C003AAB4F /* NetworkOutPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3EB2912B18C003AAB4F /* NetworkOutPort.swift */; };
+		8E53A3EF2912B286003AAB4F /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3EE2912B286003AAB4F /* Service.swift */; };
+		8E53A3F22912B3E7003AAB4F /* ChatClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3F12912B3E7003AAB4F /* ChatClient.swift */; };
+		8E53A3F52912D325003AAB4F /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3F42912D325003AAB4F /* Command.swift */; };
+		8E53A3F72912D40B003AAB4F /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3F62912D40B003AAB4F /* Request.swift */; };
+		8E53A3F92912D7D4003AAB4F /* RepositoryInPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3F82912D7D4003AAB4F /* RepositoryInPort.swift */; };
+		8E53A3FB2912D905003AAB4F /* DataInPort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E53A3FA2912D905003AAB4F /* DataInPort.swift */; };
 		8E87B5D428FDBA15001E90B4 /* UIColor+System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87B5D328FDBA15001E90B4 /* UIColor+System.swift */; };
 		8E87B5D628FDBA3A001E90B4 /* CGRect+Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87B5D528FDBA3A001E90B4 /* CGRect+Frame.swift */; };
 		8E87B5E528FDBC1D001E90B4 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E87B5E428FDBC1D001E90B4 /* DrawingView.swift */; };
@@ -93,6 +105,18 @@
 		8E53A3DA29127B01003AAB4F /* DrawPresenterInPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawPresenterInPort.swift; sourceTree = "<group>"; };
 		8E53A3DC29127B2C003AAB4F /* TouchPresenterInPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchPresenterInPort.swift; sourceTree = "<group>"; };
 		8E53A3DE29127B9F003AAB4F /* DrawUIInPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawUIInPort.swift; sourceTree = "<group>"; };
+		8E53A3E029129092003AAB4F /* SyncRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncRepository.swift; sourceTree = "<group>"; };
+		8E53A3E2291291A5003AAB4F /* SyncPresenterInPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncPresenterInPort.swift; sourceTree = "<group>"; };
+		8E53A3E429129222003AAB4F /* SyncUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncUseCase.swift; sourceTree = "<group>"; };
+		8E53A3E72912AD1B003AAB4F /* DataOutPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataOutPort.swift; sourceTree = "<group>"; };
+		8E53A3E92912B131003AAB4F /* RepositoryOutPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryOutPort.swift; sourceTree = "<group>"; };
+		8E53A3EB2912B18C003AAB4F /* NetworkOutPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkOutPort.swift; sourceTree = "<group>"; };
+		8E53A3EE2912B286003AAB4F /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		8E53A3F12912B3E7003AAB4F /* ChatClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatClient.swift; sourceTree = "<group>"; };
+		8E53A3F42912D325003AAB4F /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		8E53A3F62912D40B003AAB4F /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		8E53A3F82912D7D4003AAB4F /* RepositoryInPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryInPort.swift; sourceTree = "<group>"; };
+		8E53A3FA2912D905003AAB4F /* DataInPort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataInPort.swift; sourceTree = "<group>"; };
 		8E87B5D328FDBA15001E90B4 /* UIColor+System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+System.swift"; sourceTree = "<group>"; };
 		8E87B5D528FDBA3A001E90B4 /* CGRect+Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+Frame.swift"; sourceTree = "<group>"; };
 		8E87B5E428FDBC1D001E90B4 /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
@@ -148,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				8E87B5D228FDB9F0001E90B4 /* Extensions */,
+				8E53A3ED2912B271003AAB4F /* Network */,
 				8E53A3A6290C0C6C003AAB4F /* Data */,
 				8E53A3A3290C0C2E003AAB4F /* Domain */,
 				8E53A3A4290C0C51003AAB4F /* Presentation */,
@@ -213,6 +238,8 @@
 		8E53A3A6290C0C6C003AAB4F /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				8E53A3E62912AD0B003AAB4F /* DataPorts */,
+				8E53A3E029129092003AAB4F /* SyncRepository.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -231,6 +258,7 @@
 			children = (
 				8E53A3CE29117302003AAB4F /* DrawUseCase.swift */,
 				8E53A3AA290CE438003AAB4F /* TouchUseCase.swift */,
+				8E53A3E429129222003AAB4F /* SyncUseCase.swift */,
 			);
 			path = UseCases;
 			sourceTree = "<group>";
@@ -256,6 +284,7 @@
 				8E53A3AE290CE79B003AAB4F /* DrawPresenterOutPort.swift */,
 				8E53A3DC29127B2C003AAB4F /* TouchPresenterInPort.swift */,
 				8E53A3D829127A5F003AAB4F /* TouchPresenterOutPort.swift */,
+				8E53A3E2291291A5003AAB4F /* SyncPresenterInPort.swift */,
 			);
 			path = PresenterPorts;
 			sourceTree = "<group>";
@@ -267,6 +296,45 @@
 				8E53A3CA291120BD003AAB4F /* DrawUIOutPort.swift */,
 			);
 			path = UIPorts;
+			sourceTree = "<group>";
+		};
+		8E53A3E62912AD0B003AAB4F /* DataPorts */ = {
+			isa = PBXGroup;
+			children = (
+				8E53A3FA2912D905003AAB4F /* DataInPort.swift */,
+				8E53A3E72912AD1B003AAB4F /* DataOutPort.swift */,
+				8E53A3F82912D7D4003AAB4F /* RepositoryInPort.swift */,
+				8E53A3E92912B131003AAB4F /* RepositoryOutPort.swift */,
+			);
+			path = DataPorts;
+			sourceTree = "<group>";
+		};
+		8E53A3ED2912B271003AAB4F /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				8E53A3F32912D2F8003AAB4F /* ChatClient */,
+				8E53A3F02912B29F003AAB4F /* NetworkPorts */,
+				8E53A3EE2912B286003AAB4F /* Service.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		8E53A3F02912B29F003AAB4F /* NetworkPorts */ = {
+			isa = PBXGroup;
+			children = (
+				8E53A3EB2912B18C003AAB4F /* NetworkOutPort.swift */,
+			);
+			path = NetworkPorts;
+			sourceTree = "<group>";
+		};
+		8E53A3F32912D2F8003AAB4F /* ChatClient */ = {
+			isa = PBXGroup;
+			children = (
+				8E53A3F62912D40B003AAB4F /* Request.swift */,
+				8E53A3F42912D325003AAB4F /* Command.swift */,
+				8E53A3F12912B3E7003AAB4F /* ChatClient.swift */,
+			);
+			path = ChatClient;
 			sourceTree = "<group>";
 		};
 		8E87B5D228FDB9F0001E90B4 /* Extensions */ = {
@@ -417,13 +485,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E53A3F52912D325003AAB4F /* Command.swift in Sources */,
+				8E53A3FB2912D905003AAB4F /* DataInPort.swift in Sources */,
+				8E53A3F22912B3E7003AAB4F /* ChatClient.swift in Sources */,
 				8E53A3BD290CEAB8003AAB4F /* Size.swift in Sources */,
+				8E53A3E3291291A5003AAB4F /* SyncPresenterInPort.swift in Sources */,
+				8E53A3EA2912B131003AAB4F /* RepositoryOutPort.swift in Sources */,
 				8E87B5D428FDBA15001E90B4 /* UIColor+System.swift in Sources */,
+				8E53A3E82912AD1B003AAB4F /* DataOutPort.swift in Sources */,
 				83A846E528725EFA00C777B1 /* CanvasViewController.swift in Sources */,
 				8E53A3D729127998003AAB4F /* PictureView.swift in Sources */,
 				8E53A3CB291120BD003AAB4F /* DrawUIOutPort.swift in Sources */,
 				8E53A3AB290CE438003AAB4F /* TouchUseCase.swift in Sources */,
 				8E53A3B3290CE7F8003AAB4F /* Color.swift in Sources */,
+				8E53A3EC2912B18C003AAB4F /* NetworkOutPort.swift in Sources */,
 				8E53A3D129121CD3003AAB4F /* Rectangle.swift in Sources */,
 				8E53A3DB29127B01003AAB4F /* DrawPresenterInPort.swift in Sources */,
 				8E53A3C8290CF579003AAB4F /* DrawingViewModel.swift in Sources */,
@@ -432,16 +507,21 @@
 				8E53A3D929127A5F003AAB4F /* TouchPresenterOutPort.swift in Sources */,
 				8E53A3D329121D1C003AAB4F /* Drawing.swift in Sources */,
 				8E53A3CF29117302003AAB4F /* DrawUseCase.swift in Sources */,
+				8E53A3E529129222003AAB4F /* SyncUseCase.swift in Sources */,
 				8E53A3C3290CEFF7003AAB4F /* CanvasViewModel.swift in Sources */,
 				8E87B5E728FDBC5D001E90B4 /* RectangleView.swift in Sources */,
+				8E53A3EF2912B286003AAB4F /* Service.swift in Sources */,
 				8E53A3DF29127B9F003AAB4F /* DrawUIInPort.swift in Sources */,
 				8E53A3C6290CF4A4003AAB4F /* RectangleViewModel.swift in Sources */,
 				8E53A3D52912785D003AAB4F /* PictureViewModel.swift in Sources */,
+				8E53A3F92912D7D4003AAB4F /* RepositoryInPort.swift in Sources */,
 				8E53A3CD29117242003AAB4F /* Picture.swift in Sources */,
 				83A846E128725EFA00C777B1 /* AppDelegate.swift in Sources */,
 				83A846E328725EFA00C777B1 /* SceneDelegate.swift in Sources */,
+				8E53A3F72912D40B003AAB4F /* Request.swift in Sources */,
 				8E53A3DD29127B2C003AAB4F /* TouchPresenterInPort.swift in Sources */,
 				8E87B5E528FDBC1D001E90B4 /* DrawingView.swift in Sources */,
+				8E53A3E129129092003AAB4F /* SyncRepository.swift in Sources */,
 				8E87B5D628FDBA3A001E90B4 /* CGRect+Frame.swift in Sources */,
 				8E53A3B7290CE818003AAB4F /* Area.swift in Sources */,
 				8E53A3AF290CE79B003AAB4F /* DrawPresenterOutPort.swift in Sources */,

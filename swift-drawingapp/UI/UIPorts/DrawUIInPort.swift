@@ -8,5 +8,5 @@
 import Foundation
 
 protocol DrawUIInPort: AnyObject {
-    func touch(on pictureView: any PictureView, at location: CGPoint?)
+    func touch(on pictureView: PictureView, at location: CGPoint?)
 }

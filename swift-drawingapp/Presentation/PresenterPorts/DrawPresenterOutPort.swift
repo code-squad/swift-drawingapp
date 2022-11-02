@@ -10,4 +10,5 @@ import Foundation
 protocol DrawPresenterOutPort: AnyObject {
     func drawRectangle(with rectangle: Rectangle)
     func readyDrawingCanvas(with drawing: Drawing)
+    func drawPictures(_ pictures: [Picture])
 }

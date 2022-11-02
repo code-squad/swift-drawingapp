@@ -19,14 +19,15 @@ final class CanvasViewController: UIViewController {
     }()
     private let rectangleButton: UIButton = .create(title: "사각형", selector: #selector(drawRect))
     private let drawingButton: UIButton = .create(title: "드로잉", selector: #selector(beginDrawing))
+    private let syncButton: UIButton = .create(title: "동기화", selector: #selector(syncAll))
 
     private var cancellables: Set<AnyCancellable> = []
 
     private var pictureViews: [PictureView] = []
 
-    private var port: (DrawPresenterInPort & TouchPresenterInPort)?
+    private var port: (DrawPresenterInPort & TouchPresenterInPort & SyncPresenterInPort)?
 
-    func setPort(_ port: (DrawPresenterInPort & TouchPresenterInPort)) {
+    func setPort(_ port: (DrawPresenterInPort & TouchPresenterInPort & SyncPresenterInPort)) {
         self.port = port
     }
 
@@ -41,6 +42,7 @@ final class CanvasViewController: UIViewController {
         ])
         btnContainer.addArrangedSubview(rectangleButton)
         btnContainer.addArrangedSubview(drawingButton)
+        btnContainer.addArrangedSubview(syncButton)
     }
 
     @objc
@@ -60,6 +62,11 @@ final class CanvasViewController: UIViewController {
     @objc
     private func beginDrawing() {
         port?.readyDrawingCanvas()
+    }
+
+    @objc
+    private func syncAll() {
+        port?.syncAll()
     }
 }
 
