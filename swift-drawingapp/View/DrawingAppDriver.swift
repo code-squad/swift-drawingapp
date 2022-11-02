@@ -29,8 +29,6 @@ class DrawingAppDriver: DrawingAppDriving {
         return canvasVM
     }()
     
-    let errorMessage: PassthroughSubject<String, Never> = .init()
-    
     private var cancelBag = Set<AnyCancellable>()
     
     init() {
