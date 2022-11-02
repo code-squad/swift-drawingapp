@@ -8,20 +8,6 @@
 import UIKit
 import Combine
 
-protocol CanvasViewRepresentable: AnyObject {
-    
-    var shapes: any Publisher<[(UUID, ShapeViewRepresentable)], Never> { get }
-    var transformShape: (UUID, ShapeViewRepresentable) -> ShapeViewRepresentable { get }
-    /// 뷰에 맞도록 좌표계를 컨버팅하는 데에 쓴다
-    func setSizeOfView(_ size: CGSize)
-}
-
-extension CanvasViewRepresentable {
-    var transformShape: (UUID, ShapeViewRepresentable) -> ShapeViewRepresentable {
-        { $1 }
-    }
-}
-
 class CanvasView: UIView {
     
     private var canvasModel: CanvasViewRepresentable!
