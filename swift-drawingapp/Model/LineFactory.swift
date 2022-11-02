@@ -16,23 +16,23 @@ protocol LineFactoryProtocol {
 
 class LineFactory: LineFactoryProtocol {
     
-    private var line = Line()
+    private var line = Line(points: [])
     
     init() {}
         
     
     func startLine(point: CGPoint) -> Line {
-        line.points.append(point)
+        line.append(point: point)
         return line
     }
     
     func moveLine(to point: CGPoint) {
-        line.points.append(point)
+        line.append(point: point)
     }
     
     func endLine() -> Line {
         let finalLine = line
-        line = Line()
+        line = Line(points: [])
         return finalLine
     }
 }

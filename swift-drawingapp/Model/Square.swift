@@ -9,8 +9,8 @@ import Foundation
 import CoreGraphics
 
 class Square: Shape, Identifiable, Codable, Equatable {
-    var uuid: UUID = UUID()
-    var points: [CGPoint]
+    let uuid: UUID
+    private(set) var points: [CGPoint]
     
     init(points: [CGPoint]) {
         self.uuid = UUID()
