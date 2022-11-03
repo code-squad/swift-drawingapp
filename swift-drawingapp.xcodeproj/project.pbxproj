@@ -43,7 +43,7 @@
 		F2B5F94F28FC2EE800D5BE2F /* ColorList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */; };
 		F2B5F95328FC3BAF00D5BE2F /* DrawingAppDriver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2B5F95228FC3BAF00D5BE2F /* DrawingAppDriver.swift */; };
 		F2CAB4F62906D21400FA5A8B /* AnyAsyncSequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CAB4F52906D21400FA5A8B /* AnyAsyncSequence.swift */; };
-		F2E73AD7290940AE00C47326 /* DrawingChatServiceProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E73AD6290940AE00C47326 /* DrawingChatServiceProviding.swift */; };
+		F2E73AD7290940AE00C47326 /* DrawingChatUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2E73AD6290940AE00C47326 /* DrawingChatUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,7 +104,7 @@
 		F2B5F94E28FC2EE800D5BE2F /* ColorList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorList.swift; sourceTree = "<group>"; };
 		F2B5F95228FC3BAF00D5BE2F /* DrawingAppDriver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppDriver.swift; sourceTree = "<group>"; };
 		F2CAB4F52906D21400FA5A8B /* AnyAsyncSequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyAsyncSequence.swift; sourceTree = "<group>"; };
-		F2E73AD6290940AE00C47326 /* DrawingChatServiceProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingChatServiceProviding.swift; sourceTree = "<group>"; };
+		F2E73AD6290940AE00C47326 /* DrawingChatUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingChatUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,7 +250,7 @@
 			children = (
 				F2028602290EAF5D00DF6BA5 /* Entities */,
 				F2B5F93528FBCD2800D5BE2F /* DrawingAppModel.swift */,
-				F2E73AD6290940AE00C47326 /* DrawingChatServiceProviding.swift */,
+				F2E73AD6290940AE00C47326 /* DrawingChatUseCase.swift */,
 				F2062B42290568CA00868583 /* Networking */,
 			);
 			path = Model;
@@ -428,7 +428,7 @@
 				F2AEE0C928FB0E7B0068B9E9 /* Color.swift in Sources */,
 				F26683BD2911F8FF0066DEAC /* ShapeViewRepresentable.swift in Sources */,
 				F202860B290EAF5D00DF6BA5 /* Path.swift in Sources */,
-				F2E73AD7290940AE00C47326 /* DrawingChatServiceProviding.swift in Sources */,
+				F2E73AD7290940AE00C47326 /* DrawingChatUseCase.swift in Sources */,
 				F2B5F94728FBF2C700D5BE2F /* CanvasViewModel.swift in Sources */,
 				F2B5F95328FC3BAF00D5BE2F /* DrawingAppDriver.swift in Sources */,
 				F2062B4629057B5400868583 /* DrawingChatClient.swift in Sources */,

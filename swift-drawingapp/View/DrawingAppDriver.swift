@@ -32,7 +32,9 @@ class DrawingAppDriver: DrawingAppDriving {
     private var cancelBag = Set<AnyCancellable>()
     
     init() {
-        model.setChatServiceProvider(DrawingChatClient())
+        model.setLoginUseCase(DrawingChatClient())
+        model.setSendShapeUseCase(DrawingChatClient())
+        model.setReceiveShapeUseCase(DrawingChatClient())
         
         model.$canvas.sink { canvas in
             self.canvasViewModel.setCanvas(canvas)

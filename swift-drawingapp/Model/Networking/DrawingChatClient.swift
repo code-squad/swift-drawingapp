@@ -10,7 +10,7 @@ import os.log
 
 fileprivate typealias Error = DrawingChatServiceError
 
-class DrawingChatClient: DrawingChatServiceProviding {
+class DrawingChatClient: LoginUseCase, SendShapeUseCase, ReceiveShapeUseCase {
     
     private let tcpManager = TCPManager(hostName: "localhost", port: 9090)
     

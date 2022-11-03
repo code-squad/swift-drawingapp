@@ -14,10 +14,20 @@ class DrawingAppModel {
     let selectedShapeIDs: CurrentValueSubject<[UUID], Never> = .init([])
     let receivedShapes: CurrentValueSubject<[any ShapeProtocol], Never> = .init([])
     
-    private var chatClient: DrawingChatServiceProviding!
+    private var loginUseCase: LoginUseCase!
+    private var sendShapeUseCase: SendShapeUseCase!
+    private var receiveShapeUseCase: ReceiveShapeUseCase!
     
-    func setChatServiceProvider(_ chatClient: DrawingChatServiceProviding) {
-        self.chatClient = chatClient
+    func setLoginUseCase(_ useCase: LoginUseCase) {
+        loginUseCase = useCase
+    }
+    
+    func setSendShapeUseCase(_ useCase: SendShapeUseCase) {
+        sendShapeUseCase = useCase
+    }
+    
+    func setReceiveShapeUseCase(_ useCase: ReceiveShapeUseCase) {
+        receiveShapeUseCase = useCase
     }
     
     func createRandomRect() {
@@ -66,11 +76,11 @@ class DrawingAppModel {
     }
     
     func startSynchronize() async throws {
-        try await chatClient.login()
-        try await chatClient.sendShapes(Array(canvas.shapes))
+        try await loginUseCase.login()
+        try await sendShapeUseCase.sendShapes(Array(canvas.shapes))
 
         Task { @MainActor in
-            for try await shapes in chatClient.shapeStream {
+            for try await shapes in receiveShapeUseCase.shapeStream {
                 shapes.forEach { shapeData in
                     let shape = Shape(points: shapeData, fillColor: .yellow, lineColor: .blue)
                     canvas.addShape(shape)
